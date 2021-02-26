@@ -56,6 +56,7 @@ public class Conexion {
         }
     }
     
+    
     public static void insertarDatos(){
         Conexion cn=new Conexion();
         try {
