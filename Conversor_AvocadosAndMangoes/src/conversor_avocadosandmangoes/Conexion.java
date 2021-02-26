@@ -55,8 +55,8 @@ public class Conexion {
         } catch (Exception e) {
         }
     }
-    
-    public static void insertarDatos(){
+ 
+    public static void insertarDatos(Object object){
         Conexion cn=new Conexion();
         try {
             PreparedStatement PS = cn.con.prepareStatement("insert into products (id, nombre, precio, cantidad) values (?,?,?,? )");
@@ -65,6 +65,7 @@ public class Conexion {
             PS.setInt(3, 900);
             PS.setInt(4, 5);
             PS.executeUpdate();
+            
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
