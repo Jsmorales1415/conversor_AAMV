@@ -1,2 +1,56 @@
-Clientes - Estructura
+clients - Structure
+-shippingPhone (PK)
+-name
+-address
+-address2
+-city
+-postalCode
+
+-------------------------------------------------
+orders - Structure (la tabla se limpia cada que se realiza el proceso de generación de compras)
+-id (PK)
+-stop
+-shippingPhone
+-shippingName
+-addres
+-addres2
+-city
+-postalCode
+-itemName
+-cant
+-value
+-total
+-payment
+-comments
+
+-------------------------------------------------
+Tabla de equivalencias: se encarga de almacenar los nombres equivalentes para que del archivo de Shopify se pueda
+identificar el equivalente en la base de datos
+fieldConfigure - Struct
+-id (PK)
+-shippingPhone
+-dbName
+
+Ex: 
+Name - id
+Lineitem name - item
+-------------------------------------------------
+
+Tabla de historial: debe registrarse en el mismo instante en el que se cargan las ordenes al sistema. Esta tabla 
+debe tener todas las compras realizadas por un cliente.
+history - Struct
+-client (PK)
+-date   (PK)
+-orders: JSON con vector de compras que tiene el nombre del producto, la cantidad y su precio
+
+-------------------------------------------------
+Opcional
+Routes - Struct
+-stop
+-location
+-address
+
+-------------------------------------------------
+
+
 
