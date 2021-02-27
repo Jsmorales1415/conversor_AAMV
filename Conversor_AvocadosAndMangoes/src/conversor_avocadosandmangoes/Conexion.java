@@ -5,6 +5,8 @@
  */
 package conversor_avocadosandmangoes;
 
+import classes.client;
+import classes.order;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -58,16 +60,43 @@ public class Conexion {
  
     public static void insertarDatos(Object object){
         Conexion cn=new Conexion();
-        try {
-            PreparedStatement PS = cn.con.prepareStatement("insert into products (id, nombre, precio, cantidad) values (?,?,?,? )");
-            PS.setInt(1, 3);
-            PS.setString(2, "cereza");
-            PS.setInt(3, 900);
-            PS.setInt(4, 5);
-            PS.executeUpdate();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        
+        if(object instanceof client)
+        {
+            try {
+                PreparedStatement PS = cn.con.prepareStatement("insert into clients (id, shippingPhone, name, address, address2, city, postalCode) values (?,?,?,?,?,?,? )");
+                PS.setString(2, ((client) object).getShippingPhone());
+                PS.setString(3, ((client) object).getName());
+                PS.setString(4, ((client) object).getAddress());
+                PS.setString(5, ((client) object).getAddress2());
+                PS.setString(6, ((client) object).getCity());
+                PS.setString(7, ((client) object).getPostalCode());
+                PS.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else if(object instanceof order)
+        {
+            try {
+                PreparedStatement PS = cn.con.prepareStatement("insert into orders (id, stop, shippingPhone, shippingName, address, address2, city, postalCode, itemName, cant, value, total, payment, comments) values (?,?,?,?,?,?,?,?,?,?,?,?,?,? )");
+                PS.setInt(2, ((order) object).getStop());
+                PS.setString(2, ((order) object).getShippingPhone());
+                PS.setString(3, ((order) object).getShippingName());
+                PS.setString(4, ((order) object).getAddress());
+                PS.setString(5, ((order) object).getAddress2());
+                PS.setString(6, ((order) object).getCity());
+                PS.setString(7, ((order) object).getPostalCode());
+                PS.setInt(2, ((order) object).getCant());
+                PS.setDouble(2, ((order) object).getValue());
+                PS.setDouble(2, ((order) object).getTotal());
+                PS.setString(7, ((order) object).getPayment());
+                PS.setString(7, ((order) object).getComments());
+                PS.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }
