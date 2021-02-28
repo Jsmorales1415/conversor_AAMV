@@ -5,8 +5,8 @@
  */
 package conversor_avocadosandmangoes;
 
-import classes.client;
-import classes.order;
+import Clases.client;
+import Clases.order;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
