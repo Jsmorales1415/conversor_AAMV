@@ -45,7 +45,7 @@ public class Conexion {
         }
     }
     public static void main(String[] args) {
-        cargarArchivo();
+        cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv");
         
     }
     
@@ -108,8 +108,8 @@ public class Conexion {
     }
     
     
-    public static void cargarArchivo(){
-        Path filePath = Paths.get("c:\\Users\\diego\\Desktop\\archivo.csv");
+    public static void cargarArchivo(String ruta){
+        Path filePath = Paths.get(ruta);
         String vectorDatos[][];
         try{
             BufferedReader bf = Files.newBufferedReader(filePath);
