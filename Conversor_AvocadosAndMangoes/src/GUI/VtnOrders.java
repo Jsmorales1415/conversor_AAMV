@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import Clases.Factura;
+import Clases.FieldConfigure;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -13,7 +13,7 @@ import javax.swing.JFrame;
  *
  * @author pc
  */
-public class VtnFacturas extends javax.swing.JFrame {
+public class VtnOrders extends javax.swing.JFrame {
 
     /**
      * Creates new form VtnFacturas
@@ -25,7 +25,7 @@ public class VtnFacturas extends javax.swing.JFrame {
     private VtnCrearRecibo crearRecibo;
     private VtnMostrarRecibos recibosDeCaja;
     
-    public VtnFacturas() {
+    public VtnOrders() {
         initComponents();
         this.setLocation(250, 80);
         this.setResizable(false);
@@ -139,7 +139,7 @@ public class VtnFacturas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 381, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
                 .addGap(83, 83, 83))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -270,21 +270,23 @@ public class VtnFacturas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VtnFacturas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VtnOrders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VtnFacturas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VtnOrders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VtnFacturas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VtnOrders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VtnFacturas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VtnOrders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VtnFacturas().setVisible(true);
+                new VtnOrders().setVisible(true);
             }
         });
     }
