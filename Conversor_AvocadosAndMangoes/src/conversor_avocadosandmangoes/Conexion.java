@@ -175,4 +175,32 @@ public class Conexion {
             e.printStackTrace();
         }
     }
+    
+    public static void validarCampos(String linea, int[]posicionCampos){
+        Conexion cn=new Conexion();
+        Statement st;
+        ResultSet rs;
+        String shoppingName;
+        String dbName;
+        String campos[] = linea.split(","); 
+        int j = 0;
+        try {
+            st=(Statement) cn.con.createStatement();
+            //rs = st.executeQuery("insert into products (id, nombre, precio, cantidad) values (3,'cereza', 900,5 )");
+            rs=st.executeQuery("select * from fieldconfigure");
+            while (rs.next()) { 
+                shoppingName = rs.getString("shoppingName");
+                dbName = rs.getString("dbName");
+                for (int i = 0; i < campos.length; i++) {
+                    if(campos[i].equalsIgnoreCase(shoppingName)){
+                        posicionCampos[j] = i;
+                        j++;
+                    }
+                }
+               // System.out.println(rs.getInt("id")+" " +rs.getString("nombre")+" ");
+            }
+            cn.con.close();
+        } catch (Exception e) {
+        }
+    }
 }
