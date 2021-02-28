@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -108,13 +109,67 @@ public class Conexion {
     
     
     public static void cargarArchivo(){
-        Path filePath = Paths.get("C:\\Users\\diego\\Desktop\\prueba.txt");
+        Path filePath = Paths.get("c:\\Users\\diego\\Desktop\\archivo.csv");
+        String vectorDatos[][];
         try{
             BufferedReader bf = Files.newBufferedReader(filePath);
             String linea;
+            String encabezados;
+            StringBuilder dato;
+            boolean primeraLinea = true;
+            int numeroDatos = 0;
+            if(primeraLinea){
+                encabezados = bf.readLine();
+                for (int i = 0; i < encabezados.length(); i++) {
+                    if(encabezados.charAt(i) == ',')
+                        numeroDatos++;
+                }
+            }
+            vectorDatos = new String[1][numeroDatos];
+            ArrayList<String[][]> datos = new ArrayList<>();
+            int contadorDatos = 0;
+            //Recorremos las lineas del archivo
             while((linea = bf.readLine())!= null){
-                String[] datosLinea = linea.split(";");
-                System.out.println(Arrays.toString(datosLinea));
+                dato = new StringBuilder("");
+                //Recorremos los caracteres de la linea leida
+                for (int i = 0; i < linea.length(); i++) {
+                    //Si la linea leida es igual a una coma es por que viene un nuevo dato
+                    if(linea.charAt(i) == ','){
+                        //Agregamos el dato al array y formateamos la cadena
+                        vectorDatos[0][contadorDatos] = dato.toString();
+                        contadorDatos++;
+                        dato = new StringBuilder("");
+                        //Se pregunta que el siguiente caracter este dentro de la variable linea
+                        if(i+1 < linea.length()){
+                            //Se pregunta si el caracter que sigue a la coma es un '"' esto nos indica que leeremos una cadena
+                            //que puede contener comas en su interior
+                            if(linea.charAt(i+1) == '"'){
+                                i = i+2;
+                                while(linea.charAt(i) != '"'){
+                                  dato.append(linea.charAt(i));
+                                  i++;      
+                                }
+                                
+                            }
+                            else
+                            {
+                                dato.append(linea.charAt(i));
+                            }
+                        }
+                    }
+                    else
+                    {   
+                         dato.append(linea.charAt(i));
+                    }
+                }
+               //order.setShippingName(vector[15]);
+               //agreagarDatos(order);
+               // String[] datosLinea = linea.split(",");
+               // System.out.println(datos.get(0));
+               datos.add(vectorDatos);
+               System.out.println(vectorDatos[0][25]);
+               contadorDatos = 0;
+               vectorDatos = new String[1][numeroDatos];
             }
         }catch(IOException e){
             e.printStackTrace();
