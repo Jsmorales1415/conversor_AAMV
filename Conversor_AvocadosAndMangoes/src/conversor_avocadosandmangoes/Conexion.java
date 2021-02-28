@@ -7,6 +7,11 @@ package conversor_avocadosandmangoes;
 
 import Clases.Client;
 import Clases.Order;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -38,7 +43,7 @@ public class Conexion {
         }
     }
     public static void main(String[] args) {
-        listarDatos();
+        cargarArchivo();
         
     }
     
@@ -97,6 +102,21 @@ public class Conexion {
             } catch (SQLException ex) {
                 Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+    
+    
+    public static void cargarArchivo(){
+        Path filePath = Paths.get("C:\\Users\\diego\\Desktop\\prueba.txt");
+        try{
+            BufferedReader bf = Files.newBufferedReader(filePath);
+            String linea;
+            while((linea = bf.readLine())!= null){
+                String[] datosLinea = linea.split(";");
+                System.out.println(datosLinea);
+            }
+        }catch(IOException e){
+            e.printStackTrace();
         }
     }
 }
