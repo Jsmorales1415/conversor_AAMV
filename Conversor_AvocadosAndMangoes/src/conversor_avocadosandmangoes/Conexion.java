@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -113,7 +114,7 @@ public class Conexion {
             String linea;
             while((linea = bf.readLine())!= null){
                 String[] datosLinea = linea.split(";");
-                System.out.println(datosLinea);
+                System.out.println(Arrays.toString(datosLinea));
             }
         }catch(IOException e){
             e.printStackTrace();
