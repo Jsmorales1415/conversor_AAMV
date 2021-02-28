@@ -9,7 +9,7 @@ package Clases;
  *
  * @author diego
  */
-public class client {
+public class Client {
     private String shippingPhone;
     private String name;
     private String address;
@@ -17,7 +17,7 @@ public class client {
     private String city;
     private String postalCode;
 
-    public client(String shippingPhone, String name, String address, String address2, String city, String postalCode) {
+    public Client(String shippingPhone, String name, String address, String address2, String city, String postalCode) {
         this.shippingPhone = shippingPhone;
         this.name = name;
         this.address = address;
@@ -26,7 +26,7 @@ public class client {
         this.postalCode = postalCode;
     }
 
-    public client() {
+    public Client() {
     }
     /**
      * @return the shippingPhone

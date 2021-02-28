@@ -9,14 +9,14 @@ package Clases;
  *
  * @author diego
  */
-public class fieldConfigure {
+public class FieldConfigure {
     private String shoppingName;
     private String dbName;
 
-    public fieldConfigure() {
+    public FieldConfigure() {
     }
 
-    public fieldConfigure(String shoppingName, String dbName) {
+    public FieldConfigure(String shoppingName, String dbName) {
         this.shoppingName = shoppingName;
         this.dbName = dbName;
     }

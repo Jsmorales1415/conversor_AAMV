@@ -9,7 +9,7 @@ package Clases;
  *
  * @author diego
  */
-public class order {
+public class Order {
     private int stop;
     private String shippingPhone;
     private String shippingName;
@@ -24,7 +24,7 @@ public class order {
     private String payment;
     private String comments;
 
-    public order(int stop, String shippingPhone, String shippingName, String address, String address2, String city, String postalCode, String itemName, int cant, double value, double total, String payment, String comments) {
+    public Order(int stop, String shippingPhone, String shippingName, String address, String address2, String city, String postalCode, String itemName, int cant, double value, double total, String payment, String comments) {
         this.stop = stop;
         this.shippingPhone = shippingPhone;
         this.shippingName = shippingName;
@@ -40,7 +40,7 @@ public class order {
         this.comments = comments;
     }
 
-    public order() {
+    public Order() {
     }
     /**
      * @return the stop
