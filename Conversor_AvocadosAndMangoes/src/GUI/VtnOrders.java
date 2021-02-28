@@ -16,14 +16,9 @@ import javax.swing.JFrame;
 public class VtnOrders extends javax.swing.JFrame {
 
     /**
-     * Creates new form VtnFacturas
+     * Creates new form VtnOrders
      */
-    private VtnPrincipal ppal;
-    private VtnCrearFactura crearFact;
-    private VtnMostrarFact mostrarFact;
-    private Factura factura;
-    private VtnCrearRecibo crearRecibo;
-    private VtnMostrarRecibos recibosDeCaja;
+    private VtnMain ppal;
     
     public VtnOrders() {
         initComponents();
@@ -43,31 +38,17 @@ public class VtnOrders extends javax.swing.JFrame {
 
         jSeparator2 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
-        lblIcono1 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btnRegresar = new javax.swing.JToggleButton();
-        jLabel4 = new javax.swing.JLabel();
-        btnVerFact = new javax.swing.JToggleButton();
-        btnCrear = new javax.swing.JToggleButton();
-        jLabel3 = new javax.swing.JLabel();
-        btnRecibo = new javax.swing.JToggleButton();
+        btnCargarOrdenes = new javax.swing.JToggleButton();
         lblAccion = new javax.swing.JLabel();
-        btnRecibo1 = new javax.swing.JToggleButton();
+        btnUploadRoutes = new javax.swing.JToggleButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        lblIcono1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/logo.jpeg"))); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 51, 255));
-        jLabel1.setText("Aluminez");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
-        jLabel2.setText("Sistema de Información");
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/flecha.png"))); // NOI18N
         btnRegresar.setBorder(null);
@@ -77,131 +58,91 @@ public class VtnOrders extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Fac.PNG"))); // NOI18N
-
-        btnVerFact.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        btnVerFact.setText("Ver facturas");
-        btnVerFact.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnVerFact.addActionListener(new java.awt.event.ActionListener() {
+        btnCargarOrdenes.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
+        btnCargarOrdenes.setText("Cargar Ordenes");
+        btnCargarOrdenes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnCargarOrdenes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVerFactActionPerformed(evt);
-            }
-        });
-
-        btnCrear.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        btnCrear.setText("Crear factura");
-        btnCrear.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnCrear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/CapFacturas.PNG"))); // NOI18N
-        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-
-        btnRecibo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        btnRecibo.setText("Ver recibos de caja");
-        btnRecibo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnRecibo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReciboActionPerformed(evt);
+                btnCargarOrdenesActionPerformed(evt);
             }
         });
 
         lblAccion.setText("Nada");
 
-        btnRecibo1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        btnRecibo1.setText("Crear Recibo de caja");
-        btnRecibo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnRecibo1.addActionListener(new java.awt.event.ActionListener() {
+        btnUploadRoutes.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
+        btnUploadRoutes.setText("Cargar Rutas");
+        btnUploadRoutes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnUploadRoutes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRecibo1ActionPerformed(evt);
+                btnUploadRoutesActionPerformed(evt);
             }
         });
+
+        jLabel2.setFont(new java.awt.Font("Bookman Old Style", 1, 40)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("Sistema de Información");
+
+        jLabel1.setFont(new java.awt.Font("Bookman Old Style", 1, 30)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 204, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("Avocados and Mangoes");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(lblIcono1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSeparator1)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRegresar)
-                .addGap(83, 83, 83))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCrear, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
-                            .addComponent(btnRecibo1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))
-                        .addComponent(btnVerFact, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnRecibo, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(125, 125, 125)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnRegresar)
+                        .addGap(181, 181, 181)
+                        .addComponent(btnCargarOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(btnUploadRoutes, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblAccion, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(71, 71, 71))
+            .addComponent(jSeparator1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblIcono1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(42, 42, 42)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnRecibo1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(btnVerFact, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(btnRecibo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(btnRegresar)
-                        .addGap(34, 34, 34)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addComponent(lblAccion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))))
+                        .addGap(282, 282, 282))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnUploadRoutes, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCargarOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -209,43 +150,20 @@ public class VtnOrders extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnUploadRoutesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadRoutesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUploadRoutesActionPerformed
+
+    private void btnCargarOrdenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarOrdenesActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btnCargarOrdenesActionPerformed
+
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        ppal = new VtnPrincipal();
+        ppal = new VtnMain();
         irA(ppal);
     }//GEN-LAST:event_btnRegresarActionPerformed
-
-    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        // TODO add your handling code here:
-        lblAccion.setText("Crear");
-        crearFact = new VtnCrearFactura();
-        irA(crearFact);
-        
-    }//GEN-LAST:event_btnCrearActionPerformed
-
-    private void btnVerFactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerFactActionPerformed
-        // TODO add your handling code here
-        lblAccion.setText("Ver");
-        mostrarFact = new VtnMostrarFact();
-        mostrarFact.lblAccion.setText("CrearReciboConFactura");
-        irA(mostrarFact);
-    }//GEN-LAST:event_btnVerFactActionPerformed
-
-    private void btnReciboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReciboActionPerformed
-        // TODO add your handling code here:
-        lblAccion.setText("VerRecibo");
-        recibosDeCaja = new VtnMostrarRecibos();
-        irA(recibosDeCaja);
-        
-    }//GEN-LAST:event_btnReciboActionPerformed
-
-    private void btnRecibo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecibo1ActionPerformed
-        // TODO add your handling code here:
-        
-        lblAccion.setText("Recibo");
-        crearRecibo = new VtnCrearRecibo();
-        irA(crearRecibo);
-    }//GEN-LAST:event_btnRecibo1ActionPerformed
 
     public void irA(JFrame ventana){
         this.dispose();
@@ -292,20 +210,15 @@ public class VtnOrders extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btnCrear;
-    private javax.swing.JToggleButton btnRecibo;
-    private javax.swing.JToggleButton btnRecibo1;
+    private javax.swing.JToggleButton btnCargarOrdenes;
     private javax.swing.JToggleButton btnRegresar;
-    private javax.swing.JToggleButton btnVerFact;
+    private javax.swing.JToggleButton btnUploadRoutes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    public static javax.swing.JLabel lblAccion;
-    private javax.swing.JLabel lblIcono1;
+    private javax.swing.JLabel lblAccion;
     // End of variables declaration//GEN-END:variables
 
     /**
