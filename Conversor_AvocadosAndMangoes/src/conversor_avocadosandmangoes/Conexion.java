@@ -181,7 +181,7 @@ public class Conexion {
     }
     
     public static int[] validarCampos(String linea){
-        System.out.println("Total");
+        
         Conexion cn=new Conexion();
         Statement st;
         ResultSet rs;
@@ -191,6 +191,7 @@ public class Conexion {
         int contadorCampos = 0;
         String campos[] = linea.split(","); 
         int j = 0;
+        
         try {
             st=(Statement) cn.con.createStatement();
             rs=st.executeQuery("select * from fieldconfigure");
@@ -211,7 +212,7 @@ public class Conexion {
                     }
                 }
                 return posicionCampos;
-               // System.out.println(rs.getInt("id")+" " +rs.getString("nombre")+" ");
+               
             }
             cn.con.close();
         } catch (Exception e) {
@@ -220,30 +221,87 @@ public class Conexion {
         return posicionCampos;
     }
     
-    public Order crearOrdenConCampos(int[]campos, String encabezados[]){
+    public Order crearOrden(int[]campos, String encabezados[], ArrayList<String[][]> datos, String vectorRutas[]){
         
         Order order = new Order();
         
         for (int i = 0; i < campos.length; i++) {
-            if(vectorDatos[campos[i]].equals("shippingPhone")){
-                order.setShippingPhone(shippingPhone);
+            String [][] datosLista = datos.get(i);
+            if(encabezados[campos[i]].equalsIgnoreCase("shipping Phone")){
+                order.setShippingPhone(datosLista[0][campos[i]]);
             }
-             
-    private String shippingPhone;
-    private String shippingName;
-    private String address;
-    private String address2;
-    private String city;
-    private String postalCode;
-    private String itemName;
-    private int cant;
-    private double value;
-    private double total;
-    private String payment;
-    private String comments;
-                
+            else if(encabezados[campos[i]].equalsIgnoreCase("shipping Name")){
+                order.setShippingName(datosLista[0][campos[i]]);
+            }
+            else if(encabezados[campos[i]].equalsIgnoreCase("address")){
+                order.setAddress(datosLista[0][campos[i]]);
+            }
+            else if(encabezados[campos[i]].equalsIgnoreCase("address2")){
+                order.setAddress(datosLista[0][campos[i]]);
+            }
+            else if(encabezados[campos[i]].equalsIgnoreCase("city")){
+                order.setCity(datosLista[0][campos[i]]);
+            }
+            else if(encabezados[campos[i]].equalsIgnoreCase("postalCode")){
+                order.setPostalCode(datosLista[0][campos[i]]);
+            }
+            else if(encabezados[campos[i]].equalsIgnoreCase("itemName")){
+                order.setItemName(datosLista[0][campos[i]]);
+            }
+            else if(encabezados[campos[i]].equalsIgnoreCase("cant")){
+                order.setCant(Integer.parseInt(datosLista[0][campos[i]]));
+            }
+            else if(encabezados[campos[i]].equalsIgnoreCase("value")){
+                order.setValue(Double.parseDouble(datosLista[0][campos[i]]));
+            }
+            else if(encabezados[campos[i]].equalsIgnoreCase("total")){
+                order.setTotal(Double.parseDouble(datosLista[0][campos[i]]));
+            }
+            else if(encabezados[campos[i]].equalsIgnoreCase("payment")){
+                order.setPayment(datosLista[0][campos[i]]);
+            }
+            //else if(encabezados[campos[i]].equalsIgnoreCase("comments")){
+              //  order.setShippingName(vectorDatos[0][campos[i]]);
+            //}
+      
         }
         
-        return null;
+        return order;
+    }
+    
+    
+    public static void cargarArchivoRutas(String ruta){
+        Path filePath = Paths.get(ruta);
+        try{
+            BufferedReader bf = Files.newBufferedReader(filePath);
+            String linea;
+            String [] encabezadosVector;
+            String [] datosLinea;
+            boolean primeraLinea = true;
+            ArrayList<String> direcciones = new ArrayList<>();
+            int posicionAGuardar = 0;
+            
+            //Recorremos las lineas del archivo
+            while((linea = bf.readLine())!= null){
+                
+                if(primeraLinea){
+                    encabezadosVector = linea.split(";");
+                    for (int i = 0; i < encabezadosVector.length; i++) {
+                        if(encabezadosVector[i].equalsIgnoreCase("Address")){
+                            posicionAGuardar = i;
+                        }
+                    }
+                    primeraLinea = false;
+                }
+                else
+                {
+                   datosLinea = linea.split(";");
+                   direcciones.add(datosLinea[posicionAGuardar]);
+
+                }
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }
