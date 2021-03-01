@@ -114,7 +114,7 @@ public class Conexion {
         try{
             BufferedReader bf = Files.newBufferedReader(filePath);
             String linea;
-            String encabezados;
+            String encabezados="";
             StringBuilder dato;
             boolean primeraLinea = true;
             int numeroDatos = 0;
@@ -125,6 +125,7 @@ public class Conexion {
                         numeroDatos++;
                 }
             }
+            int campos[] = validarCampos(encabezados);
             vectorDatos = new String[1][numeroDatos];
             ArrayList<String[][]> datos = new ArrayList<>();
             int contadorDatos = 0;
@@ -167,7 +168,7 @@ public class Conexion {
                // String[] datosLinea = linea.split(",");
                // System.out.println(datos.get(0));
                datos.add(vectorDatos);
-               System.out.println(vectorDatos[0][25]);
+              // System.out.println(vectorDatos[0][25]);
                contadorDatos = 0;
                vectorDatos = new String[1][numeroDatos];
             }
@@ -176,31 +177,43 @@ public class Conexion {
         }
     }
     
-    public static void validarCampos(String linea, int[]posicionCampos){
+    public static int[] validarCampos(String linea){
+        System.out.println("Total");
         Conexion cn=new Conexion();
         Statement st;
         ResultSet rs;
         String shoppingName;
         String dbName;
+        int posicionCampos[] = null;
+        int contadorCampos = 0;
         String campos[] = linea.split(","); 
         int j = 0;
         try {
             st=(Statement) cn.con.createStatement();
-            //rs = st.executeQuery("insert into products (id, nombre, precio, cantidad) values (3,'cereza', 900,5 )");
             rs=st.executeQuery("select * from fieldconfigure");
             while (rs.next()) { 
-                shoppingName = rs.getString("shoppingName");
-                dbName = rs.getString("dbName");
+                contadorCampos++;
+               // System.out.println(rs.getInt("id")+" " +rs.getString("nombre")+" ");
+            }
+          posicionCampos = new int[contadorCampos];
+            st=(Statement) cn.con.createStatement();
+            rs=st.executeQuery("select * from fieldconfigure");
+             while (rs.next()) { 
+               shoppingName = rs.getString("shoppingName");
+               // dbName = rs.getString("dbName");
                 for (int i = 0; i < campos.length; i++) {
                     if(campos[i].equalsIgnoreCase(shoppingName)){
                         posicionCampos[j] = i;
                         j++;
                     }
                 }
+                return posicionCampos;
                // System.out.println(rs.getInt("id")+" " +rs.getString("nombre")+" ");
             }
             cn.con.close();
         } catch (Exception e) {
+           e.printStackTrace();
         }
+        return posicionCampos;
     }
 }

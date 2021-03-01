@@ -6,6 +6,7 @@
 package GUI;
 
 import Clases.FieldConfigure;
+import conversor_avocadosandmangoes.Conexion;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -160,6 +161,8 @@ public class VtnOrders extends javax.swing.JFrame {
 
     private void btnCargarOrdenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarOrdenesActionPerformed
         // TODO add your handling code here:
+        String rutaFileChooser = "c:\\Users\\diego\\Desktop\\archivo.csv";
+        Conexion.cargarArchivo(rutaFileChooser);
 
     }//GEN-LAST:event_btnCargarOrdenesActionPerformed
 
@@ -222,7 +225,7 @@ public class VtnOrders extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel lblAccion;
+    public static javax.swing.JLabel lblAccion;
     // End of variables declaration//GEN-END:variables
 
     /**
