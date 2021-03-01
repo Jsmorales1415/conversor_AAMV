@@ -115,6 +115,7 @@ public class Conexion {
             BufferedReader bf = Files.newBufferedReader(filePath);
             String linea;
             String encabezados="";
+            String [] encabezadosVector;
             StringBuilder dato;
             boolean primeraLinea = true;
             int numeroDatos = 0;
@@ -125,6 +126,7 @@ public class Conexion {
                         numeroDatos++;
                 }
             }
+            encabezadosVector = encabezados.split(",");
             int campos[] = validarCampos(encabezados);
             vectorDatos = new String[1][numeroDatos];
             ArrayList<String[][]> datos = new ArrayList<>();
@@ -167,8 +169,9 @@ public class Conexion {
                //agreagarDatos(order);
                // String[] datosLinea = linea.split(",");
                // System.out.println(datos.get(0));
+               
                datos.add(vectorDatos);
-              // System.out.println(vectorDatos[0][25]);
+               System.out.println(vectorDatos[0][25]);
                contadorDatos = 0;
                vectorDatos = new String[1][numeroDatos];
             }
@@ -215,5 +218,32 @@ public class Conexion {
            e.printStackTrace();
         }
         return posicionCampos;
+    }
+    
+    public Order crearOrdenConCampos(int[]campos, String encabezados[]){
+        
+        Order order = new Order();
+        
+        for (int i = 0; i < campos.length; i++) {
+            if(vectorDatos[campos[i]].equals("shippingPhone")){
+                order.setShippingPhone(shippingPhone);
+            }
+             
+    private String shippingPhone;
+    private String shippingName;
+    private String address;
+    private String address2;
+    private String city;
+    private String postalCode;
+    private String itemName;
+    private int cant;
+    private double value;
+    private double total;
+    private String payment;
+    private String comments;
+                
+        }
+        
+        return null;
     }
 }
