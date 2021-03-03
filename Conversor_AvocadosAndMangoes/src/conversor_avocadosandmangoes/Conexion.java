@@ -45,8 +45,9 @@ public class Conexion {
         }
     }
     public static void main(String[] args) {
-        cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv");
-        
+        //cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv");
+        ArrayList<String> direcciones = new ArrayList<>();
+        cargarArchivoRutas("c:\\Users\\diego\\Desktop\\Routes.csv", direcciones);
     }
     
     public static void listarDatos(){
@@ -108,15 +109,17 @@ public class Conexion {
     }
     
     
-    public static void cargarArchivo(String ruta){
+    public static void cargarArchivo(String ruta, ArrayList<String[][]> datos){
         Path filePath = Paths.get(ruta);
         String vectorDatos[][];
+        String vectorDatosTmp[][];
         try{
             BufferedReader bf = Files.newBufferedReader(filePath);
             String linea;
             String encabezados="";
             String [] encabezadosVector;
             StringBuilder dato;
+            int posicionAddress = 0;
             boolean primeraLinea = true;
             int numeroDatos = 0;
             if(primeraLinea){
@@ -127,9 +130,9 @@ public class Conexion {
                 }
             }
             encabezadosVector = encabezados.split(",");
-            int campos[] = validarCampos(encabezados);
+            int campos[] = validarCampos(encabezados, posicionAddress);
             vectorDatos = new String[1][numeroDatos];
-            ArrayList<String[][]> datos = new ArrayList<>();
+             vectorDatosTmp = new String[1][numeroDatos];
             int contadorDatos = 0;
             //Recorremos las lineas del archivo
             while((linea = bf.readLine())!= null){
@@ -169,18 +172,23 @@ public class Conexion {
                //agreagarDatos(order);
                // String[] datosLinea = linea.split(",");
                // System.out.println(datos.get(0));
-               
-               datos.add(vectorDatos);
-               System.out.println(vectorDatos[0][25]);
+               int  contadorTmp = 0;
+                for (int j = 0; j< campos.length; j++) {
+                    vectorDatosTmp[0][contadorTmp] = vectorDatos[0][campos[j]];
+                    contadorTmp++;
+                }
+               datos.add(vectorDatosTmp);
+               //System.out.println(vectorDatos[0][25]);
                contadorDatos = 0;
                vectorDatos = new String[1][numeroDatos];
+               vectorDatosTmp = new String[1][numeroDatos];
             }
         }catch(IOException e){
             e.printStackTrace();
         }
     }
     
-    public static int[] validarCampos(String linea){
+    public static int[] validarCampos(String linea, int posicionAddress){
         
         Conexion cn=new Conexion();
         Statement st;
@@ -209,6 +217,8 @@ public class Conexion {
                     if(campos[i].equalsIgnoreCase(shoppingName)){
                         posicionCampos[j] = i;
                         j++;
+                        if(shoppingName.equalsIgnoreCase("Address1"))
+                            posicionAddress = i;
                     }
                 }
                 return posicionCampos;
@@ -221,11 +231,19 @@ public class Conexion {
         return posicionCampos;
     }
     
-    public Order crearOrden(int[]campos, String encabezados[], ArrayList<String[][]> datos, String vectorRutas[]){
+    public Order crearOrden(int[]campos, String encabezados[], ArrayList<String[][]> datos, ArrayList<String> direcciones){
         
         Order order = new Order();
+        int   campoAddress = 0;
         
-        for (int i = 0; i < campos.length; i++) {
+        for (int i = 0; i < encabezados.length; i++) {
+            if(encabezados[i].equalsIgnoreCase("Address1")){
+                campoAddress = i;
+            }
+        }
+        for (int i = 0; i < direcciones.size(); i++) {
+          if(direcciones.get(i).equalsIgnoreCase(datos.get(i)[0][campoAddress])){
+           for (int k = 0; k < campos.length; k++) {
             String [][] datosLista = datos.get(i);
             if(encabezados[campos[i]].equalsIgnoreCase("shipping Phone")){
                 order.setShippingPhone(datosLista[0][campos[i]]);
@@ -233,10 +251,10 @@ public class Conexion {
             else if(encabezados[campos[i]].equalsIgnoreCase("shipping Name")){
                 order.setShippingName(datosLista[0][campos[i]]);
             }
-            else if(encabezados[campos[i]].equalsIgnoreCase("address")){
+            else if(encabezados[campos[i]].equalsIgnoreCase("Address1")){
                 order.setAddress(datosLista[0][campos[i]]);
             }
-            else if(encabezados[campos[i]].equalsIgnoreCase("address2")){
+            else if(encabezados[campos[i]].equalsIgnoreCase("Address2")){
                 order.setAddress(datosLista[0][campos[i]]);
             }
             else if(encabezados[campos[i]].equalsIgnoreCase("city")){
@@ -263,14 +281,18 @@ public class Conexion {
             //else if(encabezados[campos[i]].equalsIgnoreCase("comments")){
               //  order.setShippingName(vectorDatos[0][campos[i]]);
             //}
-      
+            
+           // insertarDatos(order);
         }
+            }
+        }
+        
         
         return order;
     }
     
     
-    public static void cargarArchivoRutas(String ruta){
+    public static void cargarArchivoRutas(String ruta, ArrayList<String> direcciones){
         Path filePath = Paths.get(ruta);
         try{
             BufferedReader bf = Files.newBufferedReader(filePath);
@@ -278,7 +300,6 @@ public class Conexion {
             String [] encabezadosVector;
             String [] datosLinea;
             boolean primeraLinea = true;
-            ArrayList<String> direcciones = new ArrayList<>();
             int posicionAGuardar = 0;
             
             //Recorremos las lineas del archivo
@@ -297,6 +318,7 @@ public class Conexion {
                 {
                    datosLinea = linea.split(";");
                    direcciones.add(datosLinea[posicionAGuardar]);
+                    System.out.println(datosLinea[posicionAGuardar]);
 
                 }
             }
