@@ -47,7 +47,7 @@ public class Conexion {
     public static void main(String[] args) {
         //cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv");
         ArrayList<String> direcciones = new ArrayList<>();
-        cargarArchivoRutas("c:\\Users\\diego\\Desktop\\Routes.csv", direcciones);
+        cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv");
     }
     
     public static void listarDatos(){
@@ -109,10 +109,11 @@ public class Conexion {
     }
     
     
-    public static void cargarArchivo(String ruta, ArrayList<String[][]> datos){
+    public static ArrayList<String[][]> cargarArchivo(String ruta){
         Path filePath = Paths.get(ruta);
         String vectorDatos[][];
         String vectorDatosTmp[][];
+        ArrayList<String[][]> datos = new ArrayList<>();
         try{
             BufferedReader bf = Files.newBufferedReader(filePath);
             String linea;
@@ -173,11 +174,14 @@ public class Conexion {
                // String[] datosLinea = linea.split(",");
                // System.out.println(datos.get(0));
                int  contadorTmp = 0;
+               //Se recorre la lista de campos para agregar solo los campos necesarios
                 for (int j = 0; j< campos.length; j++) {
                     vectorDatosTmp[0][contadorTmp] = vectorDatos[0][campos[j]];
+                   // System.out.println(vectorDatos[0][campos[j]]);
                     contadorTmp++;
                 }
                datos.add(vectorDatosTmp);
+                System.out.println(vectorDatosTmp[0][11]);
                //System.out.println(vectorDatos[0][25]);
                contadorDatos = 0;
                vectorDatos = new String[1][numeroDatos];
@@ -186,6 +190,8 @@ public class Conexion {
         }catch(IOException e){
             e.printStackTrace();
         }
+        
+        return datos;
     }
     
     public static int[] validarCampos(String linea, int posicionAddress){
@@ -221,10 +227,10 @@ public class Conexion {
                             posicionAddress = i;
                     }
                 }
-                return posicionCampos;
                
             }
             cn.con.close();
+            return posicionCampos;
         } catch (Exception e) {
            e.printStackTrace();
         }
