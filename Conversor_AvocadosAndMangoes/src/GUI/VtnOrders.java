@@ -6,7 +6,7 @@
 package GUI;
 
 import Clases.FieldConfigure;
-import conversor_avocadosandmangoes.Conexion;
+import Conexion.Conexion;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
