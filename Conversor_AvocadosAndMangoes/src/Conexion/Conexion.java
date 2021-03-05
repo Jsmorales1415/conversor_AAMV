@@ -47,7 +47,8 @@ public class Conexion {
     public static void main(String[] args) {
         //cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv");
         ArrayList<String> direcciones = new ArrayList<>();
-        cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv");
+       // cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv");
+       buscarEnFieldConfigure("address2");
     }
     
     public static void listarDatos(){
@@ -109,7 +110,7 @@ public class Conexion {
     }
     
     
-    public static ArrayList<String[][]> cargarArchivo(String ruta){
+    public static ArrayList<String[][]> cargarArchivo(String ruta, String rutaRoutes){
         Path filePath = Paths.get(ruta);
         String vectorDatos[][];
         String vectorDatosTmp[][];
@@ -119,6 +120,7 @@ public class Conexion {
             String linea;
             String encabezados="";
             String [] encabezadosVector;
+            String [] encabezadoCampos;
             StringBuilder dato;
             int posicionAddress = 0;
             boolean primeraLinea = true;
@@ -131,7 +133,12 @@ public class Conexion {
                 }
             }
             encabezadosVector = encabezados.split(",");
-            int campos[] = validarCampos(encabezados, posicionAddress);
+            int campos[] = validarCampos(encabezadosVector);
+            encabezadoCampos = new String[campos.length];
+            for (int i = 0; i < campos.length; i++) {
+                encabezadoCampos[i] = encabezadosVector[campos[i]];
+            }
+            
             vectorDatos = new String[1][numeroDatos];
              vectorDatosTmp = new String[1][numeroDatos];
             int contadorDatos = 0;
@@ -194,7 +201,7 @@ public class Conexion {
         return datos;
     }
     
-    public static int[] validarCampos(String linea, int posicionAddress){
+    public static int[] validarCampos(String campos[]){
         
         Conexion cn=new Conexion();
         Statement st;
@@ -203,7 +210,6 @@ public class Conexion {
         String dbName;
         int posicionCampos[] = null;
         int contadorCampos = 0;
-        String campos[] = linea.split(","); 
         int j = 0;
         
         try {
@@ -223,8 +229,6 @@ public class Conexion {
                     if(campos[i].equalsIgnoreCase(shoppingName)){
                         posicionCampos[j] = i;
                         j++;
-                        if(shoppingName.equalsIgnoreCase("Address1"))
-                            posicionAddress = i;
                     }
                 }
                
@@ -237,52 +241,49 @@ public class Conexion {
         return posicionCampos;
     }
     
-    public Order crearOrden(int[]campos, String encabezados[], ArrayList<String[][]> datos, ArrayList<String> direcciones){
+    public Order crearOrden(String encabezados[], /*ArrayList<String[][]>*/String[] datos, ArrayList<String> direcciones){
         
         Order order = new Order();
         int   campoAddress = 0;
-        
+        /*
         for (int i = 0; i < encabezados.length; i++) {
             if(encabezados[i].equalsIgnoreCase("Address1")){
                 campoAddress = i;
             }
-        }
-        for (int i = 0; i < direcciones.size(); i++) {
-          if(direcciones.get(i).equalsIgnoreCase(datos.get(i)[0][campoAddress])){
-           for (int k = 0; k < campos.length; k++) {
-            String [][] datosLista = datos.get(i);
-            if(encabezados[campos[i]].equalsIgnoreCase("shipping Phone")){
-                order.setShippingPhone(datosLista[0][campos[i]]);
+        }*/
+        for (int i = 0; i < datos.length; i++) {
+            if(encabezados[i].equalsIgnoreCase("shipping Phone")){
+                order.setShippingPhone(datos[i]);
             }
-            else if(encabezados[campos[i]].equalsIgnoreCase("shipping Name")){
-                order.setShippingName(datosLista[0][campos[i]]);
+            else if(encabezados[i].equalsIgnoreCase("shipping Name")){
+                order.setShippingName(datos[i]);
             }
-            else if(encabezados[campos[i]].equalsIgnoreCase("Address1")){
-                order.setAddress(datosLista[0][campos[i]]);
+            else if(encabezados[i].equalsIgnoreCase("Address1")){
+                order.setAddress(datos[i]);
             }
-            else if(encabezados[campos[i]].equalsIgnoreCase("Address2")){
-                order.setAddress(datosLista[0][campos[i]]);
+            else if(encabezados[i].equalsIgnoreCase("Address2")){
+                order.setAddress(datos[i]);
             }
-            else if(encabezados[campos[i]].equalsIgnoreCase("city")){
-                order.setCity(datosLista[0][campos[i]]);
+            else if(encabezados[i].equalsIgnoreCase("city")){
+                order.setCity(datos[i]);
             }
-            else if(encabezados[campos[i]].equalsIgnoreCase("postalCode")){
-                order.setPostalCode(datosLista[0][campos[i]]);
+            else if(encabezados[i].equalsIgnoreCase("postalCode")){
+                order.setPostalCode(datos[i]);
             }
-            else if(encabezados[campos[i]].equalsIgnoreCase("itemName")){
-                order.setItemName(datosLista[0][campos[i]]);
+            else if(encabezados[i].equalsIgnoreCase("itemName")){
+                order.setItemName(datos[i]);
             }
-            else if(encabezados[campos[i]].equalsIgnoreCase("cant")){
-                order.setCant(Integer.parseInt(datosLista[0][campos[i]]));
+            else if(encabezados[i].equalsIgnoreCase("cant")){
+                order.setCant(Integer.parseInt(datos[i]));
             }
-            else if(encabezados[campos[i]].equalsIgnoreCase("value")){
-                order.setValue(Double.parseDouble(datosLista[0][campos[i]]));
+            else if(encabezados[i].equalsIgnoreCase("value")){
+                order.setValue(Double.parseDouble(datos[i]));
             }
-            else if(encabezados[campos[i]].equalsIgnoreCase("total")){
-                order.setTotal(Double.parseDouble(datosLista[0][campos[i]]));
+            else if(encabezados[i].equalsIgnoreCase("total")){
+                order.setTotal(Double.parseDouble(datos[i]));
             }
-            else if(encabezados[campos[i]].equalsIgnoreCase("payment")){
-                order.setPayment(datosLista[0][campos[i]]);
+            else if(encabezados[i].equalsIgnoreCase("payment")){
+                order.setPayment(datos[i]);
             }
             //else if(encabezados[campos[i]].equalsIgnoreCase("comments")){
               //  order.setShippingName(vectorDatos[0][campos[i]]);
@@ -290,12 +291,13 @@ public class Conexion {
             
            // insertarDatos(order);
         }
-            }
-        }
-        
-        
         return order;
     }
+            
+        
+        
+        
+    
     
     
     public static void cargarArchivoRutas(String ruta, ArrayList<String> direcciones){
@@ -331,5 +333,23 @@ public class Conexion {
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+    
+     public static String buscarEnFieldConfigure(String campo){
+        Conexion cn=new Conexion();
+        Statement st;
+        ResultSet rs;
+        try {
+            st=(Statement) cn.con.createStatement();
+            rs=st.executeQuery("select * from fieldconfigure where shippingName = '"+campo+"'");
+            
+            while (rs.next()) {                
+                return rs.getString("dbName");
+            }
+            cn.con.close();
+        } catch (Exception e) {
+        }
+        
+        return "";
     }
 }
