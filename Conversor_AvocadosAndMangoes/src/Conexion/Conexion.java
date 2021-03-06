@@ -49,8 +49,6 @@ public class Conexion {
         ArrayList<String> direcciones = new ArrayList<>();
         ArrayList<String[][]> datos = new ArrayList<>();
        datos = cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv","c:\\Users\\diego\\Desktop\\Routes.csv");
-       
-       buscarEnFieldConfigure("address2");
     }
     
     public static void listarDatos(){
@@ -69,8 +67,8 @@ public class Conexion {
         }
     }
  
-    public static void insertarDatos(Object object){
-        Conexion cn=new Conexion();
+    public static void insertarDatos(Object object, Conexion cn){
+       // Conexion cn=new Conexion();
         
         if(object instanceof Client)
         {
@@ -121,6 +119,7 @@ public class Conexion {
         ArrayList<String[][]> datos = new ArrayList<>();
         ArrayList<String[]> datosRutas = new ArrayList<>();
                 datosRutas = cargarArchivoRutas(rutaRoutes);
+        Conexion cn=new Conexion();
         try{
             BufferedReader bf = Files.newBufferedReader(filePath);
             String linea;
@@ -194,10 +193,10 @@ public class Conexion {
                    vectorDatosCopia = vectorDatosTmp;
                   
                    for (int i = 0; i < campos.length; i++) {
-                       if( buscarEnFieldConfigure(encabezadosVector[i]).equalsIgnoreCase("itemName")
-                               || buscarEnFieldConfigure(encabezadosVector[i]).equalsIgnoreCase("cant")
-                               || buscarEnFieldConfigure(encabezadosVector[i]).equalsIgnoreCase("value"))
-                       {
+                       if( buscarEnFieldConfigure(encabezadosVector[campos[i]], cn).equalsIgnoreCase("itemName")
+                               || buscarEnFieldConfigure(encabezadosVector[campos[i]], cn).equalsIgnoreCase("cant")
+                               || buscarEnFieldConfigure(encabezadosVector[campos[i]], cn).equalsIgnoreCase("value"))
+                       {    
                            vectorDatosCopia[0][contadorTmp] = vectorDatos[0][campos[i]];
                            contadorTmp++;
                        }
@@ -212,8 +211,8 @@ public class Conexion {
                    nameAnterior = vectorDatos[0][0];
                    vectorDatos = new String[1][numeroDatos]; 
                    contadorDatos = 0;
-                   //System.out.println("Copia"+vectorDatosCopia[0][0]+vectorDatosCopia[0][1]+vectorDatosCopia[0][2]+vectorDatosCopia[0][3]+vectorDatosCopia[0][4]+vectorDatosCopia[0][5]+vectorDatosCopia[0][6]+vectorDatosCopia[0][7]+vectorDatosCopia[0][8]+vectorDatosCopia[0][9]+vectorDatosCopia[0][10]+vectorDatosCopia[0][11]);
-                  // crearOrden(encabezadoCampos, vectorDatosCopia, datosRutas);
+                   System.out.println("Copia"+vectorDatosCopia[0][0]+vectorDatosCopia[0][1]+vectorDatosCopia[0][2]+vectorDatosCopia[0][3]+vectorDatosCopia[0][4]+vectorDatosCopia[0][5]+vectorDatosCopia[0][6]+vectorDatosCopia[0][7]+vectorDatosCopia[0][8]+vectorDatosCopia[0][9]+vectorDatosCopia[0][10]+vectorDatosCopia[0][11]);
+                   crearOrden(encabezadoCampos, vectorDatosCopia, datosRutas, cn);
                }
                else
                {
@@ -226,7 +225,7 @@ public class Conexion {
                     contadorTmp++;
                 }
                datos.add(vectorDatosTmp);
-               //crearOrden(encabezadoCampos, vectorDatosCopia, datosRutas);
+               crearOrden(encabezadoCampos, vectorDatosCopia, datosRutas, cn);
                 System.out.println("vector"+vectorDatosTmp[0][0]);
                //System.out.println(vectorDatos[0][25]);
                contadorDatos = 0;
@@ -281,59 +280,62 @@ public class Conexion {
         return posicionCampos;
     }
     
-    public static void crearOrden(String encabezados[], /*ArrayList<String[][]>*/String[][] datos, ArrayList<String[]> direcciones){
+    public static void crearOrden(String encabezados[], /*ArrayList<String[][]>*/String[][] datos, ArrayList<String[]> direcciones,  Conexion cn){
         
-        Order order = new Order();
+        Order order;
         String   campoAddress = "";
    
         for (int i = 0; i < datos.length; i++) {
-            if(buscarEnFieldConfigure(encabezados[i]).equalsIgnoreCase("shippingPhone")){
-                order.setShippingPhone(datos[0][i]);
-            }
-            else if(buscarEnFieldConfigure(encabezados[i]).equalsIgnoreCase("shippingName")){
-                order.setShippingName(datos[0][i]);
-            }
-            else if(buscarEnFieldConfigure(encabezados[i]).equalsIgnoreCase("address")){
-                order.setAddress(datos[0][i]);
-                campoAddress = datos[0][i];
-            }
-            else if(buscarEnFieldConfigure(encabezados[i]).equalsIgnoreCase("address2")){
-                order.setAddress(datos[0][i]);
-            }
-            else if(buscarEnFieldConfigure(encabezados[i]).equalsIgnoreCase("city")){
-                order.setCity(datos[0][i]);
-            }
-            else if(buscarEnFieldConfigure(encabezados[i]).equalsIgnoreCase("postalCode")){
-                order.setPostalCode(datos[0][i]);
-            }
-            else if(buscarEnFieldConfigure(encabezados[i]).equalsIgnoreCase("itemName")){
-                order.setItemName(datos[0][i]);
-            }
-            else if(buscarEnFieldConfigure(encabezados[i]).equalsIgnoreCase("cant")){
-                order.setCant(Integer.parseInt(datos[0][i]));
-            }
-            else if(buscarEnFieldConfigure(encabezados[i]).equalsIgnoreCase("value")){
-                order.setValue(Double.parseDouble(datos[0][i]));
-            }
-            else if(buscarEnFieldConfigure(encabezados[i]).equalsIgnoreCase("total")){
-                order.setTotal(Double.parseDouble(datos[0][i]));
-            }
-            else if(buscarEnFieldConfigure(encabezados[i]).equalsIgnoreCase("payment")){
-                order.setPayment(datos[0][i]);
-            }
-            else if(buscarEnFieldConfigure(encabezados[i]).equalsIgnoreCase("comments")){
-                order.setComments(datos[0][i]);
+            order = new Order();
+            for (int j = 0; j < encabezados.length; j++) {
+                if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("shippingPhone")){
+                order.setShippingPhone(datos[0][j]);
+                }
+                else if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("shippingName")){
+                    order.setShippingName(datos[0][j]);
+                }
+                else if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("address")){
+                    order.setAddress(datos[0][j]);
+                    campoAddress = datos[0][j];
+                }
+                else if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("address2")){
+                    order.setAddress(datos[0][j]);
+                }
+                else if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("city")){
+                    order.setCity(datos[0][j]);
+                }
+                else if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("postalCode")){
+                    order.setPostalCode(datos[0][j]);
+                }
+                else if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("itemName")){
+                    order.setItemName(datos[0][j]);
+                }
+                else if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("cant")){
+                    order.setCant(Integer.parseInt(datos[0][j]));
+                }
+                else if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("value")){
+                    order.setValue(Double.parseDouble(datos[0][j]));
+                }
+                else if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("total")){
+                    order.setTotal(Double.parseDouble(datos[0][j]));
+                }
+                else if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("payment")){
+                    order.setPayment(datos[0][j]);
+                }
+                else if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("comments")){
+                    order.setComments(datos[0][j]);
+                }
             }
             
-            for (int j = 0; j < direcciones.size(); j++) {
+           for (int j = 0; j < direcciones.size(); j++) {
                 if(direcciones.get(j)[1].equalsIgnoreCase(campoAddress))
                 {
                     order.setStop(Integer.parseInt(direcciones.get(j)[0]));
                 }
-            }
+            } 
+           
+           insertarDatos(order, cn);
             
-            
-           insertarDatos(order);
         }
        // return order;
     }
@@ -389,8 +391,8 @@ public class Conexion {
         return direcciones;
     }
     
-     public static String buscarEnFieldConfigure(String campo){
-        Conexion cn=new Conexion();
+     public static String buscarEnFieldConfigure(String campo,  Conexion cn){
+       // Conexion cn=new Conexion();
         Statement st;
         ResultSet rs;
         try {
