@@ -119,6 +119,7 @@ public class Conexion {
         ArrayList<String[][]> datos = new ArrayList<>();
         ArrayList<String[]> datosRutas = new ArrayList<>();
                 datosRutas = cargarArchivoRutas(rutaRoutes);
+                //System.out.println(datosRutas.get(0)[0]);
         Conexion cn=new Conexion();
         try{
             BufferedReader bf = Files.newBufferedReader(filePath);
@@ -329,13 +330,14 @@ public class Conexion {
             }
             
            for (int j = 0; j < direcciones.size(); j++) {
+               System.out.println("Campo: " +campoAddress+ " direccion: "+ direcciones.get(j)[0]);
                 if(direcciones.get(j)[1].equalsIgnoreCase(campoAddress))
                 {
                     order.setStop(Integer.parseInt(direcciones.get(j)[0]));
                 }
             } 
            
-           insertarDatos(order, cn);
+         //  insertarDatos(order, cn);
             
         }
        // return order;
@@ -362,7 +364,7 @@ public class Conexion {
             
             //Recorremos las lineas del archivo
             while((linea = bf.readLine())!= null){
-                
+               datoGuardar = new String[2];
                 if(primeraLinea){
                     encabezadosVector = linea.split(";");
                     for (int i = 0; i < encabezadosVector.length; i++) {
@@ -380,7 +382,7 @@ public class Conexion {
                    datosLinea = linea.split(";");
                    datoGuardar[0] = datosLinea[posicionStop];
                    datoGuardar[1] = datosLinea[posicionAddress];
-                  //  System.out.println("Stop:"+datosLinea[posicionStop]+"Addres:"+datosLinea[posicionAddress]);
+                   //System.out.println("Stop:"+datoGuardar[0]+"Addres:"+datoGuardar[1]);
                    direcciones.add(datoGuardar);
                   
                 }
@@ -388,7 +390,6 @@ public class Conexion {
         }catch(IOException e){
             e.printStackTrace();
         }
-        
         return direcciones;
     }
     
