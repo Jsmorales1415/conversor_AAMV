@@ -296,7 +296,6 @@ public class Conexion {
                     order.setShippingName(datos[0][j]);
                 }
                 else if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("address")){
-                    System.out.println(datos[0][j]);
                     order.setAddress(datos[0][j]);
                     campoAddress = datos[0][j];
                 }
