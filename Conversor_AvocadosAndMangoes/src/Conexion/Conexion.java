@@ -96,8 +96,8 @@ public class Conexion {
                 PS.setString(5, ((Order) object).getAddress2());
                 PS.setString(6, ((Order) object).getCity());
                 PS.setString(7, ((Order) object).getPostalCode());
-                PS.setInt(8, ((Order) object).getCant());
-                PS.setString(9, ((Order) object).getItemName());
+                PS.setString(8, ((Order) object).getItemName());
+                PS.setInt(9, ((Order) object).getCant());
                 PS.setDouble(10, ((Order) object).getValue());
                 PS.setDouble(11, ((Order) object).getTotal());
                 PS.setString(12, ((Order) object).getPayment());
@@ -173,13 +173,15 @@ public class Conexion {
                                 
                             }
                             else
-                            {
-                                dato.append(linea.charAt(i));
+                            {   
+                                if(linea.charAt(i) != ',')
+                                    dato.append(linea.charAt(i));
                             }
                         }
                     }
                     else
                     {   
+                        if(linea.charAt(i) != ',')
                          dato.append(linea.charAt(i));
                     }
                 }
@@ -211,7 +213,7 @@ public class Conexion {
                    nameAnterior = vectorDatos[0][0];
                    vectorDatos = new String[1][numeroDatos]; 
                    contadorDatos = 0;
-                   System.out.println("Copia"+vectorDatosCopia[0][0]+vectorDatosCopia[0][1]+vectorDatosCopia[0][2]+vectorDatosCopia[0][3]+vectorDatosCopia[0][4]+vectorDatosCopia[0][5]+vectorDatosCopia[0][6]+vectorDatosCopia[0][7]+vectorDatosCopia[0][8]+vectorDatosCopia[0][9]+vectorDatosCopia[0][10]+vectorDatosCopia[0][11]);
+                  // System.out.println("Copia"+vectorDatosCopia[0][0]+vectorDatosCopia[0][1]+vectorDatosCopia[0][2]+vectorDatosCopia[0][3]+vectorDatosCopia[0][4]+vectorDatosCopia[0][5]+vectorDatosCopia[0][6]+vectorDatosCopia[0][7]+vectorDatosCopia[0][8]+vectorDatosCopia[0][9]+vectorDatosCopia[0][10]+vectorDatosCopia[0][11]);
                    crearOrden(encabezadoCampos, vectorDatosCopia, datosRutas, cn);
                }
                else
@@ -225,9 +227,8 @@ public class Conexion {
                     contadorTmp++;
                 }
                datos.add(vectorDatosTmp);
-               crearOrden(encabezadoCampos, vectorDatosCopia, datosRutas, cn);
-                System.out.println("vector"+vectorDatosTmp[0][0]);
-               //System.out.println(vectorDatos[0][25]);
+               crearOrden(encabezadoCampos, vectorDatosTmp, datosRutas, cn);
+               // System.out.println("vector"+vectorDatosTmp[0][2]);
                contadorDatos = 0;
                nameAnterior = vectorDatos[0][0];
                vectorDatos = new String[1][numeroDatos];
@@ -295,11 +296,12 @@ public class Conexion {
                     order.setShippingName(datos[0][j]);
                 }
                 else if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("address")){
+                    System.out.println(datos[0][j]);
                     order.setAddress(datos[0][j]);
                     campoAddress = datos[0][j];
                 }
                 else if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("address2")){
-                    order.setAddress(datos[0][j]);
+                    order.setAddress2(datos[0][j]);
                 }
                 else if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("city")){
                     order.setCity(datos[0][j]);
@@ -379,9 +381,9 @@ public class Conexion {
                    datosLinea = linea.split(";");
                    datoGuardar[0] = datosLinea[posicionStop];
                    datoGuardar[1] = datosLinea[posicionAddress];
+                  //  System.out.println("Stop:"+datosLinea[posicionStop]+"Addres:"+datosLinea[posicionAddress]);
                    direcciones.add(datoGuardar);
-                   // System.out.println(datosLinea[posicionAGuardar]);
-
+                  
                 }
             }
         }catch(IOException e){
