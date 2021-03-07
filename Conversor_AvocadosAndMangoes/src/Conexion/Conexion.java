@@ -73,7 +73,7 @@ public class Conexion {
         if(object instanceof Client)
         {
             try {
-                PreparedStatement PS = cn.con.prepareStatement("insert into clients (shippingPhone, name, address, address2, city, postalCode) values (?,?,?,?,?,? )");
+                PreparedStatement PS = cn.con.prepareStatement("insert into clients (id,shippingPhone, name, address, address2, city, postalCode) values (NULL,?,?,?,?,?,? )");
                 PS.setString(1, ((Client) object).getShippingPhone());
                 PS.setString(2, ((Client) object).getName());
                 PS.setString(3, ((Client) object).getAddress());
@@ -88,7 +88,7 @@ public class Conexion {
         }else if(object instanceof Order)
         {
             try {
-                PreparedStatement PS = cn.con.prepareStatement("insert into orders ( stop, shippingPhone, shippingName, address, address2, city, postalCode, itemName, cant, value, total, payment, comments) values (?,?,?,?,?,?,?,?,?,?,?,?,? )");
+                PreparedStatement PS = cn.con.prepareStatement("insert into orders ( id, stop, shippingPhone, shippingName, address, address2, city, postalCode, itemName, cant, value, total, payment, comments) values (NULL,?,?,?,?,?,?,?,?,?,?,?,?,? )");
                 PS.setInt(1, ((Order) object).getStop());
                 PS.setString(2, ((Order) object).getShippingPhone());
                 PS.setString(3, ((Order) object).getShippingName());
