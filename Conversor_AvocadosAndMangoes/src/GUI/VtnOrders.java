@@ -22,6 +22,7 @@ public class VtnOrders extends javax.swing.JFrame {
      * Creates new form VtnOrders
      */
     private VtnMain ppal;
+    private VtnVisualizar visualizar;
     
     public VtnOrders() {
         initComponents();
@@ -265,6 +266,8 @@ public class VtnOrders extends javax.swing.JFrame {
 
     private void visOrdenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visOrdenesActionPerformed
         // TODO add your handling code here:
+        visualizar = new VtnVisualizar();
+        irA(visualizar);
     }//GEN-LAST:event_visOrdenesActionPerformed
 
     private void expOrdenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expOrdenesActionPerformed
