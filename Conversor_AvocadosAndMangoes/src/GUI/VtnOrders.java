@@ -22,6 +22,7 @@ public class VtnOrders extends javax.swing.JFrame {
      * Creates new form VtnOrders
      */
     private VtnMain ppal;
+    private VtnVisualizar visualizar;
     
     public VtnOrders() {
         initComponents();
@@ -51,6 +52,7 @@ public class VtnOrders extends javax.swing.JFrame {
         btnUploadRoutes = new javax.swing.JToggleButton();
         dirOrdenes = new javax.swing.JTextField();
         dirRutas = new javax.swing.JTextField();
+        cargarOrdenes = new javax.swing.JToggleButton();
         visOrdenes = new javax.swing.JToggleButton();
         expOrdenes = new javax.swing.JToggleButton();
 
@@ -83,7 +85,7 @@ public class VtnOrders extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         btnCargarOrdenes.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
-        btnCargarOrdenes.setText("Cargar Ordenes");
+        btnCargarOrdenes.setText("Subir Ordenes");
         btnCargarOrdenes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnCargarOrdenes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,11 +94,24 @@ public class VtnOrders extends javax.swing.JFrame {
         });
 
         btnUploadRoutes.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
-        btnUploadRoutes.setText("Cargar Rutas");
+        btnUploadRoutes.setText("Subir Rutas");
         btnUploadRoutes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnUploadRoutes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUploadRoutesActionPerformed(evt);
+            }
+        });
+
+        dirOrdenes.setEditable(false);
+
+        dirRutas.setEditable(false);
+
+        cargarOrdenes.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
+        cargarOrdenes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/btnCargarBaseDatos.png"))); // NOI18N
+        cargarOrdenes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cargarOrdenes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarOrdenesActionPerformed(evt);
             }
         });
 
@@ -114,7 +129,10 @@ public class VtnOrders extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(dirRutas, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
                         .addGap(10, 10, 10)
-                        .addComponent(btnUploadRoutes, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnUploadRoutes, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(cargarOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -125,11 +143,11 @@ public class VtnOrders extends javax.swing.JFrame {
                     .addComponent(dirOrdenes)
                     .addComponent(btnCargarOrdenes, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnUploadRoutes, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnUploadRoutes, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                     .addComponent(dirRutas))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cargarOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -157,15 +175,9 @@ public class VtnOrders extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(243, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(71, 71, 71))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(lblAccion, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -173,6 +185,12 @@ public class VtnOrders extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(expOrdenes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(69, 69, 69))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(71, 71, 71))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,18 +204,18 @@ public class VtnOrders extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 49, Short.MAX_VALUE)
                         .addComponent(lblAccion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(282, 282, 282))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(visOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(expOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(36, 36, 36))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -208,9 +226,7 @@ public class VtnOrders extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -225,7 +241,7 @@ public class VtnOrders extends javax.swing.JFrame {
         if ( archivo != null ){
             dirRutas.setText(archivo.getAbsolutePath());
             rutaParadas = dirRutas.getText();
-            Conexion.cargarArchivo(rutaParadas);
+            //Conexion.cargarArchivo(rutaParadas);
         }
     }//GEN-LAST:event_btnUploadRoutesActionPerformed
 
@@ -237,8 +253,8 @@ public class VtnOrders extends javax.swing.JFrame {
         File archivo = jfile.getSelectedFile();
         if ( archivo != null ){
             dirOrdenes.setText(archivo.getAbsolutePath());
-            rutaOrdenes = dirOrdenes.getText();
-            Conexion.cargarArchivo(rutaOrdenes);
+            //rutaOrdenes = dirOrdenes.getText();
+            
         }
     }//GEN-LAST:event_btnCargarOrdenesActionPerformed
 
@@ -250,11 +266,17 @@ public class VtnOrders extends javax.swing.JFrame {
 
     private void visOrdenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visOrdenesActionPerformed
         // TODO add your handling code here:
+        visualizar = new VtnVisualizar();
+        irA(visualizar);
     }//GEN-LAST:event_visOrdenesActionPerformed
 
     private void expOrdenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expOrdenesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_expOrdenesActionPerformed
+
+    private void cargarOrdenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarOrdenesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cargarOrdenesActionPerformed
 
     public void irA(JFrame ventana){
         this.dispose();
@@ -304,6 +326,7 @@ public class VtnOrders extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnCargarOrdenes;
     private javax.swing.JToggleButton btnRegresar;
     private javax.swing.JToggleButton btnUploadRoutes;
+    private javax.swing.JToggleButton cargarOrdenes;
     private javax.swing.JTextField dirOrdenes;
     private javax.swing.JTextField dirRutas;
     private javax.swing.JToggleButton expOrdenes;
