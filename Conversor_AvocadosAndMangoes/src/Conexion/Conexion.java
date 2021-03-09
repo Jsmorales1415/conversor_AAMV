@@ -68,7 +68,7 @@ public class Conexion {
     }
  
     public static void insertarDatos(Object object, Conexion cn){
-       // Conexion cn=new Conexion();
+       cn=new Conexion();
         
         if(object instanceof Client)
         {
@@ -81,14 +81,15 @@ public class Conexion {
                 PS.setString(5, ((Client) object).getCity());
                 PS.setString(6, ((Client) object).getPostalCode());
                 PS.executeUpdate();
-
+                
+                cn.con.close();
             } catch (SQLException ex) {
                 Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else if(object instanceof Order)
         {
             try {
-                PreparedStatement PS = cn.con.prepareStatement("insert into orders ( stop, shippingPhone, shippingName, address, address2, city, postalCode, itemName, cant, value, total, payment, comments) values (?,?,?,?,?,?,?,?,?,?,?,?,? )");
+                PreparedStatement PS = cn.con.prepareStatement("insert into orders ( id, stop, shippingPhone, shippingName, address, address2, city, postalCode, itemName, cant, value, total, payment, comments) values (null,?,?,?,?,?,?,?,?,?,?,?,?,? )");
                 PS.setInt(1, ((Order) object).getStop());
                 PS.setString(2, ((Order) object).getShippingPhone());
                 PS.setString(3, ((Order) object).getShippingName());
@@ -104,6 +105,7 @@ public class Conexion {
                 PS.setString(13, ((Order) object).getComments());
                 PS.executeUpdate();
 
+                cn.con.close();
             } catch (SQLException ex) {
                 Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -283,15 +285,23 @@ public class Conexion {
     }
     
     public static void crearOrden(String encabezados[], /*ArrayList<String[][]>*/String[][] datos, ArrayList<String[]> direcciones,  Conexion cn){
-        
+        cn = new Conexion();
         Order order;
         String   campoAddress = "";
-   
+       /* for (int i = 0; i < encabezados.length; i++) {
+            System.out.print(encabezados[i]+" ");
+        }
+        System.out.println("-------------------------");*/
+        
+        order = new Order();
+       // System.out.println("Copia"+datos[0][0]+datos[0][1]+datos[0][2]+datos[0][3]+datos[0][4]+datos[0][5]+datos[0][6]+datos[0][7]+datos[0][8]+datos[0][9]+datos[0][10]+datos[0][11]);
         for (int i = 0; i < datos.length; i++) {
-            order = new Order();
+            
             for (int j = 0; j < encabezados.length; j++) {
+                  System.out.println("FieldConfigure: "+buscarEnFieldConfigure(encabezados[j], cn));
                 if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("shippingPhone")){
                 order.setShippingPhone(datos[0][j]);
+             //      System.out.println("datos: "+datos[0][j]);
                 }
                 else if(buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("shippingName")){
                     order.setShippingName(datos[0][j]);
@@ -330,15 +340,15 @@ public class Conexion {
             }
             
            for (int j = 0; j < direcciones.size(); j++) {
-               System.out.println("Campo: " +campoAddress+ " direccion: "+ direcciones.get(j)[0]);
+              // System.out.println("Campo: " +campoAddress+ " direccion: "+ direcciones.get(j)[0]);
                 if(direcciones.get(j)[1].equalsIgnoreCase(campoAddress))
                 {
                     order.setStop(Integer.parseInt(direcciones.get(j)[0]));
                 }
             } 
            
-           insertarDatos(order, cn);
-            
+            insertarDatos(order, cn);
+           // cn.con.close();
         }
        // return order;
     }
@@ -394,7 +404,7 @@ public class Conexion {
     }
     
      public static String buscarEnFieldConfigure(String campo,  Conexion cn){
-       // Conexion cn=new Conexion();
+        //cn=new Conexion();
         Statement st;
         ResultSet rs;
         try {
@@ -408,6 +418,6 @@ public class Conexion {
         } catch (Exception e) {
         }
         
-        return "";
+        return "error";
     }
 }
