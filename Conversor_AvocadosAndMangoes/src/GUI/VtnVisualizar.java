@@ -5,7 +5,14 @@
  */
 package GUI;
 
+import Conexion.Conexion;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,6 +26,9 @@ public class VtnVisualizar extends javax.swing.JFrame {
         initComponents();
         this.setLocation(250, 80);
         this.setResizable(false);
+        
+        //Carga de las ordenes de base de datos a la tabla de visualizacion
+        CargarDatosTabla();
     }
 
     /**
@@ -34,7 +44,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaOrdenes = new javax.swing.JTable();
         btnRegresar = new javax.swing.JToggleButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -45,6 +55,9 @@ public class VtnVisualizar extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         btnAdicionarOrden = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        cmpBusqueda = new javax.swing.JTextField();
+        btnBuscarOrden = new javax.swing.JButton();
+        btnFiltros = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,7 +65,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("ORDENES");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaOrdenes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -99,7 +112,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaOrdenes);
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/flecha.png"))); // NOI18N
         btnRegresar.setBorder(null);
@@ -190,6 +203,18 @@ public class VtnVisualizar extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        cmpBusqueda.setFont(new java.awt.Font("Bookman Old Style", 0, 18)); // NOI18N
+
+        btnBuscarOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/lupa.png"))); // NOI18N
+
+        btnFiltros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/filtro_icon.png"))); // NOI18N
+        btnFiltros.setEnabled(false);
+        btnFiltros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -202,7 +227,15 @@ public class VtnVisualizar extends javax.swing.JFrame {
                         .addGap(196, 196, 196)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(cmpBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(16, 16, 16)
+                                .addComponent(btnBuscarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -219,9 +252,16 @@ public class VtnVisualizar extends javax.swing.JFrame {
                     .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnBuscarOrden, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmpBusqueda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnFiltros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(64, 64, 64)
@@ -254,10 +294,63 @@ public class VtnVisualizar extends javax.swing.JFrame {
     private void btnAdicionarOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarOrdenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAdicionarOrdenActionPerformed
+
+    private void btnFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFiltrosActionPerformed
     
     public void irA(JFrame ventana){
         this.dispose();
         ventana.setVisible(true);
+    }
+    
+    public void CargarDatosTabla(){
+        
+        DefaultTableModel tablaModelo = new DefaultTableModel();
+        Statement prepStat = null;
+        ResultSet resSet = null;
+        ResultSetMetaData rsMd = null;
+        Conexion cnx = new Conexion();
+        Connection con;
+        String sql = "";
+        try {
+            
+            int cantCol;
+            
+            prepStat = (Statement) cnx.con.createStatement(); 
+            
+            tablaOrdenes.setModel(tablaModelo);
+            
+            sql = "SELECT shippingName, itemName, value, cant, total FROM orders";
+            resSet = prepStat.executeQuery(sql);
+            
+            rsMd = resSet.getMetaData();
+            cantCol = rsMd.getColumnCount();
+            
+            //Asigna rotulos a la tabla
+            tablaModelo.addColumn("Cliente");
+            tablaModelo.addColumn("Producto");
+            tablaModelo.addColumn("Precio unitario");
+            tablaModelo.addColumn("Cantidad");
+            tablaModelo.addColumn("Total");
+            
+            while ( resSet.next() )
+            {
+                //Crea array de objetos para obtener cada orden de la BD
+                Object[] filas = new Object[cantCol];
+                
+                for ( int i = 0; i < cantCol; i++ )
+                {
+                    //Obtiene cada objeto y lo agrega al array "filas"
+                    filas[i] = resSet.getObject(i + 1);
+                }
+                
+                tablaModelo.addRow(filas);
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
     
     /**
@@ -297,9 +390,12 @@ public class VtnVisualizar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarOrden;
+    private javax.swing.JButton btnBuscarOrden;
     private javax.swing.JButton btnEliminarOrden;
+    private javax.swing.JButton btnFiltros;
     private javax.swing.JToggleButton btnRegresar;
     private javax.swing.JButton btnVerOrden;
+    private javax.swing.JTextField cmpBusqueda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -310,6 +406,6 @@ public class VtnVisualizar extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaOrdenes;
     // End of variables declaration//GEN-END:variables
 }
