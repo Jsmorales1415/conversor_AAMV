@@ -37,7 +37,7 @@ public class Conexion {
     private String baseDatos = "avocadosandmangoes";
     private String user = "root";
     private String contrasena = "root";
-    Connection con;
+    public Connection con;
 
     public Conexion() {
 
@@ -53,8 +53,8 @@ public class Conexion {
         //cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv");
         ArrayList<String> direcciones = new ArrayList<>();
         ArrayList<String[][]> datos = new ArrayList<>();
-        //datos = cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv", "c:\\Users\\diego\\Desktop\\Routes.csv");
-        escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.txt");
+        datos = cargarArchivo( "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
+        //escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.txt");
     }
 
     public static void listarDatos() {
@@ -116,14 +116,14 @@ public class Conexion {
         }
     }
 
-    public static ArrayList<String[][]> cargarArchivo(String ruta, String rutaRoutes) {
+    public static ArrayList<String[][]> cargarArchivo(String ruta) {
         Path filePath = Paths.get(ruta);
         String vectorDatos[][];
         String vectorDatosTmp[][];
         String vectorDatosCopia[][];
         ArrayList<String[][]> datos = new ArrayList<>();
-        ArrayList<String[]> datosRutas = new ArrayList<>();
-        datosRutas = cargarArchivoRutas(rutaRoutes);
+        //ArrayList<String[]> datosRutas = new ArrayList<>();
+        //datosRutas = cargarArchivoRutas(rutaRoutes);
         //System.out.println(datosRutas.get(0)[0]);
         Conexion cn = new Conexion();
         try {
@@ -215,7 +215,7 @@ public class Conexion {
                     vectorDatos = new String[1][numeroDatos];
                     contadorDatos = 0;
                     // System.out.println("Copia"+vectorDatosCopia[0][0]+vectorDatosCopia[0][1]+vectorDatosCopia[0][2]+vectorDatosCopia[0][3]+vectorDatosCopia[0][4]+vectorDatosCopia[0][5]+vectorDatosCopia[0][6]+vectorDatosCopia[0][7]+vectorDatosCopia[0][8]+vectorDatosCopia[0][9]+vectorDatosCopia[0][10]+vectorDatosCopia[0][11]);
-                    crearOrden(encabezadoCampos, vectorDatosCopia, datosRutas, cn);
+                    crearOrden(encabezadoCampos, vectorDatosCopia, cn);
                 } else {
                     // vectorDatosTmp = new String[1][numeroDatos];
                     //Se recorre la lista de campos para agregar solo los campos necesarios
@@ -226,7 +226,7 @@ public class Conexion {
                         contadorTmp++;
                     }
                     datos.add(vectorDatosTmp);
-                    crearOrden(encabezadoCampos, vectorDatosTmp, datosRutas, cn);
+                    crearOrden(encabezadoCampos, vectorDatosTmp, cn);
                     // System.out.println("vector"+vectorDatosTmp[0][2]);
                     contadorDatos = 0;
                     nameAnterior = vectorDatos[0][0];
@@ -280,7 +280,7 @@ public class Conexion {
         return posicionCampos;
     }
 
-    public static void crearOrden(String encabezados[], /*ArrayList<String[][]>*/ String[][] datos, ArrayList<String[]> direcciones, Conexion cn) {
+    public static void crearOrden(String encabezados[], /*ArrayList<String[][]>*/ String[][] datos,  Conexion cn) {
         cn = new Conexion();
         Order order;
         String campoAddress = "";
@@ -324,19 +324,19 @@ public class Conexion {
                 }
             }
 
-            for (int j = 0; j < direcciones.size(); j++) {
+           /* for (int j = 0; j < direcciones.size(); j++) {
                 // System.out.println("Campo: " +campoAddress+ " direccion: "+ direcciones.get(j)[0]);
                 if (direcciones.get(j)[1].equalsIgnoreCase(campoAddress)) {
                     order.setStop(Integer.parseInt(direcciones.get(j)[0]));
                 }
             }
-
+*/
             insertarDatos(order, cn);
             // cn.con.close();
         }
         // return order;
     }
-
+/*
     public static ArrayList<String[]> cargarArchivoRutas(String ruta) {
         Path filePath = Paths.get(ruta);
         ArrayList<String[]> direcciones = new ArrayList<>();
@@ -377,7 +377,44 @@ public class Conexion {
         }
         return direcciones;
     }
+*/
+    
+     public static ArrayList<String[]> cargarArchivoRutas(String ruta) {
+        Path filePath = Paths.get(ruta);
+        ArrayList<String[]> direcciones = new ArrayList<>();
+        try {
+            BufferedReader bf = Files.newBufferedReader(filePath);
+            String linea;
+            String[] encabezadosVector;
+            String[] datosLinea;
+            String[] datoGuardar = new String[2];
+            boolean primeraLinea = true;
+            int posicionAddress = 0;
+            int posicionStop = 0;
 
+            //Recorremos las lineas del archivo
+            while ((linea = bf.readLine()) != null) {
+                datoGuardar = new String[2];
+                if (primeraLinea) {
+                    encabezadosVector = linea.split(";");
+                    
+                    primeraLinea = false;
+                } else {
+                    datosLinea = linea.split(";");
+                    datoGuardar[0] = datosLinea[1];
+                    datoGuardar[1] = datosLinea[0];
+                    //System.out.println("Stop:"+datoGuardar[0]+"Addres:"+datoGuardar[1]);
+                    direcciones.add(datoGuardar);
+
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return direcciones;
+    }
+     
+     
     public static String buscarEnFieldConfigure(String campo, Conexion cn) {
         //cn=new Conexion();
         Statement st;
@@ -456,23 +493,20 @@ public class Conexion {
             e.printStackTrace();
         }
     }
+    
+     public static void actualizarRutas( int stop, int idOrder) {
+        Conexion cn = new Conexion();
+        Statement st;
+        ResultSet rs;
+        try {
+            st = (Statement) cn.con.createStatement();
+            //rs = st.executeQuery("insert into products (id, nombre, precio, cantidad) values (3,'cereza', 900,5 )");
+            rs = st.executeQuery("UPDATE orders SET stop = '"+stop+"' WHERE orders.id ="+idOrder);
+            cn.con.close();
+        } catch (Exception e) {
+        }
+    }
+    
 }
 
 
-/*
-try {
-            String ruta = "/ruta/filename.txt";
-            String contenido = "Contenido de ejemplo";
-            File file = new File(ruta);
-            // Si el archivo no existe es creado
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(contenido);
-            bw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-*/
