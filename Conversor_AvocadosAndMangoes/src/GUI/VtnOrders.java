@@ -276,6 +276,21 @@ public class VtnOrders extends javax.swing.JFrame {
 
     private void cargarOrdenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarOrdenesActionPerformed
         // TODO add your handling code here:
+        
+        String rutaOrdenes = dirOrdenes.getText();
+        String rutaRutas = dirRutas.getText();
+        
+        if(!rutaOrdenes.equalsIgnoreCase("")){
+            Conexion.cargarArchivo(rutaOrdenes);
+        }
+        
+        if(!rutaRutas.equalsIgnoreCase("")){
+            Conexion.cargarArchivoRutas(rutaRutas);
+        }
+        
+        dirOrdenes.setText("");
+        dirRutas.setText("");
+        
     }//GEN-LAST:event_cargarOrdenesActionPerformed
 
     public void irA(JFrame ventana){
