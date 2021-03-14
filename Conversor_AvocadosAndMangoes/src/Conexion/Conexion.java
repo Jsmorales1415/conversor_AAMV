@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -249,7 +250,7 @@ public class Conexion {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+             JOptionPane.showMessageDialog(null, "Error al leer el archivo, por favor verifique la ruta");
         }
 
         return datos;
@@ -290,7 +291,7 @@ public class Conexion {
             cn.con.close();
             return posicionCampos;
         } catch (Exception e) {
-            e.printStackTrace();
+             JOptionPane.showMessageDialog(null, "Error al leer conectarse con la base de datos para validar los campos");
         }
         return posicionCampos;
     }
@@ -424,7 +425,7 @@ public class Conexion {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+             JOptionPane.showMessageDialog(null, "Error al leer el archivo de rutas, por favor verifique el directorio");
         }
         return direcciones;
     }
@@ -443,6 +444,7 @@ public class Conexion {
             }
           //  cn.con.close();
         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error al buscar los campos en la base de datos");
         }
 
         return "error";
@@ -500,11 +502,12 @@ public class Conexion {
                 }
                 cn.con.close();
             } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos");
             }
             
             bw.close();
         } catch (Exception e) {
-            e.printStackTrace();
+             JOptionPane.showMessageDialog(null, "Error al escribir el archivo, por favor verifique la ruta");
         }
     }
     
@@ -532,6 +535,7 @@ public class Conexion {
             
             cn.con.close();
         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos para actualizar rutas");
         }
     }
      
@@ -546,7 +550,7 @@ public class Conexion {
             PS.close();
             cn.con.close();
          }catch (Exception e){
-             
+              JOptionPane.showMessageDialog(null, "Error al vaciar la tabla de ordenes");
          }
      }
      
