@@ -56,7 +56,7 @@ public class Conexion {
         ArrayList<String[][]> datos = new ArrayList<>();
         datos = cargarArchivo( "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
         //escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.txt");
-        //cargarArchivoRutas("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routes.csv");
+       cargarArchivoRutas("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routes.csv");
     }
 
     public static void listarDatos() {
@@ -252,7 +252,7 @@ public class Conexion {
         } catch (IOException e) {
              JOptionPane.showMessageDialog(null, "Error al leer el archivo, por favor verifique la ruta");
         }
-
+        JOptionPane.showMessageDialog(null, "Se ha cargado correctamente el archivo de ordenes");
         return datos;
     }
 
@@ -427,6 +427,8 @@ public class Conexion {
         } catch (IOException e) {
              JOptionPane.showMessageDialog(null, "Error al leer el archivo de rutas, por favor verifique el directorio");
         }
+        
+        JOptionPane.showMessageDialog(null, "Se ha cargado correctamente el archivo de rutas");
         return direcciones;
     }
      
