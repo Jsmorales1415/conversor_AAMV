@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,7 +25,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
     
     public VtnVisualizar() {
         initComponents();
-        this.setLocation(250, 80);
+        this.setLocation(100, 30);
         this.setResizable(false);
         
         //Carga de las ordenes de base de datos a la tabla de visualizacion
@@ -47,17 +48,44 @@ public class VtnVisualizar extends javax.swing.JFrame {
         tablaOrdenes = new javax.swing.JTable();
         btnRegresar = new javax.swing.JToggleButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         btnVerOrden = new javax.swing.JButton();
         btnEliminarOrden = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btnAdicionarOrden = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        btnLimpiarCampos = new javax.swing.JButton();
         cmpBusqueda = new javax.swing.JTextField();
         btnBuscarOrden = new javax.swing.JButton();
         btnFiltros = new javax.swing.JButton();
+        comboBusqueda = new javax.swing.JComboBox<>();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        cmpCliente = new javax.swing.JTextField();
+        cmpTel = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        cmpDir = new javax.swing.JTextField();
+        cmpDir2 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        cmpPro = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        cantPro = new javax.swing.JSpinner();
+        jLabel13 = new javax.swing.JLabel();
+        cmpPrecioU = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
+        cmpCiudad = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        cmpCodPostal = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        cmpNotas = new javax.swing.JTextArea();
+        jLabel19 = new javax.swing.JLabel();
+        cmpMedPag = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,41 +95,42 @@ public class VtnVisualizar extends javax.swing.JFrame {
 
         tablaOrdenes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cliente", "Producto", "Precio unitario", "Cantidad", "Total"
+                "Teléfono", "Cliente", "Dirección", "Dirección2", "Producto", "Precio unitario", "Cantidad", "Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -110,6 +139,11 @@ public class VtnVisualizar extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tablaOrdenes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaOrdenesMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tablaOrdenes);
@@ -125,10 +159,6 @@ public class VtnVisualizar extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
 
-        jLabel2.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Controles");
-
         btnVerOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/reciboIcon.png"))); // NOI18N
 
         btnEliminarOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/papelera.png"))); // NOI18N
@@ -139,10 +169,9 @@ public class VtnVisualizar extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Visualizar");
+        jLabel5.setText("Modificar");
 
         btnAdicionarOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/masIcon.png"))); // NOI18N
-        btnAdicionarOrden.setEnabled(false);
         btnAdicionarOrden.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdicionarOrdenActionPerformed(evt);
@@ -153,59 +182,83 @@ public class VtnVisualizar extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Adicionar");
 
+        jLabel15.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("Limpiar");
+
+        btnLimpiarCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/limpiar_icon.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(btnVerOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(btnEliminarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel4)))
                     .addComponent(jLabel6)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(btnAdicionarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnAdicionarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(btnVerOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(btnEliminarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(btnLimpiarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel15)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnVerOrden)
-                    .addComponent(btnEliminarOrden))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAdicionarOrden)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(btnLimpiarCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnEliminarOrden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnVerOrden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAdicionarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
-        cmpBusqueda.setFont(new java.awt.Font("Bookman Old Style", 0, 18)); // NOI18N
+        cmpBusqueda.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        cmpBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmpBusquedaKeyPressed(evt);
+            }
+        });
 
         btnBuscarOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/lupa.png"))); // NOI18N
+        btnBuscarOrden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarOrdenActionPerformed(evt);
+            }
+        });
+        btnBuscarOrden.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnBuscarOrdenKeyPressed(evt);
+            }
+        });
 
         btnFiltros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/filtro_icon.png"))); // NOI18N
         btnFiltros.setEnabled(false);
@@ -215,6 +268,289 @@ public class VtnVisualizar extends javax.swing.JFrame {
             }
         });
 
+        comboBusqueda.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        comboBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Telefono", "Cliente", "Direccion", "Direccion2" }));
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+
+        jLabel7.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel7.setText("Cliente");
+
+        cmpCliente.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        cmpCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmpClienteKeyPressed(evt);
+            }
+        });
+
+        cmpTel.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        cmpTel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmpTelKeyPressed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Teléfono");
+
+        jLabel9.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Dirección");
+
+        cmpDir.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        cmpDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmpDirActionPerformed(evt);
+            }
+        });
+        cmpDir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmpDirKeyPressed(evt);
+            }
+        });
+
+        cmpDir2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        cmpDir2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmpDir2ActionPerformed(evt);
+            }
+        });
+        cmpDir2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmpDir2KeyPressed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Dirección 2");
+
+        cmpPro.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        cmpPro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmpProActionPerformed(evt);
+            }
+        });
+        cmpPro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmpProKeyPressed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Producto");
+
+        jLabel12.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Cantidad");
+
+        cantPro.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                cantProStateChanged(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("Precio unitario");
+
+        cmpPrecioU.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        cmpPrecioU.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmpPrecioUActionPerformed(evt);
+            }
+        });
+        cmpPrecioU.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmpPrecioUKeyPressed(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("TOTAL");
+
+        lblTotal.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotal.setText("---");
+
+        cmpCiudad.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        cmpCiudad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmpCiudadActionPerformed(evt);
+            }
+        });
+        cmpCiudad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmpCiudadKeyPressed(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("Ciudad");
+
+        cmpCodPostal.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        cmpCodPostal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmpCodPostalActionPerformed(evt);
+            }
+        });
+        cmpCodPostal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmpCodPostalKeyPressed(evt);
+            }
+        });
+
+        jLabel17.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setText("Código postal");
+
+        jLabel18.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel18.setText("Notas");
+
+        cmpNotas.setColumns(20);
+        cmpNotas.setRows(5);
+        jScrollPane2.setViewportView(cmpNotas);
+
+        jLabel19.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setText("Medio de pago");
+
+        cmpMedPag.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        cmpMedPag.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmpMedPagActionPerformed(evt);
+            }
+        });
+        cmpMedPag.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmpMedPagKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2)
+                            .addComponent(cmpCliente)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(cmpTel, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(cmpDir, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(cmpDir2))))
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(cmpPro)
+                                        .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cmpCiudad, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
+                                    .addComponent(jLabel11))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel17)
+                                    .addComponent(cmpCodPostal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel13)
+                                    .addComponent(cmpPrecioU, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel18)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cantPro))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(35, 35, 35)
+                                        .addComponent(jLabel14))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel19)
+                                    .addComponent(cmpMedPag, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(cmpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmpTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmpDir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmpDir2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmpCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmpCodPostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmpPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmpPrecioU))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cantPro)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmpMedPag)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -223,63 +559,77 @@ public class VtnVisualizar extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(196, 196, 196)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 790, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
+                                .addGap(4, 4, 4)
+                                .addComponent(comboBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cmpBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(16, 16, 16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnBuscarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(38, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(405, 405, 405)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1178, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1))
+                            .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnBuscarOrden, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmpBusqueda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cmpBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnFiltros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(79, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(42, 42, 42))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(64, 64, 64)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(445, Short.MAX_VALUE)))
+                    .addContainerGap(504, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -292,12 +642,109 @@ public class VtnVisualizar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAdicionarOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarOrdenActionPerformed
-        // TODO add your handling code here:
+        AdicionarDatosTabla();
+        CargarDatosTabla();
     }//GEN-LAST:event_btnAdicionarOrdenActionPerformed
 
     private void btnFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFiltrosActionPerformed
+
+    private void btnBuscarOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarOrdenActionPerformed
+        CargarDatosTabla();
+    }//GEN-LAST:event_btnBuscarOrdenActionPerformed
+
+    private void btnBuscarOrdenKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnBuscarOrdenKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarOrdenKeyPressed
+
+    private void cmpBusquedaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpBusquedaKeyPressed
+        
+        if(evt.getKeyCode() == evt.VK_ENTER) {
+            CargarDatosTabla();
+        }
+    }//GEN-LAST:event_cmpBusquedaKeyPressed
+
+    private void cmpClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpClienteKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpClienteKeyPressed
+
+    private void cmpTelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpTelKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpTelKeyPressed
+
+    private void cmpDirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpDirKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpDirKeyPressed
+
+    private void cmpDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpDirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpDirActionPerformed
+
+    private void cmpDir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpDir2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpDir2ActionPerformed
+
+    private void cmpDir2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpDir2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpDir2KeyPressed
+
+    private void cmpProKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpProKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpProKeyPressed
+
+    private void cmpProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpProActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpProActionPerformed
+
+    private void cmpPrecioUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpPrecioUActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpPrecioUActionPerformed
+
+    private void cmpPrecioUKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpPrecioUKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpPrecioUKeyPressed
+
+    private void cmpCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpCiudadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpCiudadActionPerformed
+
+    private void cmpCiudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpCiudadKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpCiudadKeyPressed
+
+    private void cmpCodPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpCodPostalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpCodPostalActionPerformed
+
+    private void cmpCodPostalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpCodPostalKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpCodPostalKeyPressed
+
+    private void cmpMedPagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpMedPagActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpMedPagActionPerformed
+
+    private void cmpMedPagKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpMedPagKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpMedPagKeyPressed
+
+    private void tablaOrdenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaOrdenesMouseClicked
+        //Evento al presionar doble click sobre registro de la tabla
+        SeleccionarDatosTabla();
+    }//GEN-LAST:event_tablaOrdenesMouseClicked
+
+    private void cantProStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cantProStateChanged
+        //Si la cantidad es cambiada, se refresca el total
+        double total = 0;
+        int cant = (Integer)cantPro.getValue();
+        double precioUProd = Double.parseDouble(cmpPrecioU.getText());
+        
+        total = cant * precioUProd;
+        
+        lblTotal.setText(String.valueOf(total));
+        
+    }//GEN-LAST:event_cantProStateChanged
     
     public void irA(JFrame ventana){
         this.dispose();
@@ -313,6 +760,35 @@ public class VtnVisualizar extends javax.swing.JFrame {
         Conexion cnx = new Conexion();
         Connection con;
         String sql = "";
+        
+        //Variables utilizadas para la busqueda 
+        String itemSeleccionado = (String)comboBusqueda.getSelectedItem();
+        String cmpBuscar = cmpBusqueda.getText();
+        String where = "";
+            
+        //Si la variable del campo no esta vacia
+        if ( !"".equals(cmpBuscar) )
+        {
+            //Segun el campo seleccionado en el combo hace ciertas busquedas:
+            //Cuando es telefono lo busca con exactitud ya que es llave primaria
+            if ( itemSeleccionado.equalsIgnoreCase("telefono") )
+            {
+                where = "WHERE shippingPhone = '"+cmpBuscar+"'";
+            }//Si es cliente busca el patron indicado al inicio de la cadena (patron%)
+            else if ( itemSeleccionado.equalsIgnoreCase("cliente") )
+            {
+                where = "WHERE shippingName LIKE '"+cmpBuscar+"%'";
+            }
+            else if ( itemSeleccionado.equalsIgnoreCase("direccion") )
+            {
+                where = "WHERE address LIKE '"+cmpBuscar+"%'";
+            }
+            else if ( itemSeleccionado.equalsIgnoreCase("direccion2") )
+            {
+                where = "WHERE address2 LIKE '"+cmpBuscar+"%'";
+            }
+        }
+        
         try {
             
             int cantCol;
@@ -321,18 +797,30 @@ public class VtnVisualizar extends javax.swing.JFrame {
             
             tablaOrdenes.setModel(tablaModelo);
             
-            sql = "SELECT shippingName, itemName, value, cant, total FROM orders";
+            sql = "SELECT id, shippingPhone, shippingName, address, address2, itemName, value, cant, total FROM orders "+where;
             resSet = prepStat.executeQuery(sql);
             
             rsMd = resSet.getMetaData();
             cantCol = rsMd.getColumnCount();
             
             //Asigna rotulos a la tabla
+            tablaModelo.addColumn("Id");
+            tablaModelo.addColumn("Teléfono");
             tablaModelo.addColumn("Cliente");
+            tablaModelo.addColumn("Dirección");
+            tablaModelo.addColumn("Dirección2");
             tablaModelo.addColumn("Producto");
-            tablaModelo.addColumn("Precio unitario");
+            tablaModelo.addColumn("Precio c/u");
             tablaModelo.addColumn("Cantidad");
             tablaModelo.addColumn("Total");
+            
+            //Pone ancho de las columnas
+            int [] anchoCols = {15, 60, 200, 100, 100, 80, 40, 30, 50};
+            
+            for ( int j = 0; j < cantCol; j++ )
+            {
+                tablaOrdenes.getColumnModel().getColumn(j).setPreferredWidth(anchoCols[j]);
+            }
             
             while ( resSet.next() )
             {
@@ -349,6 +837,104 @@ public class VtnVisualizar extends javax.swing.JFrame {
             }
             
         } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+    
+    //Funcion para adicionar registros a base de datos
+    public void AdicionarDatosTabla(){
+        
+        Statement prepStat = null;
+        ResultSet resSet = null;
+        ResultSetMetaData rsMd = null;
+        Conexion cnx = new Conexion();
+        String sql = "";
+        
+        //Variables para adicionar en base de datos
+        String stop = "0";
+        String telefono = cmpTel.getText();
+        String cliente = cmpCliente.getText();
+        String direccion = cmpDir.getText();
+        String direccion2 = cmpDir2.getText();
+        String ciudad = cmpCiudad.getText();
+        String codigoPostal = cmpCodPostal.getText();
+        String producto = cmpPro.getText();
+        String precioU = cmpPrecioU.getText();
+        String cantidad = cantPro.getValue().toString();
+        String total = lblTotal.getText();
+        String medioPago = cmpMedPag.getText();
+        String notas = cmpNotas.getText();
+        
+        try {
+            
+            prepStat = (Statement) cnx.con.createStatement(); 
+            
+            sql = "INSERT INTO orders (stop, shippingPhone, shippingName, address, address2, city, postalCode, itemName, cant, value, total, payment, comments)"
+                    + " VALUES ("
+                    + "'"+stop+"',"
+                    + "'"+telefono+"',"
+                    + "'"+cliente+"',"
+                    + "'"+direccion+"',"
+                    + "'"+direccion2+"',"
+                    + "'"+ciudad+"',"
+                    + "'"+codigoPostal+"',"
+                    + "'"+producto+"',"
+                    + ""+cantidad+","
+                    + ""+precioU+","
+                    + ""+total+","
+                    + "'"+medioPago+"',"
+                    + "'"+notas+"');";
+            
+            //System.out.println(sql);
+            
+            prepStat.executeUpdate(sql);
+            
+            JOptionPane.showMessageDialog(this, "Orden agregada a la base de datos", "Base de datos", 1);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al obtener registro de base de datos: "+e, "Error", 0);
+            System.out.println(e.toString());
+        }
+    }
+    
+    //Seleccionar datos de tabla para pasarlos a campos de texto del área de registro
+    public void SeleccionarDatosTabla(){
+        
+        Statement prepStat = null;
+        ResultSet resSet = null;
+        Conexion cnx = new Conexion();
+        String sql = "";
+        
+        try {
+            
+            prepStat = (Statement) cnx.con.createStatement(); 
+            
+            int fila = tablaOrdenes.getSelectedRow();
+            String id = tablaOrdenes.getValueAt(fila, 0).toString();
+            
+            sql = "SELECT id, shippingPhone, shippingName, address, address2, city, postalCode, itemName, cant, value, total, payment, comments "
+                    + "FROM orders WHERE id = '"+ id +"'";
+            resSet = prepStat.executeQuery(sql);
+            
+            
+            while ( resSet.next() )
+            {
+                cmpCliente.setText(resSet.getString("shippingName"));
+                cmpTel.setText(resSet.getString("shippingPhone"));
+                cmpDir.setText(resSet.getString("address"));
+                cmpDir2.setText(resSet.getString("address2"));
+                cmpCiudad.setText(resSet.getString("city"));
+                cmpCodPostal.setText(resSet.getString("postalCode"));
+                cmpPro.setText(resSet.getString("itemName"));
+                cmpPrecioU.setText(resSet.getString("value"));
+                cantPro.setValue(resSet.getInt("cant"));
+                lblTotal.setText(resSet.getString("total"));
+                cmpMedPag.setText(resSet.getString("payment"));
+                cmpNotas.setText(resSet.getString("comments"));
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al obtener registro de base de datos: "+e);
             System.out.println(e.toString());
         }
     }
@@ -393,19 +979,46 @@ public class VtnVisualizar extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscarOrden;
     private javax.swing.JButton btnEliminarOrden;
     private javax.swing.JButton btnFiltros;
+    private javax.swing.JButton btnLimpiarCampos;
     private javax.swing.JToggleButton btnRegresar;
     private javax.swing.JButton btnVerOrden;
+    private javax.swing.JSpinner cantPro;
     private javax.swing.JTextField cmpBusqueda;
+    private javax.swing.JTextField cmpCiudad;
+    private javax.swing.JTextField cmpCliente;
+    private javax.swing.JTextField cmpCodPostal;
+    private javax.swing.JTextField cmpDir;
+    private javax.swing.JTextField cmpDir2;
+    private javax.swing.JTextField cmpMedPag;
+    private javax.swing.JTextArea cmpNotas;
+    private javax.swing.JTextField cmpPrecioU;
+    private javax.swing.JTextField cmpPro;
+    private javax.swing.JTextField cmpTel;
+    private javax.swing.JComboBox<String> comboBusqueda;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblTotal;
     private javax.swing.JTable tablaOrdenes;
     // End of variables declaration//GEN-END:variables
 }

@@ -80,7 +80,7 @@ public class VtnOrders extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Bookman Old Style", 1, 30)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 204, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Avocados and Mangoes");
+        jLabel1.setText("The Home Market Inc.");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 

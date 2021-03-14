@@ -39,6 +39,7 @@ public class VtnMain extends javax.swing.JFrame {
         btnClientes = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        btnIngEgr = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,7 +80,16 @@ public class VtnMain extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Bookman Old Style", 1, 30)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 204, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Avocados and Mangoes");
+        jLabel1.setText("The Home Market Inc.");
+
+        btnIngEgr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/CapIngresos.PNG"))); // NOI18N
+        btnIngEgr.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnIngEgr.setEnabled(false);
+        btnIngEgr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngEgrActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -93,8 +103,13 @@ public class VtnMain extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnHistorial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnOrdenes, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE))
-                        .addGap(19, 19, 19)
-                        .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(btnIngEgr, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(214, 214, 214)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -116,7 +131,9 @@ public class VtnMain extends javax.swing.JFrame {
                     .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                     .addComponent(btnOrdenes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIngEgr, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
@@ -152,6 +169,10 @@ public class VtnMain extends javax.swing.JFrame {
     private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
         
     }//GEN-LAST:event_btnHistorialActionPerformed
+
+    private void btnIngEgrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngEgrActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIngEgrActionPerformed
 
     public void irA(JFrame ventana){
         this.dispose();
@@ -199,6 +220,7 @@ public class VtnMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnHistorial;
+    private javax.swing.JButton btnIngEgr;
     private javax.swing.JButton btnOrdenes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
