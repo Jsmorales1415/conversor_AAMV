@@ -187,6 +187,11 @@ public class VtnVisualizar extends javax.swing.JFrame {
         jLabel15.setText("Limpiar");
 
         btnLimpiarCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/limpiar_icon.png"))); // NOI18N
+        btnLimpiarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarCamposActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -737,14 +742,35 @@ public class VtnVisualizar extends javax.swing.JFrame {
     private void cantProStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cantProStateChanged
         //Si la cantidad es cambiada, se refresca el total
         double total = 0;
+        double precioUProd = 0;
         int cant = (Integer)cantPro.getValue();
-        double precioUProd = Double.parseDouble(cmpPrecioU.getText());
+        if ( !cmpPrecioU.getText().equals("") )
+        {
+            precioUProd = Double.parseDouble(cmpPrecioU.getText());
+        }
         
         total = cant * precioUProd;
         
         lblTotal.setText(String.valueOf(total));
         
     }//GEN-LAST:event_cantProStateChanged
+
+    private void btnLimpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCamposActionPerformed
+        //Limpia campos del area de registro
+        int cero = 0;
+        cmpTel.setText("");
+        cmpCliente.setText("");
+        cmpDir.setText("");
+        cmpDir2.setText("");
+        cmpCiudad.setText("");
+        cmpCodPostal.setText("");
+        cmpPro.setText("");
+        cmpPrecioU.setText("");;
+        cantPro.setValue(cero);
+        lblTotal.setText("---");
+        cmpMedPag.setText("");
+        cmpNotas.setText("");
+    }//GEN-LAST:event_btnLimpiarCamposActionPerformed
     
     public void irA(JFrame ventana){
         this.dispose();

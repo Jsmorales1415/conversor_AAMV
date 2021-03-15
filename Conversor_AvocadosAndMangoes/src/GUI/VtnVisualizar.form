@@ -362,6 +362,9 @@
                   <Image iconType="3" name="/Recursos/limpiar_icon.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpiarCamposActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
