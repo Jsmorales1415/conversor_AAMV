@@ -86,6 +86,8 @@ public class VtnVisualizar extends javax.swing.JFrame {
         cmpNotas = new javax.swing.JTextArea();
         jLabel19 = new javax.swing.JLabel();
         cmpMedPag = new javax.swing.JTextField();
+        cmpId = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -159,9 +161,19 @@ public class VtnVisualizar extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
 
-        btnVerOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/reciboIcon.png"))); // NOI18N
+        btnVerOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/lapiz_icon.png"))); // NOI18N
+        btnVerOrden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerOrdenActionPerformed(evt);
+            }
+        });
 
         btnEliminarOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/papelera.png"))); // NOI18N
+        btnEliminarOrden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarOrdenActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -199,28 +211,25 @@ public class VtnVisualizar extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(btnAdicionarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(btnAdicionarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel6))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(btnVerOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnVerOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEliminarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(btnEliminarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(btnLimpiarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel15)))
+                    .addComponent(btnLimpiarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -241,7 +250,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnEliminarOrden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnVerOrden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAdicionarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addComponent(btnAdicionarOrden, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -438,6 +447,23 @@ public class VtnVisualizar extends javax.swing.JFrame {
             }
         });
 
+        cmpId.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        cmpId.setEnabled(false);
+        cmpId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmpIdActionPerformed(evt);
+            }
+        });
+        cmpId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmpIdKeyPressed(evt);
+            }
+        });
+
+        jLabel20.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel20.setText("Id");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -445,69 +471,75 @@ public class VtnVisualizar extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2)
-                            .addComponent(cmpCliente)
+                            .addComponent(jLabel9)
+                            .addComponent(cmpDir, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(cmpTel, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel10)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(cmpDir, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(cmpDir2))))
-                        .addContainerGap())
+                            .addComponent(cmpDir2)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmpTel, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(cmpPro)
-                                        .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cmpCiudad, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
-                                    .addComponent(jLabel11))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel17)
-                                    .addComponent(cmpCodPostal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel13)
-                                    .addComponent(cmpPrecioU, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel18)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cantPro))
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(35, 35, 35)
-                                        .addComponent(jLabel14))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(cmpPro)
+                                                .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(cmpCiudad, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
+                                            .addComponent(jLabel11))
                                         .addGap(18, 18, 18)
-                                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel19)
-                                    .addComponent(cmpMedPag, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel17)
+                                            .addComponent(cmpCodPostal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel13)
+                                            .addComponent(cmpPrecioU, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel18)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cantPro))
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addGap(35, 35, 35)
+                                                .addComponent(jLabel14))
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel19)
+                                            .addComponent(cmpMedPag, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel20)
+                                    .addComponent(cmpId, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmpId))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(cmpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmpTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -649,6 +681,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
     private void btnAdicionarOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarOrdenActionPerformed
         AdicionarDatosTabla();
         CargarDatosTabla();
+        limpiarDatos();
     }//GEN-LAST:event_btnAdicionarOrdenActionPerformed
 
     private void btnFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrosActionPerformed
@@ -737,6 +770,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
     private void tablaOrdenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaOrdenesMouseClicked
         //Evento al presionar doble click sobre registro de la tabla
         SeleccionarDatosTabla();
+        
     }//GEN-LAST:event_tablaOrdenesMouseClicked
 
     private void cantProStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cantProStateChanged
@@ -756,21 +790,28 @@ public class VtnVisualizar extends javax.swing.JFrame {
     }//GEN-LAST:event_cantProStateChanged
 
     private void btnLimpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCamposActionPerformed
-        //Limpia campos del area de registro
-        int cero = 0;
-        cmpTel.setText("");
-        cmpCliente.setText("");
-        cmpDir.setText("");
-        cmpDir2.setText("");
-        cmpCiudad.setText("");
-        cmpCodPostal.setText("");
-        cmpPro.setText("");
-        cmpPrecioU.setText("");;
-        cantPro.setValue(cero);
-        lblTotal.setText("---");
-        cmpMedPag.setText("");
-        cmpNotas.setText("");
+        limpiarDatos();
     }//GEN-LAST:event_btnLimpiarCamposActionPerformed
+
+    private void cmpIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpIdActionPerformed
+
+    private void cmpIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpIdKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpIdKeyPressed
+
+    private void btnVerOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerOrdenActionPerformed
+        //Modifica el registro en base de datos
+        ModificarDatosTabla();
+        CargarDatosTabla();
+    }//GEN-LAST:event_btnVerOrdenActionPerformed
+
+    private void btnEliminarOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarOrdenActionPerformed
+        //Elimina el registro seleccionado de la base de datos
+        EliminarDatosTabla();
+        CargarDatosTabla();
+    }//GEN-LAST:event_btnEliminarOrdenActionPerformed
     
     public void irA(JFrame ventana){
         this.dispose();
@@ -923,6 +964,87 @@ public class VtnVisualizar extends javax.swing.JFrame {
         }
     }
     
+    //Funcion para modificar en base de datos el registro seleccionado
+    public void ModificarDatosTabla(){
+        
+        Statement prepStat = null;
+        Conexion cnx = new Conexion();
+        String sql = "";
+        
+        //Variables para adicionar en base de datos
+        String id = cmpId.getText();
+        String telefono = cmpTel.getText();
+        String cliente = cmpCliente.getText();
+        String direccion = cmpDir.getText();
+        String direccion2 = cmpDir2.getText();
+        String ciudad = cmpCiudad.getText();
+        String codigoPostal = cmpCodPostal.getText();
+        String producto = cmpPro.getText();
+        String precioU = cmpPrecioU.getText();
+        String cantidad = cantPro.getValue().toString();
+        String total = lblTotal.getText();
+        String medioPago = cmpMedPag.getText();
+        String notas = cmpNotas.getText();
+        
+        try {
+            
+            prepStat = (Statement) cnx.con.createStatement(); 
+            
+            sql = "UPDATE orders SET "
+                    + "shippingPhone = '"+telefono+"', "
+                    + "shippingName = '"+cliente+"', "
+                    + "address = '"+direccion+"', "
+                    + "address2 = '"+direccion2+"', "
+                    + "city = '"+ciudad+"', "
+                    + "postalCode = '"+codigoPostal+"', "
+                    + "itemName = '"+producto+"', "
+                    + "cant = "+cantidad+", "
+                    + "value = "+precioU+", "
+                    + "total = "+total+", "
+                    + "payment = '"+medioPago+"', "
+                    + "comments = '"+notas+"' "
+                    + "WHERE id = '"+id+"'";
+            
+            //System.out.println(sql);
+            
+            prepStat.executeUpdate(sql);
+            
+            JOptionPane.showMessageDialog(this, "Orden modificada en la base de datos", "Base de datos", 1);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al obtener registro de base de datos: "+e, "Error", 0);
+            System.out.println(e.toString());
+        }
+    }
+    
+    //Funcion para eliminar de base de datos el registro seleccionado
+    public void EliminarDatosTabla(){
+        
+        Statement prepStat = null;
+        Conexion cnx = new Conexion();
+        String sql = "";
+        
+        //Variables para adicionar en base de datos
+        String id = cmpId.getText();
+        
+        try {
+            
+            prepStat = (Statement) cnx.con.createStatement(); 
+            
+            sql = "DELETE FROM orders WHERE id = '"+id+"'";
+            
+            //System.out.println(sql);
+            
+            prepStat.executeUpdate(sql);
+            
+            JOptionPane.showMessageDialog(this, "Orden fue eliminada de la base de datos", "Base de datos", 1);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al obtener registro de base de datos: "+e, "Error", 0);
+            System.out.println(e.toString());
+        }
+    }
+    
     //Seleccionar datos de tabla para pasarlos a campos de texto del área de registro
     public void SeleccionarDatosTabla(){
         
@@ -945,6 +1067,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
             
             while ( resSet.next() )
             {
+                cmpId.setText(resSet.getString("id"));
                 cmpCliente.setText(resSet.getString("shippingName"));
                 cmpTel.setText(resSet.getString("shippingPhone"));
                 cmpDir.setText(resSet.getString("address"));
@@ -964,6 +1087,27 @@ public class VtnVisualizar extends javax.swing.JFrame {
             System.out.println(e.toString());
         }
     }
+    
+    
+    
+    public void limpiarDatos(){
+        
+        //Limpia campos del area de registro
+        int cero = 0;
+        cmpTel.setText("");
+        cmpCliente.setText("");
+        cmpDir.setText("");
+        cmpDir2.setText("");
+        cmpCiudad.setText("");
+        cmpCodPostal.setText("");
+        cmpPro.setText("");
+        cmpPrecioU.setText("");;
+        cantPro.setValue(cero);
+        lblTotal.setText("---");
+        cmpMedPag.setText("");
+        cmpNotas.setText("");
+    }
+    
     
     /**
      * @param args the command line arguments
@@ -1015,6 +1159,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
     private javax.swing.JTextField cmpCodPostal;
     private javax.swing.JTextField cmpDir;
     private javax.swing.JTextField cmpDir2;
+    private javax.swing.JTextField cmpId;
     private javax.swing.JTextField cmpMedPag;
     private javax.swing.JTextArea cmpNotas;
     private javax.swing.JTextField cmpPrecioU;
@@ -1032,6 +1177,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
