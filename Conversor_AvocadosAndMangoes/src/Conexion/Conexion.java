@@ -204,13 +204,17 @@ public class Conexion {
                     
 
                     for (int x = 0; x < campos.length; x++) {
-                        if (buscarEnFieldConfigure(encabezadosVector[campos[x]], cn).equalsIgnoreCase("itemName")
-                                || buscarEnFieldConfigure(encabezadosVector[campos[x]], cn).equalsIgnoreCase("cant")
-                                || buscarEnFieldConfigure(encabezadosVector[campos[x]], cn).equalsIgnoreCase("value")) {
+                        String campoTabla = buscarEnFieldConfigure(encabezadosVector[campos[x]], cn);
+                        if(campoTabla.equalsIgnoreCase("ErrorBase")){
+                            break;
+                        }
+                        if (campoTabla.equalsIgnoreCase("itemName")
+                                || campoTabla.equalsIgnoreCase("cant")
+                                || campoTabla.equalsIgnoreCase("value")) {
                             vectorDatosCopia[0][contadorTmp] = vectorDatos[0][campos[x]];
                            // System.out.println( vectorDatosCopia[0][contadorTmp]);
                             contadorTmp++;
-                        } else if(buscarEnFieldConfigure(encabezadosVector[campos[x]], cn).equalsIgnoreCase("total")){
+                        } else if(campoTabla.equalsIgnoreCase("total")){
                             vectorDatosCopia[0][contadorTmp] = "0.0";
                             contadorTmp++;
                         }else{
@@ -300,6 +304,7 @@ public class Conexion {
         cn = new Conexion();
         Order order;
         String campoAddress = "";
+        String campoTabla = "";
         /* for (int i = 0; i < encabezados.length; i++) {
             System.out.print(encabezados[i]+" ");
         }
@@ -310,32 +315,35 @@ public class Conexion {
         for (int i = 0; i < datos.length; i++) {
 
             for (int j = 0; j < encabezados.length; j++) {
+                campoTabla = buscarEnFieldConfigure(encabezados[j], cn);
                 //System.out.println("FieldConfigure: " + buscarEnFieldConfigure(encabezados[j], cn));
-                if (buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("shippingPhone")) {
+                if(campoTabla.equalsIgnoreCase("ErrorBase")){
+                    return;
+                }else if (campoTabla.equalsIgnoreCase("shippingPhone")) {
                     order.setShippingPhone(datos[0][j]);
                     //      System.out.println("datos: "+datos[0][j]);
-                } else if (buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("shippingName")) {
+                } else if (campoTabla.equalsIgnoreCase("shippingName")) {
                     order.setShippingName(datos[0][j]);
-                } else if (buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("address")) {
+                } else if (campoTabla.equalsIgnoreCase("address")) {
                     order.setAddress(datos[0][j]);
                     campoAddress = datos[0][j];
-                } else if (buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("address2")) {
+                } else if (campoTabla.equalsIgnoreCase("address2")) {
                     order.setAddress2(datos[0][j]);
-                } else if (buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("city")) {
+                } else if (campoTabla.equalsIgnoreCase("city")) {
                     order.setCity(datos[0][j]);
-                } else if (buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("postalCode")) {
+                } else if (campoTabla.equalsIgnoreCase("postalCode")) {
                     order.setPostalCode(datos[0][j]);
-                } else if (buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("itemName")) {
+                } else if (campoTabla.equalsIgnoreCase("itemName")) {
                     order.setItemName(datos[0][j]);
-                } else if (buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("cant")) {
+                } else if (campoTabla.equalsIgnoreCase("cant")) {
                     order.setCant(Integer.parseInt(datos[0][j]));
-                } else if (buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("value")) {
+                } else if (campoTabla.equalsIgnoreCase("value")) {
                     order.setValue(Double.parseDouble(datos[0][j]));
-                } else if (buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("total")) {
+                } else if (campoTabla.equalsIgnoreCase("total")) {
                     order.setTotal(Double.parseDouble(datos[0][j]));
-                } else if (buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("payment")) {
+                } else if (campoTabla.equalsIgnoreCase("payment")) {
                     order.setPayment(datos[0][j]);
-                } else if (buscarEnFieldConfigure(encabezados[j], cn).equalsIgnoreCase("comments")) {
+                } else if (campoTabla.equalsIgnoreCase("comments")) {
                     order.setComments(datos[0][j]);
                 }
             }
@@ -447,6 +455,7 @@ public class Conexion {
           //  cn.con.close();
         } catch (Exception e) {
              JOptionPane.showMessageDialog(null, "Error al buscar los campos en la base de datos");
+             return "ErrorBase";
         }
 
         return "error";
@@ -513,7 +522,7 @@ public class Conexion {
         }
     }
     
-     public static void actualizarRutas( int stop, String direccion) {
+     public static int actualizarRutas( int stop, String direccion) {
         Conexion cn = new Conexion();
         Statement st;
         ResultSet rs;
@@ -533,11 +542,13 @@ public class Conexion {
                 }
                 
             }
-           
             
             cn.con.close();
+            
+            return 1;
         } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos para actualizar rutas");
+             JOptionPane.showMessageDialog(null, "Error al actualizar los datos de las rutas");
+             return 0;
         }
     }
      
