@@ -473,57 +473,60 @@ public class VtnVisualizar extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(cmpDir, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(cmpDir2)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmpTel, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9)
+                                    .addComponent(cmpDir, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(cmpDir2)))
+                            .addComponent(cmpTel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(cmpPro)
-                                                .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(cmpCiudad, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
-                                            .addComponent(jLabel11))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel17)
-                                            .addComponent(cmpCodPostal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel13)
-                                            .addComponent(cmpPrecioU, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel18)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(cantPro))
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addGap(35, 35, 35)
-                                                .addComponent(jLabel14))
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel16)
+                                                    .addComponent(cmpCiudad)
+                                                    .addComponent(jLabel11)
+                                                    .addComponent(cmpPro, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(18, 18, 18)
-                                                .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel19)
-                                            .addComponent(cmpMedPag, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel17)
+                                                    .addComponent(jLabel13)
+                                                    .addComponent(cmpPrecioU, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(cmpCodPostal, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(jLabel18)
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(cantPro))
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                                        .addGap(35, 35, 35)
+                                                        .addComponent(jLabel14))
+                                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                                        .addGap(18, 18, 18)
+                                                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel19)
+                                                    .addComponent(cmpMedPag, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(jLabel8)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(9, 9, 9))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(cmpCliente)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel20)
                                     .addComponent(cmpId, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(7, 7, 7)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -535,7 +538,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmpCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmpCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmpId))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -566,7 +569,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmpPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmpPrecioU))
+                    .addComponent(cmpPrecioU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -580,7 +583,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
                             .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmpMedPag)))
+                        .addComponent(cmpMedPag, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -610,12 +613,12 @@ public class VtnVisualizar extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(39, 39, 39)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(38, Short.MAX_VALUE))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(405, 405, 405)
@@ -703,103 +706,15 @@ public class VtnVisualizar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cmpBusquedaKeyPressed
 
-    private void cmpClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpClienteKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpClienteKeyPressed
-
-    private void cmpTelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpTelKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpTelKeyPressed
-
-    private void cmpDirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpDirKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpDirKeyPressed
-
-    private void cmpDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpDirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpDirActionPerformed
-
-    private void cmpDir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpDir2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpDir2ActionPerformed
-
-    private void cmpDir2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpDir2KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpDir2KeyPressed
-
-    private void cmpProKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpProKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpProKeyPressed
-
-    private void cmpProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpProActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpProActionPerformed
-
-    private void cmpPrecioUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpPrecioUActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpPrecioUActionPerformed
-
-    private void cmpPrecioUKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpPrecioUKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpPrecioUKeyPressed
-
-    private void cmpCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpCiudadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpCiudadActionPerformed
-
-    private void cmpCiudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpCiudadKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpCiudadKeyPressed
-
-    private void cmpCodPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpCodPostalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpCodPostalActionPerformed
-
-    private void cmpCodPostalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpCodPostalKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpCodPostalKeyPressed
-
-    private void cmpMedPagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpMedPagActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpMedPagActionPerformed
-
-    private void cmpMedPagKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpMedPagKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpMedPagKeyPressed
-
     private void tablaOrdenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaOrdenesMouseClicked
         //Evento al presionar doble click sobre registro de la tabla
         SeleccionarDatosTabla();
         
     }//GEN-LAST:event_tablaOrdenesMouseClicked
 
-    private void cantProStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cantProStateChanged
-        //Si la cantidad es cambiada, se refresca el total
-        double total = 0;
-        double precioUProd = 0;
-        int cant = (Integer)cantPro.getValue();
-        if ( !cmpPrecioU.getText().equals("") )
-        {
-            precioUProd = Double.parseDouble(cmpPrecioU.getText());
-        }
-        
-        total = cant * precioUProd;
-        
-        lblTotal.setText(String.valueOf(total));
-        
-    }//GEN-LAST:event_cantProStateChanged
-
     private void btnLimpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCamposActionPerformed
         limpiarDatos();
     }//GEN-LAST:event_btnLimpiarCamposActionPerformed
-
-    private void cmpIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpIdActionPerformed
-
-    private void cmpIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpIdKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmpIdKeyPressed
 
     private void btnVerOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerOrdenActionPerformed
         //Modifica el registro en base de datos
@@ -811,7 +726,110 @@ public class VtnVisualizar extends javax.swing.JFrame {
         //Elimina el registro seleccionado de la base de datos
         EliminarDatosTabla();
         CargarDatosTabla();
+        limpiarDatos();
     }//GEN-LAST:event_btnEliminarOrdenActionPerformed
+
+    private void cmpIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpIdKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpIdKeyPressed
+
+    private void cmpIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpIdActionPerformed
+
+    private void cmpMedPagKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpMedPagKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpMedPagKeyPressed
+
+    private void cmpMedPagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpMedPagActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpMedPagActionPerformed
+
+    private void cmpCodPostalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpCodPostalKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpCodPostalKeyPressed
+
+    private void cmpCodPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpCodPostalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpCodPostalActionPerformed
+
+    private void cmpCiudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpCiudadKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpCiudadKeyPressed
+
+    private void cmpCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpCiudadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpCiudadActionPerformed
+
+    private void cmpPrecioUKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpPrecioUKeyPressed
+        if(evt.getKeyCode() == evt.VK_ENTER) {
+            //Si la cantidad es cambiada, se refresca el total
+            double total = 0;
+            double precioUProd = 0;
+            int cant = (Integer)cantPro.getValue();
+            if ( !cmpPrecioU.getText().equals("") )
+            {
+                precioUProd = Double.parseDouble(cmpPrecioU.getText());
+            }
+
+            total = cant * precioUProd;
+
+            lblTotal.setText(String.valueOf(total));
+        }
+
+    }//GEN-LAST:event_cmpPrecioUKeyPressed
+
+    private void cmpPrecioUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpPrecioUActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpPrecioUActionPerformed
+
+    private void cantProStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cantProStateChanged
+        //Si la cantidad es cambiada, se refresca el total
+        double total = 0;
+        double precioUProd = 0;
+        int cant = (Integer)cantPro.getValue();
+        if ( !cmpPrecioU.getText().equals("") )
+        {
+            precioUProd = Double.parseDouble(cmpPrecioU.getText());
+        }
+
+        total = cant * precioUProd;
+
+        lblTotal.setText(String.valueOf(total));
+
+    }//GEN-LAST:event_cantProStateChanged
+
+    private void cmpDir2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpDir2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpDir2KeyPressed
+
+    private void cmpDir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpDir2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpDir2ActionPerformed
+
+    private void cmpDirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpDirKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpDirKeyPressed
+
+    private void cmpDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpDirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpDirActionPerformed
+
+    private void cmpTelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpTelKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpTelKeyPressed
+
+    private void cmpClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpClienteKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpClienteKeyPressed
+
+    private void cmpProKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpProKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpProKeyPressed
+
+    private void cmpProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpProActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpProActionPerformed
     
     public void irA(JFrame ventana){
         this.dispose();
@@ -882,7 +900,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
             tablaModelo.addColumn("Total");
             
             //Pone ancho de las columnas
-            int [] anchoCols = {15, 60, 200, 100, 100, 80, 40, 30, 50};
+            int [] anchoCols = {20, 60, 200, 100, 100, 80, 40, 30, 50};
             
             for ( int j = 0; j < cantCol; j++ )
             {
@@ -1094,6 +1112,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
         
         //Limpia campos del area de registro
         int cero = 0;
+        cmpId.setText("");
         cmpTel.setText("");
         cmpCliente.setText("");
         cmpDir.setText("");
