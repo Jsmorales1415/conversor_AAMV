@@ -7,6 +7,7 @@ package Conexion;
 
 import Clases.Client;
 import Clases.Order;
+import Clases.Product;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -56,7 +57,8 @@ public class Conexion {
         ArrayList<String[][]> datos = new ArrayList<>();
         datos = cargarArchivo( "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
         //escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.txt");
-       cargarArchivoRutas("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routes.csv");
+       //cargarArchivoRutas("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routes.csv");
+        escribirArchivoProductos("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\products.csv");
     }
 
     public static void listarDatos() {
@@ -475,7 +477,8 @@ public class Conexion {
             }
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
-           
+            String encabezado = "stop;shippingPhone;shippingName;address;address2;city;postalCode;cant;value;total;payment;comments";
+           bw.write(encabezado);
 
             try {
                 st = (Statement) cn.con.createStatement();
@@ -581,6 +584,65 @@ public class Conexion {
          
          return telefonoSB.toString();
      }
+     
+     
+      public static void escribirArchivoProductos(String ruta) {
+
+        Conexion cn = new Conexion();
+        Statement st;
+        ResultSet rs;
+        StringBuilder contenido = new StringBuilder();
+        Product producto;
+        ArrayList<Product> listaProductos = new ArrayList<>();
+        String nombre;
+        int    cantidad;
+        
+        try {
+            File file = new File(ruta);
+            // Si el archivo no existe es creado
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            try {
+                st = (Statement) cn.con.createStatement();
+                rs = st.executeQuery("select * from orders");
+                while (rs.next()) {
+                    nombre = rs.getString("itemName");
+                    cantidad = rs.getInt("cant");
+                    boolean primerDato = true;
+                    
+                    for (int i = 0; i < listaProductos.size(); i++) {
+                        if(listaProductos.get(i).getNombre().equalsIgnoreCase(nombre)){
+                            cantidad = cantidad + listaProductos.get(i).getCantidad();
+                            listaProductos.get(i).setCantidad(cantidad);
+                            primerDato = false;
+                        }
+                    }
+                    
+                    if(primerDato){
+                        producto = new Product(nombre, cantidad);
+                        listaProductos.add(producto);
+                    }
+ 
+                }
+                
+                for (Product listaProducto : listaProductos) {
+                    bw.write(listaProducto.getNombre()+";"+listaProducto.getCantidad()+"\n");
+                    
+                }
+                cn.con.close();
+            } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos");
+            }
+            
+            bw.close();
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error al escribir el archivo, por favor verifique la ruta");
+        }
+    }
     
 }
 
