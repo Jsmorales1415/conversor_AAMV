@@ -78,7 +78,7 @@ public class VtnOrders extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         btnCargarOrdenes.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
-        btnCargarOrdenes.setText("Subir Ordenes");
+        btnCargarOrdenes.setText("Upload Orders");
         btnCargarOrdenes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnCargarOrdenes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,7 +87,7 @@ public class VtnOrders extends javax.swing.JFrame {
         });
 
         btnUploadRoutes.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
-        btnUploadRoutes.setText("Subir Rutas");
+        btnUploadRoutes.setText("Upload Routes");
         btnUploadRoutes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnUploadRoutes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,7 +145,7 @@ public class VtnOrders extends javax.swing.JFrame {
         );
 
         visOrdenes.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
-        visOrdenes.setText("Visualizar Ordenes");
+        visOrdenes.setText("Check Orders");
         visOrdenes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         visOrdenes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,7 +154,7 @@ public class VtnOrders extends javax.swing.JFrame {
         });
 
         expOrdenes.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
-        expOrdenes.setText("Exportar Ordenes");
+        expOrdenes.setText("Export Orders");
         expOrdenes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         expOrdenes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,7 +165,7 @@ public class VtnOrders extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Bookman Old Style", 1, 40)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Sistema de Información");
+        jLabel2.setText("INFORMATION SYSTEM");
 
         jLabel1.setFont(new java.awt.Font("Bookman Old Style", 1, 30)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -324,45 +324,6 @@ public class VtnOrders extends javax.swing.JFrame {
     public void irA(JFrame ventana){
         this.dispose();
         ventana.setVisible(true);
-    }
-
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VtnOrders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VtnOrders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VtnOrders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VtnOrders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VtnOrders().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

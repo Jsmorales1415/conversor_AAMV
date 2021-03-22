@@ -51,8 +51,10 @@ public class Conexion {
         }
     }
 
+    /*
     public static void main(String[] args) {
         //cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv");
+        
         ArrayList<String> direcciones = new ArrayList<>();
         ArrayList<String[][]> datos = new ArrayList<>();
         datos = cargarArchivo( "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
@@ -60,6 +62,7 @@ public class Conexion {
        //cargarArchivoRutas("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routes.csv");
         escribirArchivoProductos("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\products.csv");
     }
+    */
 
     public static void listarDatos() {
         Conexion cn = new Conexion();
@@ -256,9 +259,10 @@ public class Conexion {
                 }
             }
         } catch (IOException e) {
-             JOptionPane.showMessageDialog(null, "Error al leer el archivo, por favor verifique la ruta");
+             JOptionPane.showMessageDialog(null, "An error has occurred reading the file, please check the file path");
+             return null;
         }
-        JOptionPane.showMessageDialog(null, "Se ha cargado correctamente el archivo de ordenes");
+        JOptionPane.showMessageDialog(null, "The orders file has been uploaded succesfully");
         return datos;
     }
 
@@ -297,7 +301,7 @@ public class Conexion {
             cn.con.close();
             return posicionCampos;
         } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Error al leer conectarse con la base de datos para validar los campos");
+             JOptionPane.showMessageDialog(null, "An error has occurred connecting with database to check the fields");
         }
         return posicionCampos;
     }
@@ -435,10 +439,11 @@ public class Conexion {
                 }
             }
         } catch (IOException e) {
-             JOptionPane.showMessageDialog(null, "Error al leer el archivo de rutas, por favor verifique el directorio");
+             JOptionPane.showMessageDialog(null, "An error has occurred reading the routes file, please check the file path");
+             return null;
         }
         
-        JOptionPane.showMessageDialog(null, "Se ha cargado correctamente el archivo de rutas");
+        JOptionPane.showMessageDialog(null, "The routes file has been uploaded succesfully");
         return direcciones;
     }
      
@@ -456,7 +461,7 @@ public class Conexion {
             }
           //  cn.con.close();
         } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Error al buscar los campos en la base de datos");
+             JOptionPane.showMessageDialog(null, "Search error trying to get the fields from database");
              return "ErrorBase";
         }
 
@@ -516,12 +521,12 @@ public class Conexion {
                 }
                 cn.con.close();
             } catch (Exception e) {
-                 JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos");
+                 JOptionPane.showMessageDialog(null, "An error has occurred trying to connect to database");
             }
             
             bw.close();
         } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Error al escribir el archivo, por favor verifique la ruta");
+             JOptionPane.showMessageDialog(null, "Error trying to write the file, please check the export path");
         }
     }
     
@@ -550,7 +555,7 @@ public class Conexion {
             
             return 1;
         } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Error al actualizar los datos de las rutas");
+             JOptionPane.showMessageDialog(null, "Error trying to update the routes in database");
              return 0;
         }
     }
@@ -566,7 +571,7 @@ public class Conexion {
             PS.close();
             cn.con.close();
          }catch (Exception e){
-              JOptionPane.showMessageDialog(null, "Error al vaciar la tabla de ordenes");
+              JOptionPane.showMessageDialog(null, "An error has occurred while the system was trying to clean the orders table");
          }
      }
      
@@ -635,12 +640,12 @@ public class Conexion {
                 }
                 cn.con.close();
             } catch (Exception e) {
-                 JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos");
+                 JOptionPane.showMessageDialog(null, "Error conecting to the data base");
             }
             
             bw.close();
         } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Error al escribir el archivo, por favor verifique la ruta");
+             JOptionPane.showMessageDialog(null, "Error trying to write the products file, please check the path");
         }
     }
     

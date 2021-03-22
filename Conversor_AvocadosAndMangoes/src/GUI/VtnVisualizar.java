@@ -93,7 +93,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Bookman Old Style", 1, 30)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("ORDENES");
+        jLabel1.setText("ORDERS");
 
         tablaOrdenes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,7 +125,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Teléfono", "Cliente", "Dirección", "Dirección2", "Producto", "Precio unitario", "Cantidad", "Total"
+                "Phone", "Client", "Address", "Address2", "Item", "Unit Price", "Quantity", "Total"
             }
         ) {
             Class[] types = new Class [] {
@@ -177,13 +177,14 @@ public class VtnVisualizar extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Eliminar");
+        jLabel4.setText("Delete");
 
         jLabel5.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Modificar");
+        jLabel5.setText("Update");
 
         btnAdicionarOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/masIcon.png"))); // NOI18N
+        btnAdicionarOrden.setPreferredSize(new java.awt.Dimension(67, 50));
         btnAdicionarOrden.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdicionarOrdenActionPerformed(evt);
@@ -192,11 +193,11 @@ public class VtnVisualizar extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Adicionar");
+        jLabel6.setText("Add");
 
         jLabel15.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("Limpiar");
+        jLabel15.setText("Clean");
 
         btnLimpiarCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/limpiar_icon.png"))); // NOI18N
         btnLimpiarCampos.addActionListener(new java.awt.event.ActionListener() {
@@ -210,49 +211,50 @@ public class VtnVisualizar extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(btnAdicionarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel6))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(btnVerOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEliminarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLimpiarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(btnAdicionarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnVerOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnEliminarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnLimpiarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(btnLimpiarCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel15))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnEliminarOrden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnVerOrden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAdicionarOrden, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(btnLimpiarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 0, 0)
+                                .addComponent(btnEliminarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAdicionarOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnVerOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         cmpBusqueda.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
@@ -283,13 +285,13 @@ public class VtnVisualizar extends javax.swing.JFrame {
         });
 
         comboBusqueda.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        comboBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Telefono", "Cliente", "Direccion", "Direccion2" }));
+        comboBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Phone number", "Client name", "City", "Address", "Address2" }));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
 
         jLabel7.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("Cliente");
+        jLabel7.setText("Client");
 
         cmpCliente.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         cmpCliente.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -307,11 +309,11 @@ public class VtnVisualizar extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Teléfono");
+        jLabel8.setText("Phone number");
 
         jLabel9.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Dirección");
+        jLabel9.setText("Address");
 
         cmpDir.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         cmpDir.addActionListener(new java.awt.event.ActionListener() {
@@ -339,7 +341,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Dirección 2");
+        jLabel10.setText("Address 2");
 
         cmpPro.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         cmpPro.addActionListener(new java.awt.event.ActionListener() {
@@ -355,11 +357,11 @@ public class VtnVisualizar extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Producto");
+        jLabel11.setText("Item");
 
         jLabel12.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Cantidad");
+        jLabel12.setText("Quantity");
 
         cantPro.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -369,7 +371,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Precio unitario");
+        jLabel13.setText("Unit price");
 
         cmpPrecioU.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         cmpPrecioU.addActionListener(new java.awt.event.ActionListener() {
@@ -405,7 +407,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
 
         jLabel16.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Ciudad");
+        jLabel16.setText("City");
 
         cmpCodPostal.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         cmpCodPostal.addActionListener(new java.awt.event.ActionListener() {
@@ -421,11 +423,11 @@ public class VtnVisualizar extends javax.swing.JFrame {
 
         jLabel17.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("Código postal");
+        jLabel17.setText("Postal code");
 
         jLabel18.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("Notas");
+        jLabel18.setText("Comments");
 
         cmpNotas.setColumns(20);
         cmpNotas.setRows(5);
@@ -613,17 +615,15 @@ public class VtnVisualizar extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(39, 39, 39)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(405, 405, 405)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1178, Short.MAX_VALUE))
         );
@@ -651,7 +651,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(42, 42, 42))
+                .addGap(35, 35, 35))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(64, 64, 64)
@@ -856,21 +856,25 @@ public class VtnVisualizar extends javax.swing.JFrame {
         {
             //Segun el campo seleccionado en el combo hace ciertas busquedas:
             //Cuando es telefono lo busca con exactitud ya que es llave primaria
-            if ( itemSeleccionado.equalsIgnoreCase("telefono") )
+            if ( itemSeleccionado.equalsIgnoreCase("phone number") )
             {
                 where = "WHERE shippingPhone = '"+cmpBuscar+"'";
             }//Si es cliente busca el patron indicado al inicio de la cadena (patron%)
-            else if ( itemSeleccionado.equalsIgnoreCase("cliente") )
+            else if ( itemSeleccionado.equalsIgnoreCase("client name") )
             {
                 where = "WHERE shippingName LIKE '"+cmpBuscar+"%'";
             }
-            else if ( itemSeleccionado.equalsIgnoreCase("direccion") )
+            else if ( itemSeleccionado.equalsIgnoreCase("address") )
             {
                 where = "WHERE address LIKE '"+cmpBuscar+"%'";
             }
-            else if ( itemSeleccionado.equalsIgnoreCase("direccion2") )
+            else if ( itemSeleccionado.equalsIgnoreCase("address2") )
             {
                 where = "WHERE address2 LIKE '"+cmpBuscar+"%'";
+            }
+            else if ( itemSeleccionado.equalsIgnoreCase("city") )
+            {
+                where = "WHERE city LIKE '"+cmpBuscar+"%'";
             }
         }
         
@@ -882,7 +886,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
             
             tablaOrdenes.setModel(tablaModelo);
             
-            sql = "SELECT id, shippingPhone, shippingName, address, address2, itemName, value, cant, total FROM orders "+where;
+            sql = "SELECT id, shippingPhone, shippingName, address, address2, city, itemName, value, cant, total FROM orders "+where;
             resSet = prepStat.executeQuery(sql);
             
             rsMd = resSet.getMetaData();
@@ -890,17 +894,18 @@ public class VtnVisualizar extends javax.swing.JFrame {
             
             //Asigna rotulos a la tabla
             tablaModelo.addColumn("Id");
-            tablaModelo.addColumn("Teléfono");
-            tablaModelo.addColumn("Cliente");
-            tablaModelo.addColumn("Dirección");
-            tablaModelo.addColumn("Dirección2");
-            tablaModelo.addColumn("Producto");
-            tablaModelo.addColumn("Precio c/u");
-            tablaModelo.addColumn("Cantidad");
+            tablaModelo.addColumn("Phone");
+            tablaModelo.addColumn("Client name");
+            tablaModelo.addColumn("Address");
+            tablaModelo.addColumn("Address2");
+            tablaModelo.addColumn("City");
+            tablaModelo.addColumn("Item");
+            tablaModelo.addColumn("Unit price");
+            tablaModelo.addColumn("Quantity");
             tablaModelo.addColumn("Total");
             
             //Pone ancho de las columnas
-            int [] anchoCols = {20, 60, 200, 100, 100, 80, 40, 30, 50};
+            int [] anchoCols = {20, 60, 150, 80, 100, 100, 80, 40, 30, 50};
             
             for ( int j = 0; j < cantCol; j++ )
             {
@@ -1126,43 +1131,7 @@ public class VtnVisualizar extends javax.swing.JFrame {
         cmpMedPag.setText("");
         cmpNotas.setText("");
     }
-    
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VtnVisualizar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VtnVisualizar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VtnVisualizar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VtnVisualizar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VtnVisualizar().setVisible(true);
-            }
-        });
-    }
-
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarOrden;
     private javax.swing.JButton btnBuscarOrden;

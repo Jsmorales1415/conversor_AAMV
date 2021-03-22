@@ -178,7 +178,7 @@
               <Color blue="ff" green="33" red="33" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value="Sistema de Informaci&#xf3;n"/>
+            <Property name="text" type="java.lang.String" value="INFORMATION SYSTEM"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">

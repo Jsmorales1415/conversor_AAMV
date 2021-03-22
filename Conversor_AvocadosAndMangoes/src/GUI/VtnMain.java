@@ -76,7 +76,7 @@ public class VtnMain extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Bookman Old Style", 1, 40)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Sistema de Información");
+        jLabel2.setText("INFORMATION SYSTEM");
 
         jLabel1.setFont(new java.awt.Font("Bookman Old Style", 1, 30)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
