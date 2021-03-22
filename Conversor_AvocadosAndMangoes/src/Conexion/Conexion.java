@@ -60,10 +60,10 @@ public class Conexion {
         datos = cargarArchivo( "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
         //escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.txt");
        //cargarArchivoRutas("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routes.csv");
-        escribirArchivoProductos("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\products.csv");
+       // escribirArchivoProductos("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\products.csv");
     }
-    */
-
+    
+*/
     public static void listarDatos() {
         Conexion cn = new Conexion();
         Statement st;
@@ -468,7 +468,7 @@ public class Conexion {
         return "error";
     }
 
-    public static void escribirArchivo(String ruta) {
+    public static int escribirArchivo(String ruta) {
 
         Conexion cn = new Conexion();
         Statement st;
@@ -522,22 +522,26 @@ public class Conexion {
                 cn.con.close();
             } catch (Exception e) {
                  JOptionPane.showMessageDialog(null, "An error has occurred trying to connect to database");
+                 return 0;
             }
             
             bw.close();
         } catch (Exception e) {
              JOptionPane.showMessageDialog(null, "Error trying to write the file, please check the export path");
+             return 0;
         }
+        
+        return 1;
     }
     
      public static int actualizarRutas( int stop, String direccion) {
-        Conexion cn = new Conexion();
         Statement st;
         ResultSet rs;
         String address;
         int  id;
         PreparedStatement PS;
         try {
+            Conexion cn = new Conexion();
             st = (Statement) cn.con.createStatement();
             rs = st.executeQuery("select * from orders");
             while (rs.next()) {
@@ -591,7 +595,7 @@ public class Conexion {
      }
      
      
-      public static void escribirArchivoProductos(String ruta) {
+      public static int escribirArchivoProductos(String ruta) {
 
         Conexion cn = new Conexion();
         Statement st;
@@ -633,7 +637,7 @@ public class Conexion {
                     }
  
                 }
-                
+                bw.write("itemName;cant\n");
                 for (Product listaProducto : listaProductos) {
                     bw.write(listaProducto.getNombre()+";"+listaProducto.getCantidad()+"\n");
                     
@@ -641,12 +645,16 @@ public class Conexion {
                 cn.con.close();
             } catch (Exception e) {
                  JOptionPane.showMessageDialog(null, "Error conecting to the data base");
+                 return 0;
             }
             
             bw.close();
         } catch (Exception e) {
              JOptionPane.showMessageDialog(null, "Error trying to write the products file, please check the path");
+             return 0;
         }
+        
+        return 1;
     }
     
 }

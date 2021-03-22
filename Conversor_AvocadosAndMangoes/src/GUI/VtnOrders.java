@@ -312,9 +312,8 @@ public class VtnOrders extends javax.swing.JFrame {
         
         rutaArchivo = rutaArchivo + "\\ordenesExp"+dia+mes+annio+".csv";
         
-        Conexion.escribirArchivo(rutaArchivo);
-        
-        JOptionPane.showMessageDialog(this, "The file has been exported succesfully \n"+rutaArchivo, null, 1);
+        if(Conexion.escribirArchivo(rutaArchivo) == 1)
+            JOptionPane.showMessageDialog(this, "The file has been exported succesfully \n"+rutaArchivo, null, 1);
     }//GEN-LAST:event_expOrdenesActionPerformed
 
     private void cargarOrdenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarOrdenesActionPerformed
@@ -351,9 +350,8 @@ public class VtnOrders extends javax.swing.JFrame {
         
         rutaArchivo = rutaArchivo + "\\productsExp"+dia+mes+annio+".csv";
         
-        Conexion.escribirArchivoProductos(rutaArchivo);
-        
-        JOptionPane.showMessageDialog(this, "The file has been exported succesfully \n"+rutaArchivo, null, 1);
+        if(Conexion.escribirArchivoProductos(rutaArchivo) == 1)
+            JOptionPane.showMessageDialog(this, "The file has been exported succesfully \n"+rutaArchivo, null, 1);
     }//GEN-LAST:event_expProductosActionPerformed
 
     public void irA(JFrame ventana){
