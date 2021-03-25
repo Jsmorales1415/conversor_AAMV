@@ -59,6 +59,7 @@ public class VtnOrders extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         expProductos = new javax.swing.JToggleButton();
+        expAddresses = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -183,6 +184,15 @@ public class VtnOrders extends javax.swing.JFrame {
             }
         });
 
+        expAddresses.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
+        expAddresses.setText("Export Addresses");
+        expAddresses.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        expAddresses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                expAddressesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -198,7 +208,8 @@ public class VtnOrders extends javax.swing.JFrame {
                     .addComponent(visOrdenes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(expOrdenes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(expProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(expProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(expAddresses, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(69, 69, 69))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
@@ -239,7 +250,9 @@ public class VtnOrders extends javax.swing.JFrame {
                         .addComponent(expOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(expProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(23, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(expAddresses, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(22, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -305,7 +318,7 @@ public class VtnOrders extends javax.swing.JFrame {
         
         Calendar c1 = Calendar.getInstance();
         dia = Integer.toString(c1.get(Calendar.DATE));
-        mes = Integer.toString(c1.get(Calendar.MONTH)) + 1;
+        mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
         annio = Integer.toString(c1.get(Calendar.YEAR));
         
         rutaArchivo = JOptionPane.showInputDialog(this, "Export path: ");
@@ -343,7 +356,7 @@ public class VtnOrders extends javax.swing.JFrame {
         
         Calendar c1 = Calendar.getInstance();
         dia = Integer.toString(c1.get(Calendar.DATE));
-        mes = Integer.toString(c1.get(Calendar.MONTH)) + 1;
+        mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
         annio = Integer.toString(c1.get(Calendar.YEAR));
         
         rutaArchivo = JOptionPane.showInputDialog(this, "Export path: ");
@@ -353,6 +366,10 @@ public class VtnOrders extends javax.swing.JFrame {
         if(Conexion.escribirArchivoProductos(rutaArchivo) == 1)
             JOptionPane.showMessageDialog(this, "The file has been exported succesfully \n"+rutaArchivo, null, 1);
     }//GEN-LAST:event_expProductosActionPerformed
+
+    private void expAddressesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expAddressesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_expAddressesActionPerformed
 
     public void irA(JFrame ventana){
         this.dispose();
@@ -366,6 +383,7 @@ public class VtnOrders extends javax.swing.JFrame {
     private javax.swing.JToggleButton cargarOrdenes;
     private javax.swing.JTextField dirOrdenes;
     private javax.swing.JTextField dirRutas;
+    private javax.swing.JToggleButton expAddresses;
     private javax.swing.JToggleButton expOrdenes;
     private javax.swing.JToggleButton expProductos;
     private javax.swing.JLabel jLabel1;

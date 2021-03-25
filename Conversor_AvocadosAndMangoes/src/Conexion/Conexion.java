@@ -482,7 +482,7 @@ public class Conexion {
             }
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
-            String encabezado = "stop;shippingPhone;shippingName;address;address2;city;postalCode;cant;value;total;payment;comments";
+            String encabezado = "Stop;Shipping Phone;Shipping Name;Shipping Address;Shipping Address2;Shipping City;Shipping Zip;Lineitem;Lineitem Quantity;Lineitem Price;Total;Notes;Payment Method;\n";
            bw.write(encabezado);
 
             try {
@@ -511,9 +511,9 @@ public class Conexion {
                     contenido.append(";");
                     contenido.append(rs.getDouble("total"));
                     contenido.append(";");
-                    contenido.append(rs.getString("payment"));
-                    contenido.append(";");
                     contenido.append(rs.getString("comments"));
+                    contenido.append(";");
+                    contenido.append(rs.getString("payment"));
                     contenido.append("\n");
                     bw.write(contenido.toString());
                     contenido = new StringBuilder();
