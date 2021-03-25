@@ -59,11 +59,12 @@ public class Conexion {
         ArrayList<String[][]> datos = new ArrayList<>();
         datos = cargarArchivo( "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
         //escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.txt");
-       //cargarArchivoRutas("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routes.csv");
+       cargarArchivoRutasOR("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routesOP.csv");
        // escribirArchivoProductos("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\products.csv");
+         //escribirArchivoRutas("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\rutas.csv");
     }
-    
-*/
+    */
+
     public static void listarDatos() {
         Conexion cn = new Conexion();
         Statement st;
@@ -366,8 +367,8 @@ public class Conexion {
         }
         // return order;
     }
-/*
-    public static ArrayList<String[]> cargarArchivoRutas(String ruta) {
+
+    public static ArrayList<String[]> cargarArchivoRutasOR(String ruta) {
         Path filePath = Paths.get(ruta);
         ArrayList<String[]> direcciones = new ArrayList<>();
         try {
@@ -399,7 +400,7 @@ public class Conexion {
                     datoGuardar[1] = datosLinea[posicionAddress];
                     //System.out.println("Stop:"+datoGuardar[0]+"Addres:"+datoGuardar[1]);
                     direcciones.add(datoGuardar);
-
+                    actualizarRutas( Integer.parseInt(datoGuardar[0]), datoGuardar[1]);
                 }
             }
         } catch (IOException e) {
@@ -407,7 +408,7 @@ public class Conexion {
         }
         return direcciones;
     }
-*/
+
     
      public static ArrayList<String[]> cargarArchivoRutas(String ruta) {
         Path filePath = Paths.get(ruta);
@@ -640,6 +641,62 @@ public class Conexion {
                 bw.write("itemName;cant\n");
                 for (Product listaProducto : listaProductos) {
                     bw.write(listaProducto.getNombre()+";"+listaProducto.getCantidad()+"\n");
+                    
+                }
+                cn.con.close();
+            } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "Error conecting to the data base");
+                 return 0;
+            }
+            
+            bw.close();
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error trying to write the products file, please check the path");
+             return 0;
+        }
+        
+        return 1;
+    }
+      
+      public static int escribirArchivoRutas(String ruta) {
+
+        Conexion cn = new Conexion();
+        Statement st;
+        ResultSet rs;
+        StringBuilder contenido = new StringBuilder();
+        ArrayList<String> listaProductos = new ArrayList<>();
+        String address;
+        
+        try {
+            File file = new File(ruta);
+            // Si el archivo no existe es creado
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            try {
+                st = (Statement) cn.con.createStatement();
+                rs = st.executeQuery("select * from orders");
+                while (rs.next()) {
+                    address = rs.getString("address");
+                    boolean primerDato = true;
+                    
+                    for (int i = 0; i < listaProductos.size(); i++) {
+                        if(listaProductos.get(i).equalsIgnoreCase(address)){
+                            primerDato = false;
+                        }
+                    }
+                    
+                    if(primerDato){
+                        listaProductos.add(address);
+                    }
+ 
+                }
+               // bw.write("Address\n");
+                for (int i = 0; i < listaProductos.size(); i++) {
+                    bw.write(listaProductos.get(i)+"\n");
                     
                 }
                 cn.con.close();
