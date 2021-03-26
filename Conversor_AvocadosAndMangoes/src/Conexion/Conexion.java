@@ -697,7 +697,7 @@ public class Conexion {
                     }
  
                 }
-               // bw.write("Address\n");
+                bw.write("Address\n");
                 for (int i = 0; i < listaProductos.size(); i++) {
                     bw.write(listaProductos.get(i)+"\n");
                     
