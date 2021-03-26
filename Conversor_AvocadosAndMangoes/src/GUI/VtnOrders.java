@@ -340,7 +340,7 @@ public class VtnOrders extends javax.swing.JFrame {
         }
         
         if(!rutaRutas.equalsIgnoreCase("")){
-            Conexion.cargarArchivoRutas(rutaRutas);
+            Conexion.cargarArchivoRutasOR(rutaRutas);
         }
         
         dirOrdenes.setText("");
@@ -368,7 +368,22 @@ public class VtnOrders extends javax.swing.JFrame {
     }//GEN-LAST:event_expProductosActionPerformed
 
     private void expAddressesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expAddressesActionPerformed
-        // TODO add your handling code here:
+        String rutaArchivo = "";
+        String dia;
+        String mes;
+        String annio;
+        
+        Calendar c1 = Calendar.getInstance();
+        dia = Integer.toString(c1.get(Calendar.DATE));
+        mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
+        annio = Integer.toString(c1.get(Calendar.YEAR));
+        
+        rutaArchivo = JOptionPane.showInputDialog(this, "Export path: ");
+        
+        rutaArchivo = rutaArchivo + "\\routesExp"+dia+mes+annio+".csv";
+        
+        if(Conexion.escribirArchivoRutas(rutaArchivo) == 1)
+            JOptionPane.showMessageDialog(this, "The file has been exported succesfully \n"+rutaArchivo, null, 1);
     }//GEN-LAST:event_expAddressesActionPerformed
 
     public void irA(JFrame ventana){

@@ -404,8 +404,11 @@ public class Conexion {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error has occurred reading the routes file, please check the file path");
+             return null;
         }
+        
+        JOptionPane.showMessageDialog(null, "The routes file has been uploaded succesfully");
         return direcciones;
     }
 
@@ -638,7 +641,7 @@ public class Conexion {
                     }
  
                 }
-                bw.write("itemName;cant\n");
+                bw.write("LineItem Name;Quantity\n");
                 for (Product listaProducto : listaProductos) {
                     bw.write(listaProducto.getNombre()+";"+listaProducto.getCantidad()+"\n");
                     
