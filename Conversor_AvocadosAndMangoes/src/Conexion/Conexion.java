@@ -57,9 +57,9 @@ public class Conexion {
         
         ArrayList<String> direcciones = new ArrayList<>();
         ArrayList<String[][]> datos = new ArrayList<>();
-        datos = cargarArchivo( "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
-        //escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.txt");
-       cargarArchivoRutasOR("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routesOP.csv");
+        //datos = cargarArchivo( "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
+        escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.csv");
+       //cargarArchivoRutasOR("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routesOP.csv");
        // escribirArchivoProductos("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\products.csv");
          //escribirArchivoRutas("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\rutas.csv");
     }
@@ -486,7 +486,7 @@ public class Conexion {
             }
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
-            String encabezado = "Stop;Shipping Phone;Shipping Name;Shipping Address;Shipping Address2;Shipping City;Shipping Zip;Lineitem;Lineitem Quantity;Lineitem Price;Total;Notes;Payment Method;\n";
+            String encabezado = "Stop;Phone;Name;Address;Address2;City;Zip;Item;Quantity;Price;Total;Notes;PM;\n";
            bw.write(encabezado);
 
             try {
@@ -517,7 +517,14 @@ public class Conexion {
                     contenido.append(";");
                     contenido.append(rs.getString("comments"));
                     contenido.append(";");
-                    contenido.append(rs.getString("payment"));
+                    if(rs.getString("payment").equalsIgnoreCase("Bank Deposit")){
+                        contenido.append("BD");
+                    }else if(rs.getString("payment").equalsIgnoreCase("Shopify Payments")){
+                        contenido.append("SP");
+                    }else if(rs.getString("payment").equalsIgnoreCase("Cash on Delivery (COD)")){
+                        contenido.append("COD");
+                    }
+                    //contenido.append(rs.getString("payment"));
                     contenido.append("\n");
                     bw.write(contenido.toString());
                     contenido = new StringBuilder();
@@ -641,7 +648,7 @@ public class Conexion {
                     }
  
                 }
-                bw.write("LineItem Name;Quantity\n");
+                bw.write("Item;Quantity\n");
                 for (Product listaProducto : listaProductos) {
                     bw.write(listaProducto.getNombre()+";"+listaProducto.getCantidad()+"\n");
                     
