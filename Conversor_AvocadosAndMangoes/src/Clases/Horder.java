@@ -9,8 +9,8 @@ package Clases;
  *
  * @author diego
  */
-public class Order {
-    private int stop;
+public class Horder {
+     private int stop;
     private String codeSP;
     private String shippingPhone;
     private String shippingName;
@@ -26,7 +26,7 @@ public class Order {
     private String comments;
     private String date;
 
-    public Order(int stop, String codeSP, String shippingPhone, String shippingName, String address, String address2, String city, String postalCode, String itemName, int cant, double value, double total, String payment, String comments, String date) {
+    public Horder(int stop, String codeSP, String shippingPhone, String shippingName, String address, String address2, String city, String postalCode, String itemName, int cant, double value, double total, String payment, String comments, String date) {
         this.stop = stop;
         this.codeSP = codeSP;
         this.shippingPhone = shippingPhone;
@@ -44,7 +44,7 @@ public class Order {
         this.date = date;
     }
 
-    public Order() {
+    public Horder() {
     }
     /**
      * @return the stop

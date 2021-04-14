@@ -11,19 +11,24 @@ package Clases;
  */
 public class Client {
     private String shippingPhone;
+    private String shopifyCode;
     private String name;
     private String address;
     private String address2;
     private String city;
     private String postalCode;
+    private String classe;
+    private int subscribe;
 
-    public Client(String shippingPhone, String name, String address, String address2, String city, String postalCode) {
+    public Client(String shippingPhone, String shopifyCode, String name, String address, String address2, String city, String postalCode, int subscribe) {
         this.shippingPhone = shippingPhone;
+        this.shopifyCode = shopifyCode;
         this.name = name;
         this.address = address;
         this.address2 = address2;
         this.city = city;
         this.postalCode = postalCode;
+        this.subscribe = subscribe;
     }
 
     public Client() {
@@ -110,5 +115,47 @@ public class Client {
      */
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    /**
+     * @return the shopifyCode
+     */
+    public String getShopifyCode() {
+        return shopifyCode;
+    }
+
+    /**
+     * @param shopifyCode the shopifyCode to set
+     */
+    public void setShopifyCode(String shopifyCode) {
+        this.shopifyCode = shopifyCode;
+    }
+
+    /**
+     * @return the classe
+     */
+    public String getClasse() {
+        return classe;
+    }
+
+    /**
+     * @param classe the classe to set
+     */
+    public void setClasse(String classe) {
+        this.classe = classe;
+    }
+
+    /**
+     * @return the subscribe
+     */
+    public int getSubscribe() {
+        return subscribe;
+    }
+
+    /**
+     * @param subscribe the subscribe to set
+     */
+    public void setSubscribe(int subscribe) {
+        this.subscribe = subscribe;
     }
 }

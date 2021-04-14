@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -51,7 +52,7 @@ public class Conexion {
         }
     }
 
-    
+    /*
     public static void main(String[] args) {
         //cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv");
         
@@ -64,7 +65,7 @@ public class Conexion {
          //escribirArchivoRutas("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\rutas.csv");
          insertarAHistorial();
     }
-    
+    */
 
     public static void listarDatos() {
         Conexion cn = new Conexion();
@@ -87,13 +88,16 @@ public class Conexion {
 
         if (object instanceof Client) {
             try {
-                PreparedStatement PS = cn.con.prepareStatement("insert into clients (id, shippingPhone, name, address, address2, city, postalCode) values (null,?,?,?,?,?,? )");
+                PreparedStatement PS = cn.con.prepareStatement("insert into clients (id, shippingPhone, shopifyCode, name, address, address2, city, postalCode, class, subscribe) values (null,?,?,?,?,?,?,?,?,? )");
                 PS.setString(1, ((Client) object).getShippingPhone());
-                PS.setString(2, ((Client) object).getName());
-                PS.setString(3, ((Client) object).getAddress());
-                PS.setString(4, ((Client) object).getAddress2());
-                PS.setString(5, ((Client) object).getCity());
-                PS.setString(6, ((Client) object).getPostalCode());
+                PS.setString(2, ((Client) object).getShopifyCode());
+                PS.setString(3, ((Client) object).getName());
+                PS.setString(4, ((Client) object).getAddress());
+                PS.setString(5, ((Client) object).getAddress2());
+                PS.setString(6, ((Client) object).getCity());
+                PS.setString(7, ((Client) object).getPostalCode());
+                PS.setString(8, ((Client) object).getClasse());
+                PS.setInt(9, ((Client) object).getSubscribe());
                 PS.executeUpdate();
 
                 cn.con.close();
@@ -102,7 +106,7 @@ public class Conexion {
             }
         } else if (object instanceof Order) {
             try {
-                PreparedStatement PS = cn.con.prepareStatement("insert into orders ( id, codeSP, stop, shippingPhone, shippingName, address, address2, city, postalCode, itemName, cant, value, total, payment, comments) values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,? )");
+                PreparedStatement PS = cn.con.prepareStatement("insert into orders ( id, codeSP, stop, shippingPhone, shippingName, address, address2, city, postalCode, itemName, cant, value, total, payment, comments, date) values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? )");
                 PS.setString(1, ((Order) object).getCodeSP());
                 PS.setInt(2, ((Order) object).getStop());
                 PS.setString(3, ((Order) object).getShippingPhone());
@@ -117,6 +121,7 @@ public class Conexion {
                 PS.setDouble(12, ((Order) object).getTotal());
                 PS.setString(13, ((Order) object).getPayment());
                 PS.setString(14, ((Order) object).getComments());
+                PS.setString(15, ((Order) object).getDate());
                 PS.executeUpdate();
 
                 cn.con.close();
@@ -314,6 +319,11 @@ public class Conexion {
         Order order;
         String campoAddress = "";
         String campoTabla = "";
+        Calendar fecha = Calendar.getInstance();
+        int dia = fecha.get(Calendar.DATE);
+        int mes = fecha.get(Calendar.MONTH)+1;
+        int annio = fecha.get(Calendar.YEAR);
+        String date = dia+"/"+mes+"/"+annio;
         /* for (int i = 0; i < encabezados.length; i++) {
             System.out.print(encabezados[i]+" ");
         }
@@ -366,6 +376,7 @@ public class Conexion {
                 }
             }
 */
+           order.setDate(date);
             insertarDatos(order, cn);
             actualizarClientes(order);
             // cn.con.close();
@@ -758,6 +769,9 @@ public class Conexion {
             client.setAddress2(order.getAddress2());
             client.setCity(order.getCity());
             client.setPostalCode(order.getPostalCode());
+            client.setShopifyCode(order.getCodeSP());
+            client.setSubscribe(0);
+            client.setClasse("");
             insertarDatos(client, cn);
         }
     }
