@@ -11,6 +11,7 @@ package Clases;
  */
 public class Order {
     private int stop;
+    private String codeSP;
     private String shippingPhone;
     private String shippingName;
     private String address;
@@ -24,8 +25,9 @@ public class Order {
     private String payment;
     private String comments;
 
-    public Order(int stop, String shippingPhone, String shippingName, String address, String address2, String city, String postalCode, String itemName, int cant, double value, double total, String payment, String comments) {
+    public Order(int stop, String codeSP, String shippingPhone, String shippingName, String address, String address2, String city, String postalCode, String itemName, int cant, double value, double total, String payment, String comments) {
         this.stop = stop;
+        this.codeSP = codeSP;
         this.shippingPhone = shippingPhone;
         this.shippingName = shippingName;
         this.address = address;
@@ -56,6 +58,21 @@ public class Order {
         this.stop = stop;
     }
 
+     /**
+     * @return the codeSP
+     */
+    public String getCodeSP() {
+        return codeSP;
+    }
+
+    /**
+     * @param codeSP the stop to set
+     */
+    public void setCodeSP(String codeSP) {
+        this.codeSP = codeSP;
+    }
+
+    
     /**
      * @return the shippingPhone
      */

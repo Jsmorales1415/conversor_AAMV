@@ -51,19 +51,20 @@ public class Conexion {
         }
     }
 
-    /*
+    
     public static void main(String[] args) {
         //cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv");
         
         ArrayList<String> direcciones = new ArrayList<>();
         ArrayList<String[][]> datos = new ArrayList<>();
         //datos = cargarArchivo( "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
-        escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.csv");
+       // escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.csv");
        //cargarArchivoRutasOR("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routesOP.csv");
        // escribirArchivoProductos("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\products.csv");
          //escribirArchivoRutas("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\rutas.csv");
+         insertarAHistorial();
     }
-    */
+    
 
     public static void listarDatos() {
         Conexion cn = new Conexion();
@@ -86,7 +87,7 @@ public class Conexion {
 
         if (object instanceof Client) {
             try {
-                PreparedStatement PS = cn.con.prepareStatement("insert into clients (shippingPhone, name, address, address2, city, postalCode) values (?,?,?,?,?,? )");
+                PreparedStatement PS = cn.con.prepareStatement("insert into clients (id, shippingPhone, name, address, address2, city, postalCode) values (null,?,?,?,?,?,? )");
                 PS.setString(1, ((Client) object).getShippingPhone());
                 PS.setString(2, ((Client) object).getName());
                 PS.setString(3, ((Client) object).getAddress());
@@ -101,20 +102,21 @@ public class Conexion {
             }
         } else if (object instanceof Order) {
             try {
-                PreparedStatement PS = cn.con.prepareStatement("insert into orders ( id, stop, shippingPhone, shippingName, address, address2, city, postalCode, itemName, cant, value, total, payment, comments) values (null,?,?,?,?,?,?,?,?,?,?,?,?,? )");
-                PS.setInt(1, ((Order) object).getStop());
-                PS.setString(2, ((Order) object).getShippingPhone());
-                PS.setString(3, ((Order) object).getShippingName());
-                PS.setString(4, ((Order) object).getAddress());
-                PS.setString(5, ((Order) object).getAddress2());
-                PS.setString(6, ((Order) object).getCity());
-                PS.setString(7, ((Order) object).getPostalCode());
-                PS.setString(8, ((Order) object).getItemName());
-                PS.setInt(9, ((Order) object).getCant());
-                PS.setDouble(10, ((Order) object).getValue());
-                PS.setDouble(11, ((Order) object).getTotal());
-                PS.setString(12, ((Order) object).getPayment());
-                PS.setString(13, ((Order) object).getComments());
+                PreparedStatement PS = cn.con.prepareStatement("insert into orders ( id, codeSP, stop, shippingPhone, shippingName, address, address2, city, postalCode, itemName, cant, value, total, payment, comments) values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,? )");
+                PS.setString(1, ((Order) object).getCodeSP());
+                PS.setInt(2, ((Order) object).getStop());
+                PS.setString(3, ((Order) object).getShippingPhone());
+                PS.setString(4, ((Order) object).getShippingName());
+                PS.setString(5, ((Order) object).getAddress());
+                PS.setString(6, ((Order) object).getAddress2());
+                PS.setString(7, ((Order) object).getCity());
+                PS.setString(8, ((Order) object).getPostalCode());
+                PS.setString(9, ((Order) object).getItemName());
+                PS.setInt(10, ((Order) object).getCant());
+                PS.setDouble(11, ((Order) object).getValue());
+                PS.setDouble(12, ((Order) object).getTotal());
+                PS.setString(13, ((Order) object).getPayment());
+                PS.setString(14, ((Order) object).getComments());
                 PS.executeUpdate();
 
                 cn.con.close();
@@ -352,6 +354,8 @@ public class Conexion {
                     order.setPayment(datos[0][j]);
                 } else if (campoTabla.equalsIgnoreCase("comments")) {
                     order.setComments(datos[0][j]);
+                } else if (campoTabla.equalsIgnoreCase("codeSP")) {
+                    order.setCodeSP(datos[0][j]);
                 }
             }
 
@@ -363,6 +367,7 @@ public class Conexion {
             }
 */
             insertarDatos(order, cn);
+            actualizarClientes(order);
             // cn.con.close();
         }
         // return order;
@@ -550,6 +555,7 @@ public class Conexion {
         ResultSet rs;
         String address;
         int  id;
+        String postalCode;
         PreparedStatement PS;
         try {
             Conexion cn = new Conexion();
@@ -558,7 +564,8 @@ public class Conexion {
             while (rs.next()) {
                 address = rs.getString("address");
                 id = rs.getInt("id");
-                if(direccion.equalsIgnoreCase(address)){
+                postalCode = rs.getString("postalCode");
+                if(direccion.equalsIgnoreCase(address+" "+postalCode)){
                     PS = cn.con.prepareStatement("UPDATE orders SET stop = '"+stop+"' WHERE id ="+id);
                     PS.execute(); 
                     PS.close();
@@ -676,6 +683,7 @@ public class Conexion {
         StringBuilder contenido = new StringBuilder();
         ArrayList<String> listaProductos = new ArrayList<>();
         String address;
+        String postalCode;
         
         try {
             File file = new File(ruta);
@@ -691,16 +699,17 @@ public class Conexion {
                 rs = st.executeQuery("select * from orders");
                 while (rs.next()) {
                     address = rs.getString("address");
+                    postalCode = rs.getString("postalCode");
                     boolean primerDato = true;
                     
                     for (int i = 0; i < listaProductos.size(); i++) {
-                        if(listaProductos.get(i).equalsIgnoreCase(address)){
+                        if(listaProductos.get(i).equalsIgnoreCase(address+" "+postalCode)){
                             primerDato = false;
                         }
                     }
                     
                     if(primerDato){
-                        listaProductos.add(address);
+                        listaProductos.add(address+" "+postalCode);
                     }
  
                 }
@@ -724,6 +733,56 @@ public class Conexion {
         return 1;
     }
     
+      
+      public static void actualizarClientes( Order order) {
+        Conexion cn = new Conexion();
+        Statement st;
+        ResultSet rs;
+        Client client = new Client();
+        boolean existe = false;
+        try {
+            st = (Statement) cn.con.createStatement();
+            //rs = st.executeQuery("insert into products (id, nombre, precio, cantidad) values (3,'cereza', 900,5 )");
+            rs = st.executeQuery("select * from clients WHERE shippingPhone = '"+order.getShippingPhone()+"'");
+            while (rs.next()) {
+                existe = true;
+            }
+            cn.con.close();
+        } catch (Exception e) {
+        }
+        
+        if(!existe){
+            client.setShippingPhone(order.getShippingPhone());
+            client.setName(order.getShippingName());
+            client.setAddress(order.getAddress());
+            client.setAddress2(order.getAddress2());
+            client.setCity(order.getCity());
+            client.setPostalCode(order.getPostalCode());
+            insertarDatos(client, cn);
+        }
+    }
+      
+      public static int insertarAHistorial() {
+        Statement st;
+        ResultSet rs;
+        String address;
+        int  id;
+        String postalCode;
+        PreparedStatement PS;
+        try {
+            Conexion cn = new Conexion();
+            PS = cn.con.prepareStatement("INSERT INTO horders SELECT * FROM orders");
+            PS.execute(); 
+            PS.close();            
+            cn.con.close();
+            
+            return 1;
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error trying to create history orders in database");
+             return 0;
+        }
+    }
+      
 }
 
 
