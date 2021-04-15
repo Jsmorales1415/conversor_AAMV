@@ -52,20 +52,21 @@ public class Conexion {
         }
     }
 
-    /*
+    
     public static void main(String[] args) {
         //cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv");
         
         ArrayList<String> direcciones = new ArrayList<>();
         ArrayList<String[][]> datos = new ArrayList<>();
-        //datos = cargarArchivo( "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
+       // datos = cargarArchivo( "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
        // escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.csv");
        //cargarArchivoRutasOR("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routesOP.csv");
        // escribirArchivoProductos("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\products.csv");
          //escribirArchivoRutas("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\rutas.csv");
          insertarAHistorial();
+         escribirArchivoHOrdersXFecha("14/05/2021", "14/08/2021", "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\horders.csv");
     }
-    */
+    
 
     public static void listarDatos() {
         Conexion cn = new Conexion();
@@ -319,11 +320,23 @@ public class Conexion {
         Order order;
         String campoAddress = "";
         String campoTabla = "";
+        String cadDia = "";
+        String cadMes = "";
         Calendar fecha = Calendar.getInstance();
-        int dia = fecha.get(Calendar.DATE);
-        int mes = fecha.get(Calendar.MONTH)+1;
+        Integer dia = fecha.get(Calendar.DATE);
+        if(dia.toString().length() == 1)
+            cadDia = "0"+dia;
+        else
+            cadDia = dia.toString();
+            
+        Integer mes = fecha.get(Calendar.MONTH)+1;
+        if(mes.toString().length() == 1)
+            cadMes = "0"+mes;
+        else
+            cadMes = mes.toString();
+            
         int annio = fecha.get(Calendar.YEAR);
-        String date = dia+"/"+mes+"/"+annio;
+        String date = cadDia+"/"+cadMes+"/"+annio;
         /* for (int i = 0; i < encabezados.length; i++) {
             System.out.print(encabezados[i]+" ");
         }
@@ -797,6 +810,96 @@ public class Conexion {
         }
     }
       
+      public static int escribirArchivoHOrdersXFecha(String fechaDesde, String fechaHasta, String ruta) {
+
+       Conexion cn = new Conexion();
+        Statement st;
+        ResultSet rs;
+        StringBuilder contenido = new StringBuilder();
+        String [] vecFechaDesde = fechaDesde.split("/");
+        String [] vecFechaHasta = fechaHasta.split("/");
+        String cadLongFechaDesde = vecFechaDesde[2]+vecFechaDesde[1]+vecFechaDesde[0];
+        String cadLongFechaHasta = vecFechaHasta[2]+vecFechaHasta[1]+vecFechaHasta[0];
+        
+        long   longFechaDesde = Long.parseLong(cadLongFechaDesde);
+        long   longFechaHasta = Long.parseLong(cadLongFechaHasta);
+        
+        try {
+            File file = new File(ruta);
+            // Si el archivo no existe es creado
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            String encabezado = "Stop;Phone;Name;Address;Address2;City;Zip;Item;Quantity;Price;Total;Notes;PM;Date\n";
+           bw.write(encabezado);
+
+            try {
+                st = (Statement) cn.con.createStatement();
+                rs = st.executeQuery("select * from horders");
+                while (rs.next()) {
+                    String fechaOrder = rs.getString("date");
+                    String [] vecFechaOrder = fechaOrder.split("/");
+                    String cadLongFechaOrder = vecFechaOrder[2]+vecFechaOrder[1]+vecFechaOrder[0];
+                    long   longFechaOrder = Long.parseLong(cadLongFechaOrder);
+                    
+                    if(longFechaOrder >= longFechaDesde && longFechaOrder <= longFechaHasta)
+                    {
+                        contenido.append(rs.getString("stop"));
+                        contenido.append(";");
+                        contenido.append(rs.getString("shippingPhone"));
+                        contenido.append(";");
+                        contenido.append(rs.getString("shippingName"));
+                        contenido.append(";");
+                        contenido.append(rs.getString("address"));
+                        contenido.append(";");
+                        contenido.append(rs.getString("address2"));
+                        contenido.append(";");
+                        contenido.append(rs.getString("city"));
+                        contenido.append(";");
+                        contenido.append(rs.getString("postalCode"));
+                        contenido.append(";");
+                        contenido.append(rs.getString("itemName"));
+                        contenido.append(";");
+                        contenido.append(rs.getInt("cant"));
+                        contenido.append(";");
+                        contenido.append(rs.getDouble("value"));
+                        contenido.append(";");
+                        contenido.append(rs.getDouble("total"));
+                        contenido.append(";");
+                        contenido.append(rs.getString("comments"));
+                        contenido.append(";");
+                        if(rs.getString("payment").equalsIgnoreCase("Bank Deposit")){
+                            contenido.append("BD");
+                        }else if(rs.getString("payment").equalsIgnoreCase("Shopify Payments")){
+                            contenido.append("SP");
+                        }else if(rs.getString("payment").equalsIgnoreCase("Cash on Delivery (COD)")){
+                            contenido.append("COD");
+                        }
+                        contenido.append(";");
+                        contenido.append(fechaOrder);
+                        //contenido.append(rs.getString("payment"));
+                        contenido.append("\n");
+                        bw.write(contenido.toString());
+                        contenido = new StringBuilder();
+                    }
+                    
+                }
+                cn.con.close();
+            } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "An error has occurred trying to connect to database");
+                 return 0;
+            }
+            
+            bw.close();
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error trying to write the file, please check the export path");
+             return 0;
+        }
+        
+        return 1;
+      }
 }
 
 
