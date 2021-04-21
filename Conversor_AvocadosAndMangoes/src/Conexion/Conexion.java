@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -57,12 +58,21 @@ public class Conexion {
         
         ArrayList<String> direcciones = new ArrayList<>();
         ArrayList<String[][]> datos = new ArrayList<>();
-        //datos = cargarArchivo( "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
+        ArrayList<Product> productos = new ArrayList<>();
+       // datos = cargarArchivo( "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
        // escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.csv");
        //cargarArchivoRutasOR("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routesOP.csv");
        // escribirArchivoProductos("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\products.csv");
          //escribirArchivoRutas("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\rutas.csv");
-         insertarAHistorial();
+         //insertarAHistorial();
+        // escribirArchivoHOrdersXFecha("14/05/2021", "14/08/2021", "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\horders.csv");
+       // escribirArchivoClientes("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\Clientes.csv");
+       productos = llenarTablaProductos();
+       
+        for (Product producto : productos) {
+            System.out.println(producto.getNombre()+";"+producto.getCantidad()+";"+producto.getValor());
+        }
+       
     }
     
 
@@ -87,13 +97,16 @@ public class Conexion {
 
         if (object instanceof Client) {
             try {
-                PreparedStatement PS = cn.con.prepareStatement("insert into clients (id, shippingPhone, name, address, address2, city, postalCode) values (null,?,?,?,?,?,? )");
+                PreparedStatement PS = cn.con.prepareStatement("insert into clients (id, shippingPhone, shopifyCode, name, address, address2, city, postalCode, class, subscribe) values (null,?,?,?,?,?,?,?,?,? )");
                 PS.setString(1, ((Client) object).getShippingPhone());
-                PS.setString(2, ((Client) object).getName());
-                PS.setString(3, ((Client) object).getAddress());
-                PS.setString(4, ((Client) object).getAddress2());
-                PS.setString(5, ((Client) object).getCity());
-                PS.setString(6, ((Client) object).getPostalCode());
+                PS.setString(2, ((Client) object).getShopifyCode());
+                PS.setString(3, ((Client) object).getName());
+                PS.setString(4, ((Client) object).getAddress());
+                PS.setString(5, ((Client) object).getAddress2());
+                PS.setString(6, ((Client) object).getCity());
+                PS.setString(7, ((Client) object).getPostalCode());
+                PS.setString(8, ((Client) object).getClasse());
+                PS.setInt(9, ((Client) object).getSubscribe());
                 PS.executeUpdate();
 
                 cn.con.close();
@@ -102,7 +115,7 @@ public class Conexion {
             }
         } else if (object instanceof Order) {
             try {
-                PreparedStatement PS = cn.con.prepareStatement("insert into orders ( id, codeSP, stop, shippingPhone, shippingName, address, address2, city, postalCode, itemName, cant, value, total, payment, comments) values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,? )");
+                PreparedStatement PS = cn.con.prepareStatement("insert into orders ( id, codeSP, stop, shippingPhone, shippingName, address, address2, city, postalCode, itemName, cant, value, total, payment, comments, date) values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? )");
                 PS.setString(1, ((Order) object).getCodeSP());
                 PS.setInt(2, ((Order) object).getStop());
                 PS.setString(3, ((Order) object).getShippingPhone());
@@ -117,6 +130,7 @@ public class Conexion {
                 PS.setDouble(12, ((Order) object).getTotal());
                 PS.setString(13, ((Order) object).getPayment());
                 PS.setString(14, ((Order) object).getComments());
+                PS.setString(15, ((Order) object).getDate());
                 PS.executeUpdate();
 
                 cn.con.close();
@@ -314,6 +328,23 @@ public class Conexion {
         Order order;
         String campoAddress = "";
         String campoTabla = "";
+        String cadDia = "";
+        String cadMes = "";
+        Calendar fecha = Calendar.getInstance();
+        Integer dia = fecha.get(Calendar.DATE);
+        if(dia.toString().length() == 1)
+            cadDia = "0"+dia;
+        else
+            cadDia = dia.toString();
+            
+        Integer mes = fecha.get(Calendar.MONTH)+1;
+        if(mes.toString().length() == 1)
+            cadMes = "0"+mes;
+        else
+            cadMes = mes.toString();
+            
+        int annio = fecha.get(Calendar.YEAR);
+        String date = cadDia+"/"+cadMes+"/"+annio;
         /* for (int i = 0; i < encabezados.length; i++) {
             System.out.print(encabezados[i]+" ");
         }
@@ -366,6 +397,7 @@ public class Conexion {
                 }
             }
 */
+           order.setDate(date);
             insertarDatos(order, cn);
             actualizarClientes(order);
             // cn.con.close();
@@ -758,6 +790,9 @@ public class Conexion {
             client.setAddress2(order.getAddress2());
             client.setCity(order.getCity());
             client.setPostalCode(order.getPostalCode());
+            client.setShopifyCode(order.getCodeSP());
+            client.setSubscribe(0);
+            client.setClasse("");
             insertarDatos(client, cn);
         }
     }
@@ -783,6 +818,206 @@ public class Conexion {
         }
     }
       
+      public static int escribirArchivoHOrdersXFecha(String fechaDesde, String fechaHasta, String ruta) {
+
+       Conexion cn = new Conexion();
+        Statement st;
+        ResultSet rs;
+        StringBuilder contenido = new StringBuilder();
+        String [] vecFechaDesde = fechaDesde.split("/");
+        String [] vecFechaHasta = fechaHasta.split("/");
+        String cadLongFechaDesde = vecFechaDesde[2]+vecFechaDesde[1]+vecFechaDesde[0];
+        String cadLongFechaHasta = vecFechaHasta[2]+vecFechaHasta[1]+vecFechaHasta[0];
+        
+        long   longFechaDesde = Long.parseLong(cadLongFechaDesde);
+        long   longFechaHasta = Long.parseLong(cadLongFechaHasta);
+        
+        try {
+            File file = new File(ruta);
+            // Si el archivo no existe es creado
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            String encabezado = "Stop;Phone;Name;Address;Address2;City;Zip;Item;Quantity;Price;Total;Notes;PM;Date\n";
+           bw.write(encabezado);
+
+            try {
+                st = (Statement) cn.con.createStatement();
+                rs = st.executeQuery("select * from horders");
+                while (rs.next()) {
+                    String fechaOrder = rs.getString("date");
+                    String [] vecFechaOrder = fechaOrder.split("/");
+                    String cadLongFechaOrder = vecFechaOrder[2]+vecFechaOrder[1]+vecFechaOrder[0];
+                    long   longFechaOrder = Long.parseLong(cadLongFechaOrder);
+                    
+                    if(longFechaOrder >= longFechaDesde && longFechaOrder <= longFechaHasta)
+                    {
+                        contenido.append(rs.getString("stop"));
+                        contenido.append(";");
+                        contenido.append(rs.getString("shippingPhone"));
+                        contenido.append(";");
+                        contenido.append(rs.getString("shippingName"));
+                        contenido.append(";");
+                        contenido.append(rs.getString("address"));
+                        contenido.append(";");
+                        contenido.append(rs.getString("address2"));
+                        contenido.append(";");
+                        contenido.append(rs.getString("city"));
+                        contenido.append(";");
+                        contenido.append(rs.getString("postalCode"));
+                        contenido.append(";");
+                        contenido.append(rs.getString("itemName"));
+                        contenido.append(";");
+                        contenido.append(rs.getInt("cant"));
+                        contenido.append(";");
+                        contenido.append(rs.getDouble("value"));
+                        contenido.append(";");
+                        contenido.append(rs.getDouble("total"));
+                        contenido.append(";");
+                        contenido.append(rs.getString("comments"));
+                        contenido.append(";");
+                        if(rs.getString("payment").equalsIgnoreCase("Bank Deposit")){
+                            contenido.append("BD");
+                        }else if(rs.getString("payment").equalsIgnoreCase("Shopify Payments")){
+                            contenido.append("SP");
+                        }else if(rs.getString("payment").equalsIgnoreCase("Cash on Delivery (COD)")){
+                            contenido.append("COD");
+                        }
+                        contenido.append(";");
+                        contenido.append(fechaOrder);
+                        //contenido.append(rs.getString("payment"));
+                        contenido.append("\n");
+                        bw.write(contenido.toString());
+                        contenido = new StringBuilder();
+                    }
+                    
+                }
+                cn.con.close();
+            } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "An error has occurred trying to connect to database");
+                 return 0;
+            }
+            
+            bw.close();
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error trying to write the file, please check the export path");
+             return 0;
+        }
+        
+        return 1;
+      }
+      
+      public static int escribirArchivoClientes(String ruta) {
+
+        Conexion cn = new Conexion();
+        Statement st;
+        ResultSet rs;
+        StringBuilder contenido = new StringBuilder();
+        try {
+            File file = new File(ruta);
+            // Si el archivo no existe es creado
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            String encabezado = "Phone;SPCode;Name;Address;Address2;City;Zip;Class;Subscribe;\n";
+            bw.write(encabezado);
+
+            try {
+                st = (Statement) cn.con.createStatement();
+                rs = st.executeQuery("select * from clients");
+                while (rs.next()) {
+                    contenido.append(rs.getString("shippingPhone"));
+                    contenido.append(";");
+                    contenido.append(rs.getString("shopifyCode"));
+                    contenido.append(";");
+                    contenido.append(rs.getString("name"));
+                    contenido.append(";");
+                    contenido.append(rs.getString("address"));
+                    contenido.append(";");
+                    contenido.append(rs.getString("address2"));
+                    contenido.append(";");
+                    contenido.append(rs.getString("city"));
+                    contenido.append(";");
+                    contenido.append(rs.getString("postalCode"));
+                    contenido.append(";");
+                    contenido.append(rs.getString("class"));
+                    contenido.append(";");
+                    contenido.append(rs.getInt("subscribe"));
+                    contenido.append(";");
+                    //contenido.append(rs.getString("payment"));
+                    contenido.append("\n");
+                    bw.write(contenido.toString());
+                    contenido = new StringBuilder();
+                    
+                }
+                cn.con.close();
+            } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "An error has occurred trying to connect to database");
+                 return 0;
+            }
+            
+            bw.close();
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error trying to write the file, please check the export path");
+             return 0;
+        }
+        
+        return 1;
+    }
+ 
+      public static ArrayList<Product> llenarTablaProductos() {
+
+        Conexion cn = new Conexion();
+        Statement st;
+        ResultSet rs;
+        StringBuilder contenido = new StringBuilder();
+        Product producto;
+        ArrayList<Product> listaProductos = new ArrayList<>();
+        String nombre;
+        int    cantidad;
+        Double valor;
+        
+            try {
+                st = (Statement) cn.con.createStatement();
+                rs = st.executeQuery("select * from horders");
+                while (rs.next()) {
+                    nombre = rs.getString("itemName");
+                    cantidad = rs.getInt("cant");
+                    valor = rs.getDouble("value");
+                    valor = valor * cantidad;
+                    boolean primerDato = true;
+                    
+                    for (int i = 0; i < listaProductos.size(); i++) {
+                        if(listaProductos.get(i).getNombre().equalsIgnoreCase(nombre)){
+                            cantidad = cantidad + listaProductos.get(i).getCantidad();
+                            listaProductos.get(i).setCantidad(cantidad);
+                            valor = valor + listaProductos.get(i).getValor();
+                            listaProductos.get(i).setValor(valor);
+                            primerDato = false;
+                        }
+                    }
+                    
+                    if(primerDato){
+                        producto = new Product(nombre, cantidad, valor);
+                        listaProductos.add(producto);
+                    }
+ 
+                }
+                
+                cn.con.close();
+            } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "Error conecting to the data base");
+                 return null;
+            }
+            
+          
+        
+        return listaProductos;
+    }
 }
 
 
