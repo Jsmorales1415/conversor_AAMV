@@ -5,7 +5,6 @@
  */
 package GUI;
 
-
 import javax.swing.JFrame;
 
 /**
@@ -15,6 +14,7 @@ import javax.swing.JFrame;
 public class VtnMain extends javax.swing.JFrame {
     
     private VtnOrders orders;
+    private VtnClients clients;
     public VtnMain() {
         initComponents();
         this.setLocation(250, 80);
@@ -48,7 +48,7 @@ public class VtnMain extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(860, 467));
 
         btnHistorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/hist_icon.png"))); // NOI18N
-        btnHistorial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnHistorial.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         btnHistorial.setEnabled(false);
         btnHistorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,8 +65,7 @@ public class VtnMain extends javax.swing.JFrame {
         });
 
         btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/client_icon.png"))); // NOI18N
-        btnClientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnClientes.setEnabled(false);
+        btnClientes.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClientesActionPerformed(evt);
@@ -83,7 +82,7 @@ public class VtnMain extends javax.swing.JFrame {
         jLabel1.setText("The Home Market Inc.");
 
         btnIngEgr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/CapIngresos.PNG"))); // NOI18N
-        btnIngEgr.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnIngEgr.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         btnIngEgr.setEnabled(false);
         btnIngEgr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,8 +170,8 @@ public class VtnMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnOrdenesActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        // TODO add your handling code here:
-        
+        clients = new VtnClients();
+        irA(clients);
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
