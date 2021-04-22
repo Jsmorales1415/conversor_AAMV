@@ -52,7 +52,7 @@ public class Conexion {
         }
     }
 
-    /*
+    
     public static void main(String[] args) {
         //cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv");
         
@@ -67,13 +67,13 @@ public class Conexion {
          //insertarAHistorial();
         // escribirArchivoHOrdersXFecha("14/05/2021", "14/08/2021", "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\horders.csv");
        // escribirArchivoClientes("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\Clientes.csv");
-       productos = llenarTablaProductos();
+      /* productos = llenarTablaProductos();
        
         for (Product producto : productos) {
             System.out.println(producto.getNombre()+";"+producto.getCantidad()+";"+producto.getValor());
         }
-       
-    }*/
+       */
+    }
     
 
     public static void listarDatos() {

@@ -7,6 +7,8 @@ package GUI;
 
 import Clases.Product;
 import Conexion.Conexion;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
@@ -23,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VtnVisualizarStats extends javax.swing.JFrame {
     
-    private VtnOrders ordenes;
+    private VtnMain main;
     
     public VtnVisualizarStats() {
         initComponents();
@@ -126,6 +128,8 @@ public class VtnVisualizarStats extends javax.swing.JFrame {
             }
         });
 
+        txtExpense.setText("0.0");
+
         lblTotal.setText(".....");
 
         jLabel3.setText("Revenue");
@@ -221,8 +225,8 @@ public class VtnVisualizarStats extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        ordenes = new VtnOrders();
-        irA(ordenes);
+        main = new VtnMain();
+        irA(main);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void tablaProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProductsMouseClicked
@@ -251,7 +255,7 @@ public class VtnVisualizarStats extends javax.swing.JFrame {
         double valorTotal = 0.0;
         String totalStr;
         
-        ArrayList<Product> productos = new ArrayList();
+        ArrayList<Product> productos = new ArrayList<>();
         
         productos = Conexion.llenarTablaProductos();
         try {
@@ -268,20 +272,26 @@ public class VtnVisualizarStats extends javax.swing.JFrame {
             tablaModelo.addColumn("Total");
             
             Object O[]=null;
-            int columnas = 1;
+            int columnas = 0;
             for (Product producto : productos) {
                 tablaModelo.addRow(O);
                 tablaModelo.setValueAt(producto.getNombre(), columnas, 0);
                 tablaModelo.setValueAt(producto.getCantidad(), columnas, 1);
                 tablaModelo.setValueAt(producto.getValor(), columnas, 2);
                 valorTotal = valorTotal + producto.getValor();
+               
                 columnas++;
             }
             
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-        totalStr = ""+valorTotal;
+        
+        //Se redondea el valor a 2 decimales
+        BigDecimal bd = new BigDecimal(valorTotal).setScale(2, RoundingMode.HALF_UP);
+        double val2 = bd.doubleValue();
+        totalStr = ""+val2;
+      
         txtRevenue.setText(totalStr);
     }
     
@@ -296,7 +306,10 @@ public class VtnVisualizarStats extends javax.swing.JFrame {
         expense = Double.parseDouble(txtExpense.getText());
         
         total = revenue - expense;
-        totalStr = ""+total;
+        //Se redondea el valor a 3 decimales
+        BigDecimal bd = new BigDecimal(total).setScale(3, RoundingMode.HALF_UP);
+        double val2 = bd.doubleValue();
+        totalStr = ""+val2;
         
         lblTotal.setText(totalStr);
     }
