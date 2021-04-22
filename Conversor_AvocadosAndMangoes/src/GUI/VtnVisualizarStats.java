@@ -135,6 +135,11 @@ public class VtnVisualizarStats extends javax.swing.JFrame {
         jLabel5.setText("Total");
 
         btnCalculate.setText("Calculate");
+        btnCalculate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalculateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -224,6 +229,10 @@ public class VtnVisualizarStats extends javax.swing.JFrame {
         //Evento al presionar doble click sobre registro de la tabla
         
     }//GEN-LAST:event_tablaProductsMouseClicked
+
+    private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
+       calcularTotal();
+    }//GEN-LAST:event_btnCalculateActionPerformed
     
     public void irA(JFrame ventana){
         this.dispose();
@@ -276,6 +285,21 @@ public class VtnVisualizarStats extends javax.swing.JFrame {
         txtRevenue.setText(totalStr);
     }
     
+    public void calcularTotal(){
+        
+        double revenue;
+        double total;
+        double expense;
+        String totalStr;
+        
+        revenue = Double.parseDouble(txtRevenue.getText());
+        expense = Double.parseDouble(txtExpense.getText());
+        
+        total = revenue - expense;
+        totalStr = ""+total;
+        
+        lblTotal.setText(totalStr);
+    }
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalculate;
