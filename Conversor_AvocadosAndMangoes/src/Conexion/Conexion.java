@@ -52,7 +52,7 @@ public class Conexion {
         }
     }
 
-    
+    /*
     public static void main(String[] args) {
         //cargarArchivo("c:\\Users\\diego\\Desktop\\archivo.csv");
         
@@ -73,7 +73,7 @@ public class Conexion {
             System.out.println(producto.getNombre()+";"+producto.getCantidad()+";"+producto.getValor());
         }
        
-    }
+    }*/
     
 
     public static void listarDatos() {

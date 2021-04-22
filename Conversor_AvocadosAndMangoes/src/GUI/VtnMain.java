@@ -15,6 +15,7 @@ public class VtnMain extends javax.swing.JFrame {
     
     private VtnOrders orders;
     private VtnClients clients;
+    private VtnVisualizarStats stats;
     public VtnMain() {
         initComponents();
         this.setLocation(250, 80);
@@ -84,7 +85,6 @@ public class VtnMain extends javax.swing.JFrame {
 
         btnIngEgr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/CapIngresos.PNG"))); // NOI18N
         btnIngEgr.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnIngEgr.setEnabled(false);
         btnIngEgr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngEgrActionPerformed(evt);
@@ -180,7 +180,8 @@ public class VtnMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHistorialActionPerformed
 
     private void btnIngEgrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngEgrActionPerformed
-        // TODO add your handling code here:
+        stats = new VtnVisualizarStats();
+        irA(stats);
     }//GEN-LAST:event_btnIngEgrActionPerformed
 
     public void irA(JFrame ventana){
