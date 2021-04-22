@@ -48,7 +48,7 @@ public class VtnMain extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(860, 467));
 
         btnHistorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/hist_icon.png"))); // NOI18N
-        btnHistorial.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        btnHistorial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnHistorial.setEnabled(false);
         btnHistorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,7 +65,8 @@ public class VtnMain extends javax.swing.JFrame {
         });
 
         btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/client_icon.png"))); // NOI18N
-        btnClientes.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        btnClientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnClientes.setEnabled(false);
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClientesActionPerformed(evt);
@@ -82,7 +83,7 @@ public class VtnMain extends javax.swing.JFrame {
         jLabel1.setText("The Home Market Inc.");
 
         btnIngEgr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/CapIngresos.PNG"))); // NOI18N
-        btnIngEgr.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        btnIngEgr.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnIngEgr.setEnabled(false);
         btnIngEgr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
