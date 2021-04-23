@@ -45,7 +45,7 @@ public class VtnVisClients extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaOrdenes = new javax.swing.JTable();
+        tablaClientes = new javax.swing.JTable();
         btnRegresar = new javax.swing.JToggleButton();
         jPanel2 = new javax.swing.JPanel();
         btnVerOrden = new javax.swing.JButton();
@@ -75,6 +75,10 @@ public class VtnVisClients extends javax.swing.JFrame {
         cmpId = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         cmpClase = new javax.swing.JComboBox<>();
+        cmpCodPostal1 = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        cmpSPCode = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         btnFilter = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
@@ -95,7 +99,7 @@ public class VtnVisClients extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("CLIENTS");
 
-        tablaOrdenes.setModel(new javax.swing.table.DefaultTableModel(
+        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -143,12 +147,12 @@ public class VtnVisClients extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tablaOrdenes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaOrdenesMouseClicked(evt);
+                tablaClientesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tablaOrdenes);
+        jScrollPane1.setViewportView(tablaClientes);
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/flecha.png"))); // NOI18N
         btnRegresar.setBorder(null);
@@ -382,7 +386,39 @@ public class VtnVisClients extends javax.swing.JFrame {
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("Id");
 
-        cmpClase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Shopify", "Frecuent", "Recurrent", "Occasional (Semester)", "Occasional (Yearly)", "No Marketing", "Bad Experience", "No Coverage", "Inactive", " " }));
+        cmpClase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Shopify Subscriber", "Frecuent", "Recurrent", "Occasional (Semester)", "Occasional (Yearly)", "No Marketing", "Bad Experience", "No Coverage", "Inactive", "" }));
+
+        cmpCodPostal1.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        cmpCodPostal1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmpCodPostal1ActionPerformed(evt);
+            }
+        });
+        cmpCodPostal1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmpCodPostal1KeyPressed(evt);
+            }
+        });
+
+        jLabel18.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel18.setText("Interval");
+
+        jLabel19.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setText("SP Code");
+
+        cmpSPCode.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        cmpSPCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmpSPCodeActionPerformed(evt);
+            }
+        });
+        cmpSPCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmpSPCodeKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -393,7 +429,11 @@ public class VtnVisClients extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(cmpClase, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(205, 205, 205))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18)
+                            .addComponent(cmpCodPostal1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(67, 67, 67))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
@@ -406,18 +446,18 @@ public class VtnVisClients extends javax.swing.JFrame {
                                         .addComponent(jLabel10)
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(cmpDir2)))
-                            .addComponent(cmpTel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(cmpTel, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(211, 211, 211))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel16)
-                                            .addComponent(cmpCiudad, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
+                                            .addComponent(cmpCiudad, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel17)
@@ -428,7 +468,14 @@ public class VtnVisClients extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel20)
-                                    .addComponent(cmpId, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(cmpId, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel19)
+                                    .addComponent(cmpSPCode, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(65, 65, 65)))
                         .addGap(17, 17, 17))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -447,8 +494,14 @@ public class VtnVisClients extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmpTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmpTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmpSPCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(jLabel10))
@@ -460,13 +513,18 @@ public class VtnVisClients extends javax.swing.JFrame {
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmpCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmpCodPostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmpClase, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmpCodPostal1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmpClase, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
@@ -482,7 +540,7 @@ public class VtnVisClients extends javax.swing.JFrame {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("Filters");
 
-        checkSPSus.setText("Shopify suscriber");
+        checkSPSus.setText("Shopify subscriber");
 
         checkFrequent.setText("Frequent");
 
@@ -676,11 +734,11 @@ public class VtnVisClients extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cmpBusquedaKeyPressed
 
-    private void tablaOrdenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaOrdenesMouseClicked
+    private void tablaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClientesMouseClicked
         //Evento al presionar doble click sobre registro de la tabla
         SeleccionarDatosTabla();
         
-    }//GEN-LAST:event_tablaOrdenesMouseClicked
+    }//GEN-LAST:event_tablaClientesMouseClicked
 
     private void btnLimpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCamposActionPerformed
         limpiarDatos();
@@ -746,6 +804,22 @@ public class VtnVisClients extends javax.swing.JFrame {
     private void cmpClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpClienteKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmpClienteKeyPressed
+
+    private void cmpCodPostal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpCodPostal1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpCodPostal1ActionPerformed
+
+    private void cmpCodPostal1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpCodPostal1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpCodPostal1KeyPressed
+
+    private void cmpSPCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmpSPCodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpSPCodeActionPerformed
+
+    private void cmpSPCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpSPCodeKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpSPCodeKeyPressed
     
     public void irA(JFrame ventana){
         this.dispose();
@@ -792,6 +866,10 @@ public class VtnVisClients extends javax.swing.JFrame {
             {
                 where = "WHERE city LIKE '"+cmpBuscar+"%'";
             }
+            else if ( itemSeleccionado.equalsIgnoreCase("spcode") )
+            {
+                where = "WHERE shopifyCode LIKE '"+cmpBuscar+"%'";
+            }
         }
         
         try {
@@ -800,7 +878,7 @@ public class VtnVisClients extends javax.swing.JFrame {
             
             prepStat = (Statement) cnx.con.createStatement(); 
             
-            tablaOrdenes.setModel(tablaModelo);
+            tablaClientes.setModel(tablaModelo);
             
             sql = "SELECT id, shopifyCode, shippingPhone, name, address, address2, city, postalCode, class FROM clients "+where;
             resSet = prepStat.executeQuery(sql);
@@ -824,7 +902,7 @@ public class VtnVisClients extends javax.swing.JFrame {
             
             for ( int j = 0; j < cantCol; j++ )
             {
-                tablaOrdenes.getColumnModel().getColumn(j).setPreferredWidth(anchoCols[j]);
+                tablaClientes.getColumnModel().getColumn(j).setPreferredWidth(anchoCols[j]);
             }
             
             while ( resSet.next() )
@@ -905,14 +983,16 @@ public class VtnVisClients extends javax.swing.JFrame {
         String direccion2 = cmpDir2.getText();
         String ciudad = cmpCiudad.getText();
         String codigoPostal = cmpCodPostal.getText();
+        String codigoSP = cmpSPCode.getText();
         
         try {
             
             prepStat = (Statement) cnx.con.createStatement(); 
             
-            sql = "UPDATE orders SET "
+            sql = "UPDATE clients SET "
                     + "shippingPhone = '"+telefono+"', "
-                    + "shippingName = '"+cliente+"', "
+                    + "shopifyCode = '"+codigoSP+"', "
+                    + "name = '"+cliente+"', "
                     + "address = '"+direccion+"', "
                     + "address2 = '"+direccion2+"', "
                     + "city = '"+ciudad+"', "
@@ -923,10 +1003,10 @@ public class VtnVisClients extends javax.swing.JFrame {
             
             prepStat.executeUpdate(sql);
             
-            JOptionPane.showMessageDialog(this, "Orden modificada en la base de datos", "Base de datos", 1);
+            JOptionPane.showMessageDialog(this, "Client updated in database", "DataBase", 1);
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al obtener registro de base de datos: "+e, "Error", 0);
+            JOptionPane.showMessageDialog(this, "Error trying to update the client to database: "+e, "Error", 0);
             System.out.println(e.toString());
         }
     }
@@ -945,16 +1025,16 @@ public class VtnVisClients extends javax.swing.JFrame {
             
             prepStat = (Statement) cnx.con.createStatement(); 
             
-            sql = "DELETE FROM orders WHERE id = '"+id+"'";
+            sql = "DELETE FROM clients WHERE id = '"+id+"'";
             
             //System.out.println(sql);
             
             prepStat.executeUpdate(sql);
             
-            JOptionPane.showMessageDialog(this, "Orden fue eliminada de la base de datos", "Base de datos", 1);
+            JOptionPane.showMessageDialog(this, "Client has been deleted from database", "DataBase", 1);
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al obtener registro de base de datos: "+e, "Error", 0);
+            JOptionPane.showMessageDialog(this, "Error trying to delete the client from database: "+e, "Error", 0);
             System.out.println(e.toString());
         }
     }
@@ -971,18 +1051,19 @@ public class VtnVisClients extends javax.swing.JFrame {
             
             prepStat = (Statement) cnx.con.createStatement(); 
             
-            int fila = tablaOrdenes.getSelectedRow();
-            String id = tablaOrdenes.getValueAt(fila, 0).toString();
+            int fila = tablaClientes.getSelectedRow();
+            String id = tablaClientes.getValueAt(fila, 0).toString();
             
-            sql = "SELECT id, shippingPhone, shippingName, address, address2, city, postalCode, itemName, cant, value, total, payment, comments "
+            sql = "SELECT id, shopifyCode, shippingPhone, name, address, address2, city, postalCode, class "
                     + "FROM clients WHERE id = '"+ id +"'";
             resSet = prepStat.executeQuery(sql);
             
             while ( resSet.next() )
             {
                 cmpId.setText(resSet.getString("id"));
-                cmpCliente.setText(resSet.getString("shippingName"));
                 cmpTel.setText(resSet.getString("shippingPhone"));
+                cmpSPCode.setText(resSet.getString("shopifyCode"));
+                cmpCliente.setText(resSet.getString("name"));
                 cmpDir.setText(resSet.getString("address"));
                 cmpDir2.setText(resSet.getString("address2"));
                 cmpCiudad.setText(resSet.getString("city"));
@@ -990,7 +1071,7 @@ public class VtnVisClients extends javax.swing.JFrame {
             }
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al obtener registro de base de datos: "+e);
+            JOptionPane.showMessageDialog(this, "Error trying to get the client from database: "+e);
             System.out.println(e.toString());
         }
     }
@@ -1032,9 +1113,11 @@ public class VtnVisClients extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmpClase;
     private javax.swing.JTextField cmpCliente;
     private javax.swing.JTextField cmpCodPostal;
+    private javax.swing.JTextField cmpCodPostal1;
     private javax.swing.JTextField cmpDir;
     private javax.swing.JTextField cmpDir2;
     private javax.swing.JTextField cmpId;
+    private javax.swing.JTextField cmpSPCode;
     private javax.swing.JTextField cmpTel;
     private javax.swing.JComboBox<String> comboBusqueda;
     private javax.swing.JLabel jLabel1;
@@ -1044,6 +1127,8 @@ public class VtnVisClients extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1057,6 +1142,6 @@ public class VtnVisClients extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable tablaOrdenes;
+    private javax.swing.JTable tablaClientes;
     // End of variables declaration//GEN-END:variables
 }
