@@ -17,10 +17,12 @@ public class Client {
     private String address2;
     private String city;
     private String postalCode;
+    private String email;
+    private double totalSpent;
     private String classe;
     private int subscribe;
 
-    public Client(String shippingPhone, String shopifyCode, String name, String address, String address2, String city, String postalCode, int subscribe) {
+    public Client(String shippingPhone, String shopifyCode, String name, String address, String address2, String city, String postalCode, String email, double totalSpent, String classe, int subscribe) {
         this.shippingPhone = shippingPhone;
         this.shopifyCode = shopifyCode;
         this.name = name;
@@ -28,6 +30,9 @@ public class Client {
         this.address2 = address2;
         this.city = city;
         this.postalCode = postalCode;
+        this.email = email;
+        this.totalSpent = totalSpent;
+        this.classe = classe;
         this.subscribe = subscribe;
     }
 
@@ -157,5 +162,33 @@ public class Client {
      */
     public void setSubscribe(int subscribe) {
         this.subscribe = subscribe;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return the totalSpent
+     */
+    public double getTotalSpent() {
+        return totalSpent;
+    }
+
+    /**
+     * @param totalSpent the totalSpent to set
+     */
+    public void setTotalSpent(double totalSpent) {
+        this.totalSpent = totalSpent;
     }
 }
