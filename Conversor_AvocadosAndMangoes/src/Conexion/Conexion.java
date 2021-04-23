@@ -172,7 +172,7 @@ public class Conexion {
                 }
             }
             encabezadosVector = encabezados.split(",");
-            int campos[] = validarCampos(encabezadosVector);
+            int campos[] = validarCampos(encabezadosVector, "order");
             encabezadoCampos = new String[campos.length];
             for (int i = 0; i < campos.length; i++) {
                 encabezadoCampos[i] = encabezadosVector[campos[i]];
@@ -280,10 +280,11 @@ public class Conexion {
              return null;
         }
         JOptionPane.showMessageDialog(null, "The orders file has been uploaded succesfully");
+        insertarAHistorial();
         return datos;
     }
 
-    public static int[] validarCampos(String campos[]) {
+    public static int[] validarCampos(String campos[], String clase) {
 
         Conexion cn = new Conexion();
         Statement st;
@@ -293,17 +294,25 @@ public class Conexion {
         int posicionCampos[] = null;
         int contadorCampos = 0;
         int j = 0;
+        String sql;
+        
+         if(clase.equalsIgnoreCase("order"))
+               sql = "select * from fieldconfigure";
+         else
+               sql = "select * from fieldconfigureclient";
+        
 
         try {
             st = (Statement) cn.con.createStatement();
-            rs = st.executeQuery("select * from fieldconfigure");
+            rs = st.executeQuery(sql);
+            
             while (rs.next()) {
                 contadorCampos++;
                 // System.out.println(rs.getInt("id")+" " +rs.getString("nombre")+" ");
             }
             posicionCampos = new int[contadorCampos];
             st = (Statement) cn.con.createStatement();
-            rs = st.executeQuery("select * from fieldconfigure");
+            rs = st.executeQuery(sql);
             while (rs.next()) {
                 shoppingName = rs.getString("shippingName");
                 // dbName = rs.getString("dbName");
@@ -1018,6 +1027,178 @@ public class Conexion {
         
         return listaProductos;
     }
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      public static ArrayList<String[][]> cargarArchivoClientes(String ruta) {
+        
+        //vaciarTabla();
+        Path filePath = Paths.get(ruta);
+        String vectorDatos[][];
+        String vectorDatosTmp[][];
+        String vectorDatosCopia[][];
+        ArrayList<String[][]> datos = new ArrayList<>();
+        //ArrayList<String[]> datosRutas = new ArrayList<>();
+        //datosRutas = cargarArchivoRutas(rutaRoutes);
+        //System.out.println(datosRutas.get(0)[0]);
+        Conexion cn = new Conexion();
+        try {
+            BufferedReader bf = Files.newBufferedReader(filePath);
+            String linea;
+            String encabezados = "";
+            String[] encabezadosVector;
+            String[] encabezadoCampos;
+            StringBuilder dato;
+            String nameAnterior = "";
+            int posicionAddress = 0;
+            boolean primeraLinea = true;
+            int numeroDatos = 0;
+            if (primeraLinea) {
+                encabezados = bf.readLine();
+                for (int i = 0; i < encabezados.length(); i++) {
+                    if (encabezados.charAt(i) == ',') {
+                        numeroDatos++;
+                    }
+                }
+            }
+            encabezadosVector = encabezados.split(",");
+            int campos[] = validarCampos(encabezadosVector,"");
+            encabezadoCampos = new String[campos.length];
+            for (int i = 0; i < campos.length; i++) {
+                encabezadoCampos[i] = encabezadosVector[campos[i]];
+            }
+
+            vectorDatos = new String[1][numeroDatos];
+            vectorDatosTmp = new String[1][numeroDatos];
+            vectorDatosCopia = new String[1][numeroDatos];
+            int contadorDatos = 0;
+            //Recorremos las lineas del archivo
+            while ((linea = bf.readLine()) != null) {
+                dato = new StringBuilder("");
+                //Recorremos los caracteres de la linea leida
+                for (int i = 0; i < linea.length(); i++) {
+                    //Si la linea leida es igual a una coma es por que viene un nuevo dato
+                    if (linea.charAt(i) == ',') {
+                        //Agregamos el dato al array y formateamos la cadena
+                        vectorDatos[0][contadorDatos] = dato.toString();
+                        contadorDatos++;
+                        dato = new StringBuilder("");
+                        //Se pregunta que el siguiente caracter este dentro de la variable linea
+                        if (i + 1 < linea.length()) {
+                            //Se pregunta si el caracter que sigue a la coma es un '"' esto nos indica que leeremos una cadena
+                            //que puede contener comas en su interior
+                            if (linea.charAt(i + 1) == '"') {
+                                i = i + 2;
+                                while (linea.charAt(i) != '"') {
+                                    dato.append(linea.charAt(i));
+                                    i++;
+                                }
+
+                            } else {
+                                if (linea.charAt(i) != ',') {
+                                    dato.append(linea.charAt(i));
+                                }
+                            }
+                        }
+                    } else {
+                        if (linea.charAt(i) != ',') {
+                            dato.append(linea.charAt(i));
+                        }
+                    }
+                }
+                //order.setShippingName(vector[15]);
+                //agreagarDatos(order);
+                // String[] datosLinea = linea.split(",");
+                // System.out.println(datos.get(0));
+                int contadorTmp = 0;
+                if (nameAnterior.equalsIgnoreCase(vectorDatos[0][0])){/*(vectorDatosTmp[0][0] != null && vectorDatosTmp[0][0].equalsIgnoreCase(vectorDatos[0][campos[0]])) || (vectorDatosCopia[0][0] != null && vectorDatosCopia[0][0].equalsIgnoreCase(vectorDatos[0][campos[0]]))*/ 
+                    vectorDatosCopia = vectorDatosTmp;
+                    
+
+                    for (int x = 0; x < campos.length; x++) {
+                        String campoTabla = buscarEnFieldConfigure(encabezadosVector[campos[x]], cn);
+                        if(campoTabla.equalsIgnoreCase("ErrorBase")){
+                            break;
+                        }
+                        if (campoTabla.equalsIgnoreCase("itemName")
+                                || campoTabla.equalsIgnoreCase("cant")
+                                || campoTabla.equalsIgnoreCase("value")) {
+                            vectorDatosCopia[0][contadorTmp] = vectorDatos[0][campos[x]];
+                           // System.out.println( vectorDatosCopia[0][contadorTmp]);
+                            contadorTmp++;
+                        } else if(campoTabla.equalsIgnoreCase("total")){
+                            vectorDatosCopia[0][contadorTmp] = "0.0";
+                            contadorTmp++;
+                        }else{
+                            
+                            contadorTmp++;
+                        }
+
+                    }
+
+                    datos.add(vectorDatosCopia);
+                    nameAnterior = vectorDatos[0][0];
+                    vectorDatos = new String[1][numeroDatos];
+                    contadorDatos = 0;
+                    // System.out.println("Copia"+vectorDatosCopia[0][0]+vectorDatosCopia[0][1]+vectorDatosCopia[0][2]+vectorDatosCopia[0][3]+vectorDatosCopia[0][4]+vectorDatosCopia[0][5]+vectorDatosCopia[0][6]+vectorDatosCopia[0][7]+vectorDatosCopia[0][8]+vectorDatosCopia[0][9]+vectorDatosCopia[0][10]+vectorDatosCopia[0][11]);
+                    crearOrden(encabezadoCampos, vectorDatosCopia, cn);
+                } else {
+                    // vectorDatosTmp = new String[1][numeroDatos];
+                    //Se recorre la lista de campos para agregar solo los campos necesarios
+                    for (int j = 0; j < campos.length; j++) {
+                        
+                        if(buscarEnFieldConfigure(encabezadosVector[campos[j]], cn).equalsIgnoreCase("shippingPhone")){
+                            vectorDatosTmp[0][contadorTmp] = formatearTelefono(vectorDatos[0][campos[j]]);
+                        }
+                        else
+                        {
+                             vectorDatosTmp[0][contadorTmp] = vectorDatos[0][campos[j]];
+                        }
+                        // System.out.println(vectorDatos[0][campos[j]]);
+                        contadorTmp++;
+                    }
+                    datos.add(vectorDatosTmp);
+                    crearOrden(encabezadoCampos, vectorDatosTmp, cn);
+                    // System.out.println("vector"+vectorDatosTmp[0][2]);
+                    contadorDatos = 0;
+                    nameAnterior = vectorDatos[0][0];
+                    vectorDatos = new String[1][numeroDatos];
+                }
+            }
+        } catch (IOException e) {
+             JOptionPane.showMessageDialog(null, "An error has occurred reading the file, please check the file path");
+             return null;
+        }
+        JOptionPane.showMessageDialog(null, "The orders file has been uploaded succesfully");
+        return datos;
+    }
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
 }
 
 
