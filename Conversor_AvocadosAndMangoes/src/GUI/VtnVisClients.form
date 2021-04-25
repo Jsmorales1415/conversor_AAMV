@@ -194,6 +194,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaClientesMouseClicked"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tablaClientesKeyPressed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -461,10 +462,6 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Component id="jLabel7" min="-2" pref="60" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="211" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="cmpCiudad" alignment="0" pref="250" max="32767" attributes="0"/>
@@ -479,6 +476,10 @@
                                           <Group type="102" attributes="0">
                                               <Component id="cmpCliente" max="32767" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel7" min="-2" pref="102" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -572,7 +573,7 @@
                   <Font name="Bookman Old Style" size="12" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
-                <Property name="text" type="java.lang.String" value="Client"/>
+                <Property name="text" type="java.lang.String" value="Client name"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="cmpCliente">

@@ -6,6 +6,7 @@
 package GUI;
 
 import Conexion.Conexion;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
@@ -22,6 +23,17 @@ import javax.swing.table.DefaultTableModel;
 public class VtnVisClients extends javax.swing.JFrame {
     
     private VtnClients clientes;
+    
+    //Variables globales para filtro de clases
+    boolean classSPSus;
+    boolean classFrecuent;
+    boolean classRecurrent;
+    boolean classOcSemester;
+    boolean classOcAnual;
+    boolean classNoMark;
+    boolean classBadExp;
+    boolean classNoCover;
+    boolean classInactive;
     
     public VtnVisClients() {
         initComponents();
@@ -150,6 +162,11 @@ public class VtnVisClients extends javax.swing.JFrame {
         tablaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaClientesMouseClicked(evt);
+            }
+        });
+        tablaClientes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tablaClientesKeyPressed(evt);
             }
         });
         jScrollPane1.setViewportView(tablaClientes);
@@ -285,7 +302,7 @@ public class VtnVisClients extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("Client");
+        jLabel7.setText("Client name");
 
         cmpCliente.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         cmpCliente.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -452,9 +469,6 @@ public class VtnVisClients extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(211, 211, 211))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel16)
                                             .addComponent(cmpCiudad, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
@@ -465,7 +479,10 @@ public class VtnVisClients extends javax.swing.JFrame {
                                         .addGap(9, 9, 9))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(cmpCliente)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel20)
                                     .addComponent(cmpId, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -716,7 +733,46 @@ public class VtnVisClients extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdicionarOrdenActionPerformed
 
     private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
-        // TODO add your handling code here:
+        //Filtro sobre la tabla modelo
+        classSPSus = false;
+        classFrecuent = false;
+        classRecurrent = false;
+        classOcSemester = false;
+        classOcAnual = false;
+        classNoMark = false;
+        classBadExp = false;
+        classNoCover = false;
+        classInactive = false;
+        
+        if ( checkSPSus.isSelected() ) 
+            classSPSus = true;
+        
+        if ( checkFrequent.isSelected() ) 
+            classFrecuent = true;
+        
+        if ( checkRecurrent.isSelected() ) 
+            classRecurrent = true;
+        
+        if ( checkOcSemester.isSelected() ) 
+            classOcSemester = true;
+        
+        if ( checkOcAnual.isSelected() ) 
+            classOcAnual = true;
+        
+        if ( checkNoMark.isSelected() ) 
+            classNoMark = true;
+        
+        if ( checkBadExp.isSelected() ) 
+            classBadExp = true;
+        
+        if ( checkNoCover.isSelected() ) 
+            classNoCover = true;
+        
+        if ( checkInactive.isSelected() ) 
+            classInactive = true;
+        
+        //Refresca los registros de la tabla por filtro de clase
+        CargarDatosTabla();
     }//GEN-LAST:event_btnFilterActionPerformed
 
     private void btnBuscarOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarOrdenActionPerformed
@@ -820,6 +876,19 @@ public class VtnVisClients extends javax.swing.JFrame {
     private void cmpSPCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmpSPCodeKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmpSPCodeKeyPressed
+
+    private void tablaClientesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaClientesKeyPressed
+        int keyCode = evt.getKeyCode();
+        
+        switch( keyCode ) { 
+            case KeyEvent.VK_UP:
+                SeleccionarDatosTabla(); 
+                break;
+            case KeyEvent.VK_DOWN:
+                SeleccionarDatosTabla();
+                break;
+        }
+    }//GEN-LAST:event_tablaClientesKeyPressed
     
     public void irA(JFrame ventana){
         this.dispose();
@@ -835,13 +904,14 @@ public class VtnVisClients extends javax.swing.JFrame {
         Conexion cnx = new Conexion();
         Connection con;
         String sql = "";
+        int contClass = 0;
         
         //Variables utilizadas para la busqueda 
         String itemSeleccionado = (String)comboBusqueda.getSelectedItem();
         String cmpBuscar = cmpBusqueda.getText();
         String where = "";
             
-        //Si la variable del campo no esta vacia
+        //Si la variable del campo de busqueda no esta vacia
         if ( !"".equals(cmpBuscar) )
         {
             //Segun el campo seleccionado en el combo hace ciertas busquedas:
@@ -849,28 +919,134 @@ public class VtnVisClients extends javax.swing.JFrame {
             if ( itemSeleccionado.equalsIgnoreCase("phone number") )
             {
                 where = "WHERE shippingPhone = '"+cmpBuscar+"'";
+                contClass++;
             }//Si es cliente busca el patron indicado al inicio de la cadena (patron%)
             else if ( itemSeleccionado.equalsIgnoreCase("client name") )
             {
                 where = "WHERE name LIKE '"+cmpBuscar+"%'";
+                contClass++;
             }
             else if ( itemSeleccionado.equalsIgnoreCase("address") )
             {
                 where = "WHERE address LIKE '"+cmpBuscar+"%'";
+                contClass++;
             }
             else if ( itemSeleccionado.equalsIgnoreCase("address2") )
             {
                 where = "WHERE address2 LIKE '"+cmpBuscar+"%'";
+                contClass++;
             }
             else if ( itemSeleccionado.equalsIgnoreCase("city") )
             {
                 where = "WHERE city LIKE '"+cmpBuscar+"%'";
+                contClass++;
             }
-            else if ( itemSeleccionado.equalsIgnoreCase("spcode") )
+            else if ( itemSeleccionado.equalsIgnoreCase("sp code") )
             {
                 where = "WHERE shopifyCode LIKE '"+cmpBuscar+"%'";
+                contClass++;
             }
         }
+        
+        //Si se marcaron clases y se esta realizando filtro
+        if ( classSPSus )
+        { 
+            if ( contClass == 0 )
+                where += "WHERE";
+            else
+                where += "OR";
+                
+            where += " class = 'Shopify Subscriber' ";
+            contClass++;
+        }
+        
+        if ( classFrecuent )
+        {
+            if ( contClass == 0 )
+                where += "WHERE";
+            else
+                where += "OR";
+                
+            where += " class = 'Frecuent' ";
+            contClass++;
+        }
+        
+        if ( classRecurrent )
+        {
+            if ( contClass == 0 )
+                where += "WHERE";
+            else
+                where += "OR";
+        
+            where += " class = 'Recurrent' ";
+            contClass++;
+        }
+        
+        if ( classOcSemester )
+        {
+            if ( contClass == 0 )
+                where += "WHERE";
+            else
+                where += "OR";
+            
+            where += " class = 'Occasional (Semester)' ";
+            contClass++;
+        }
+        
+        if ( classOcAnual )
+        {
+            if ( contClass == 0 )
+                where += "WHERE";
+            else
+                where += "OR";
+            
+            where += " class = 'Occasional (Yearly)' ";
+            contClass++;
+        }
+        
+        if ( classBadExp )
+        {
+            if ( contClass == 0 )
+                where += "WHERE";
+            else
+                where += "OR";
+            
+            where += " class = 'Bad Experience' ";
+            contClass++;
+        }
+        
+        if ( classNoMark )
+        {
+            if ( contClass == 0 )
+                where += "WHERE";
+            else
+                where += "OR";
+            
+            where += " class = 'No Marketing' ";
+            contClass++;
+        }
+        if ( classNoCover )
+        {
+            if ( contClass == 0 )
+                where += "WHERE";
+            else
+                where += "OR";
+            
+            where += " class = 'No Coverage' ";
+            contClass++;
+        }
+        
+        if ( classInactive )
+        {
+            if ( contClass == 0 )
+                where += "WHERE";
+            else
+                where += "OR";
+            
+            where += " class = 'Inactive' ";
+        }
+        
+        //JOptionPane.showMessageDialog(this, "SQL = "+where);
         
         try {
             
@@ -934,36 +1110,38 @@ public class VtnVisClients extends javax.swing.JFrame {
         String sql = "";
         
         //Variables para adicionar en base de datos
-        String stop = "0";
         String telefono = cmpTel.getText();
+        String SPcode = cmpSPCode.getText();
         String cliente = cmpCliente.getText();
         String direccion = cmpDir.getText();
         String direccion2 = cmpDir2.getText();
         String ciudad = cmpCiudad.getText();
         String codigoPostal = cmpCodPostal.getText();
+        String claseSeleccionada = (String)cmpClase.getSelectedItem();
         
         try {
             
             prepStat = (Statement) cnx.con.createStatement(); 
             
-            sql = "INSERT INTO clients (stop, shippingPhone, shippingName, address, address2, city, postalCode, itemName, cant, value, total, payment, comments)"
+            sql = "INSERT INTO clients (shippingPhone, shopifyCode, name, address, address2, city, postalCode, class)"
                     + " VALUES ("
-                    + "'"+stop+"',"
                     + "'"+telefono+"',"
+                    + "'"+SPcode+"',"
                     + "'"+cliente+"',"
                     + "'"+direccion+"',"
                     + "'"+direccion2+"',"
                     + "'"+ciudad+"',"
-                    + "'"+codigoPostal+"');";
+                    + "'"+codigoPostal+"',"
+                    + "'"+claseSeleccionada+"');";
             
             //System.out.println(sql);
             
             prepStat.executeUpdate(sql);
             
-            JOptionPane.showMessageDialog(this, "Orden agregada a la base de datos", "Base de datos", 1);
+            JOptionPane.showMessageDialog(this, "The client has been added to database", "Base de datos", 1);
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al obtener registro de base de datos: "+e, "Error", 0);
+            JOptionPane.showMessageDialog(this, "Error trying to get the client from database: "+e, "Error", 0);
             System.out.println(e.toString());
         }
     }
@@ -984,6 +1162,7 @@ public class VtnVisClients extends javax.swing.JFrame {
         String ciudad = cmpCiudad.getText();
         String codigoPostal = cmpCodPostal.getText();
         String codigoSP = cmpSPCode.getText();
+        String claseSeleccionada = (String)cmpClase.getSelectedItem();
         
         try {
             
@@ -996,7 +1175,8 @@ public class VtnVisClients extends javax.swing.JFrame {
                     + "address = '"+direccion+"', "
                     + "address2 = '"+direccion2+"', "
                     + "city = '"+ciudad+"', "
-                    + "postalCode = '"+codigoPostal+"' "
+                    + "postalCode = '"+codigoPostal+"', "
+                    + "class = '"+claseSeleccionada+"' "
                     + "WHERE id = '"+id+"'";
             
             //System.out.println(sql);
@@ -1046,6 +1226,7 @@ public class VtnVisClients extends javax.swing.JFrame {
         ResultSet resSet = null;
         Conexion cnx = new Conexion();
         String sql = "";
+        int classIndex = 0;
         
         try {
             
@@ -1068,6 +1249,27 @@ public class VtnVisClients extends javax.swing.JFrame {
                 cmpDir2.setText(resSet.getString("address2"));
                 cmpCiudad.setText(resSet.getString("city"));
                 cmpCodPostal.setText(resSet.getString("postalCode"));
+                
+                if ( resSet.getString("class").equalsIgnoreCase("shopify subscriber") )
+                    classIndex = 0;
+                else if ( resSet.getString("class").equalsIgnoreCase("Frecuent") )
+                    classIndex = 1;
+                else if ( resSet.getString("class").equalsIgnoreCase("Recurrent") )
+                    classIndex = 2;
+                else if ( resSet.getString("class").equalsIgnoreCase("Occasional (Semester)") )
+                    classIndex = 3;
+                else if ( resSet.getString("class").equalsIgnoreCase("Occasional (Yearly)") )
+                    classIndex = 4;
+                else if ( resSet.getString("class").equalsIgnoreCase("No marketing") )
+                    classIndex = 5;
+                else if ( resSet.getString("class").equalsIgnoreCase("Bad experience") )
+                    classIndex = 6;
+                else if ( resSet.getString("class").equalsIgnoreCase("No coverage") )
+                    classIndex = 7;
+                else if ( resSet.getString("class").equalsIgnoreCase("Inactive") )
+                    classIndex = 8;
+                    
+                cmpClase.setSelectedIndex(classIndex);
             }
             
         } catch (Exception e) {
@@ -1089,6 +1291,7 @@ public class VtnVisClients extends javax.swing.JFrame {
         cmpDir2.setText("");
         cmpCiudad.setText("");
         cmpCodPostal.setText("");
+        cmpSPCode.setText("");
     }
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
