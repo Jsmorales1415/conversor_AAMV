@@ -59,7 +59,7 @@ public class Conexion {
         ArrayList<String> direcciones = new ArrayList<>();
         ArrayList<String[][]> datos = new ArrayList<>();
         ArrayList<Product> productos = new ArrayList<>();
-       // datos = cargarArchivo( "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
+        datos = cargarArchivoClientes("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientes.csv");
        // escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.csv");
        //cargarArchivoRutasOR("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routesOP.csv");
        // escribirArchivoProductos("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\products.csv");
@@ -97,7 +97,7 @@ public class Conexion {
 
         if (object instanceof Client) {
             try {
-                PreparedStatement PS = cn.con.prepareStatement("insert into clients (id, shippingPhone, shopifyCode, name, address, address2, city, postalCode, class, subscribe) values (null,?,?,?,?,?,?,?,?,? )");
+                PreparedStatement PS = cn.con.prepareStatement("insert into clients (shippingPhone, shopifyCode, name, address, address2, city, postalCode, email, totalSpent, class) values (?,?,?,?,?,?,?,?,?,? )");
                 PS.setString(1, ((Client) object).getShippingPhone());
                 PS.setString(2, ((Client) object).getShopifyCode());
                 PS.setString(3, ((Client) object).getName());
@@ -105,8 +105,9 @@ public class Conexion {
                 PS.setString(5, ((Client) object).getAddress2());
                 PS.setString(6, ((Client) object).getCity());
                 PS.setString(7, ((Client) object).getPostalCode());
-                PS.setString(8, ((Client) object).getClasse());
-                PS.setInt(9, ((Client) object).getSubscribe());
+                PS.setString(8, ((Client) object).getEmail());
+                PS.setDouble(9, ((Client) object).getTotalSpent());
+                PS.setString(10, ((Client) object).getClasse());
                 PS.executeUpdate();
 
                 cn.con.close();
@@ -226,7 +227,7 @@ public class Conexion {
                     
 
                     for (int x = 0; x < campos.length; x++) {
-                        String campoTabla = buscarEnFieldConfigure(encabezadosVector[campos[x]], cn);
+                        String campoTabla = buscarEnFieldConfigure(encabezadosVector[campos[x]], cn, "order");
                         if(campoTabla.equalsIgnoreCase("ErrorBase")){
                             break;
                         }
@@ -257,7 +258,7 @@ public class Conexion {
                     //Se recorre la lista de campos para agregar solo los campos necesarios
                     for (int j = 0; j < campos.length; j++) {
                         
-                        if(buscarEnFieldConfigure(encabezadosVector[campos[j]], cn).equalsIgnoreCase("shippingPhone")){
+                        if(buscarEnFieldConfigure(encabezadosVector[campos[j]], cn, "order").equalsIgnoreCase("shippingPhone")){
                             vectorDatosTmp[0][contadorTmp] = formatearTelefono(vectorDatos[0][campos[j]]);
                         }
                         else
@@ -364,7 +365,7 @@ public class Conexion {
         for (int i = 0; i < datos.length; i++) {
 
             for (int j = 0; j < encabezados.length; j++) {
-                campoTabla = buscarEnFieldConfigure(encabezados[j], cn);
+                campoTabla = buscarEnFieldConfigure(encabezados[j], cn, "order");
                 //System.out.println("FieldConfigure: " + buscarEnFieldConfigure(encabezados[j], cn));
                 if(campoTabla.equalsIgnoreCase("ErrorBase")){
                     return;
@@ -498,24 +499,44 @@ public class Conexion {
     }
      
      
-    public static String buscarEnFieldConfigure(String campo, Conexion cn) {
+    public static String buscarEnFieldConfigure(String campo, Conexion cn, String tipo) {
         //cn=new Conexion();
         Statement st;
         ResultSet rs;
-        try {
-            st = (Statement) cn.con.createStatement();
-            rs = st.executeQuery("select * from fieldconfigure where shippingName = '" + campo + "'");
+        if(tipo.equalsIgnoreCase("order"))
+        {
+            try {
+                st = (Statement) cn.con.createStatement();
+                rs = st.executeQuery("select * from fieldconfigure where shippingName = '" + campo + "'");
 
-            while (rs.next()) {
-                return rs.getString("dbName");
+                while (rs.next()) {
+                    return rs.getString("dbName");
+                }
+              //  cn.con.close();
+            } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "Search error trying to get the fields from database");
+                 return "ErrorBase";
             }
-          //  cn.con.close();
-        } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Search error trying to get the fields from database");
-             return "ErrorBase";
-        }
 
-        return "error";
+            return "error";
+        }
+        else
+        {
+            try {
+                st = (Statement) cn.con.createStatement();
+                rs = st.executeQuery("select * from fieldconfigureclient where shippingName = '" + campo + "'");
+
+                while (rs.next()) {
+                    return rs.getString("dbName");
+                }
+              //  cn.con.close();
+            } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "Search error trying to get the fields from database");
+                 return "ErrorBase";
+            }
+
+            return "error";
+        }
     }
 
     public static int escribirArchivo(String ruta) {
@@ -1122,43 +1143,12 @@ public class Conexion {
                 // String[] datosLinea = linea.split(",");
                 // System.out.println(datos.get(0));
                 int contadorTmp = 0;
-                if (nameAnterior.equalsIgnoreCase(vectorDatos[0][0])){/*(vectorDatosTmp[0][0] != null && vectorDatosTmp[0][0].equalsIgnoreCase(vectorDatos[0][campos[0]])) || (vectorDatosCopia[0][0] != null && vectorDatosCopia[0][0].equalsIgnoreCase(vectorDatos[0][campos[0]]))*/ 
-                    vectorDatosCopia = vectorDatosTmp;
-                    
-
-                    for (int x = 0; x < campos.length; x++) {
-                        String campoTabla = buscarEnFieldConfigure(encabezadosVector[campos[x]], cn);
-                        if(campoTabla.equalsIgnoreCase("ErrorBase")){
-                            break;
-                        }
-                        if (campoTabla.equalsIgnoreCase("itemName")
-                                || campoTabla.equalsIgnoreCase("cant")
-                                || campoTabla.equalsIgnoreCase("value")) {
-                            vectorDatosCopia[0][contadorTmp] = vectorDatos[0][campos[x]];
-                           // System.out.println( vectorDatosCopia[0][contadorTmp]);
-                            contadorTmp++;
-                        } else if(campoTabla.equalsIgnoreCase("total")){
-                            vectorDatosCopia[0][contadorTmp] = "0.0";
-                            contadorTmp++;
-                        }else{
-                            
-                            contadorTmp++;
-                        }
-
-                    }
-
-                    datos.add(vectorDatosCopia);
-                    nameAnterior = vectorDatos[0][0];
-                    vectorDatos = new String[1][numeroDatos];
-                    contadorDatos = 0;
-                    // System.out.println("Copia"+vectorDatosCopia[0][0]+vectorDatosCopia[0][1]+vectorDatosCopia[0][2]+vectorDatosCopia[0][3]+vectorDatosCopia[0][4]+vectorDatosCopia[0][5]+vectorDatosCopia[0][6]+vectorDatosCopia[0][7]+vectorDatosCopia[0][8]+vectorDatosCopia[0][9]+vectorDatosCopia[0][10]+vectorDatosCopia[0][11]);
-                    crearOrden(encabezadoCampos, vectorDatosCopia, cn);
-                } else {
+                
                     // vectorDatosTmp = new String[1][numeroDatos];
                     //Se recorre la lista de campos para agregar solo los campos necesarios
                     for (int j = 0; j < campos.length; j++) {
                         
-                        if(buscarEnFieldConfigure(encabezadosVector[campos[j]], cn).equalsIgnoreCase("shippingPhone")){
+                        if(buscarEnFieldConfigure(encabezadosVector[campos[j]], cn, "client").equalsIgnoreCase("shippingPhone")){
                             vectorDatosTmp[0][contadorTmp] = formatearTelefono(vectorDatos[0][campos[j]]);
                         }
                         else
@@ -1169,24 +1159,121 @@ public class Conexion {
                         contadorTmp++;
                     }
                     datos.add(vectorDatosTmp);
-                    crearOrden(encabezadoCampos, vectorDatosTmp, cn);
+                    crearCliente(encabezadoCampos, vectorDatosTmp, cn);
                     // System.out.println("vector"+vectorDatosTmp[0][2]);
                     contadorDatos = 0;
                     nameAnterior = vectorDatos[0][0];
                     vectorDatos = new String[1][numeroDatos];
-                }
+                
             }
         } catch (IOException e) {
              JOptionPane.showMessageDialog(null, "An error has occurred reading the file, please check the file path");
              return null;
         }
-        JOptionPane.showMessageDialog(null, "The orders file has been uploaded succesfully");
+        JOptionPane.showMessageDialog(null, "The clients file has been uploaded succesfully");
         return datos;
     }
       
       
       
-      
+       public static void crearCliente(String encabezados[], /*ArrayList<String[][]>*/ String[][] datos,  Conexion cn) {
+        cn = new Conexion();
+        Client client;
+        String campoAddress = "";
+        String campoTabla = "";
+        String cadDia = "";
+        String cadMes = "";
+        StringBuilder nombre = new StringBuilder();
+        Calendar fecha = Calendar.getInstance();
+        Integer dia = fecha.get(Calendar.DATE);
+        if(dia.toString().length() == 1)
+            cadDia = "0"+dia;
+        else
+            cadDia = dia.toString();
+            
+        Integer mes = fecha.get(Calendar.MONTH)+1;
+        if(mes.toString().length() == 1)
+            cadMes = "0"+mes;
+        else
+            cadMes = mes.toString();
+            
+        int annio = fecha.get(Calendar.YEAR);
+        String date = cadDia+"/"+cadMes+"/"+annio;
+        /* for (int i = 0; i < encabezados.length; i++) {
+            System.out.print(encabezados[i]+" ");
+        }
+        System.out.println("-------------------------");*/
+
+        client = new Client();
+        //   System.out.println("Encabezados"+encabezados[0]+encabezados[1]+encabezados[2]+encabezados[3]+encabezados[4]+encabezados[5]+encabezados[6]+encabezados[7]+encabezados[8]);
+        // System.out.println("Copia"+datos[0][0]+";"+datos[0][1]+";"+datos[0][2]+";"+datos[0][3]+";"+datos[0][4]+";"+datos[0][5]+";"+datos[0][6]+";"+datos[0][7]+";"+datos[0][8]+datos[0][9]+datos[0][10]+datos[0][11]);
+        for (int i = 0; i < datos.length; i++) {
+
+            for (int j = 0; j < encabezados.length-1; j++) {
+                campoTabla = buscarEnFieldConfigure(encabezados[j], cn, "client");
+                //System.out.println("FieldConfigure: " + buscarEnFieldConfigure(encabezados[j], cn, "cliente"));
+                if(campoTabla.equalsIgnoreCase("ErrorBase")){
+                    return;
+                }else if (campoTabla.equalsIgnoreCase("shippingPhone")) {
+                    client.setShippingPhone(datos[0][j]);
+                         // System.out.println("datos: "+datos[0][j]);
+                } else if (campoTabla.equalsIgnoreCase("name")) {
+                    nombre.append(" "+datos[0][j]);
+                } else if (campoTabla.equalsIgnoreCase("address")) {
+                    client.setAddress(datos[0][j]);
+                    campoAddress = datos[0][j];
+                } else if (campoTabla.equalsIgnoreCase("address2")) {
+                    client.setAddress2(datos[0][j]);
+                } else if (campoTabla.equalsIgnoreCase("city")) {
+                    client.setCity(datos[0][j]);
+                } else if (campoTabla.equalsIgnoreCase("postalCode")) {
+                    client.setPostalCode(datos[0][j]);
+                } else if (campoTabla.equalsIgnoreCase("email")) {
+                    client.setEmail(datos[0][j]);
+                } else if (campoTabla.equalsIgnoreCase("totalSpent")) {
+                    client.setTotalSpent(Double.parseDouble(datos[0][j]));
+            }
+            }
+           /* for (int j = 0; j < direcciones.size(); j++) {
+                // System.out.println("Campo: " +campoAddress+ " direccion: "+ direcciones.get(j)[0]);
+                if (direcciones.get(j)[1].equalsIgnoreCase(campoAddress)) {
+                    order.setStop(Integer.parseInt(direcciones.get(j)[0]));
+                }
+            }
+*/
+           client.setName(nombre.toString());
+               // System.out.println(client.getShippingPhone());
+            if(client.getShippingPhone().equalsIgnoreCase("") || client.getShippingPhone().isEmpty())
+            {
+                continue;
+            }
+            
+            Statement st;
+            ResultSet rs;
+          //  Client client = new Client();
+            boolean existe = false;
+            try {
+                st = (Statement) cn.con.createStatement();
+                //rs = st.executeQuery("insert into products (id, nombre, precio, cantidad) values (3,'cereza', 900,5 )");
+                rs = st.executeQuery("select * from clients WHERE shippingPhone = '"+client.getShippingPhone()+"'");
+                while (rs.next()) {
+                    existe = true;
+                }
+                cn.con.close();
+            } catch (Exception e) {
+            }
+
+            System.out.println(encabezados.length);
+            if(!existe)
+            {
+                insertarDatos(client, cn);
+                System.out.println("inserto");
+            }
+            // cn.con.close();
+        
+        // return order;
+    }
+ }
       
       
       
