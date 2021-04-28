@@ -35,6 +35,8 @@ public class VtnVisClients extends javax.swing.JFrame {
     boolean classNoCover;
     boolean classInactive;
     
+    String  telefonoAntCli;
+    
     public VtnVisClients() {
         initComponents();
         this.setLocation(50, 30);
@@ -1056,14 +1058,14 @@ public class VtnVisClients extends javax.swing.JFrame {
             
             tablaClientes.setModel(tablaModelo);
             
-            sql = "SELECT id, shopifyCode, shippingPhone, name, address, address2, city, postalCode, class FROM clients "+where;
+            sql = "SELECT shopifyCode, shippingPhone, name, address, address2, city, postalCode, class FROM clients "+where;
             resSet = prepStat.executeQuery(sql);
             
             rsMd = resSet.getMetaData();
             cantCol = rsMd.getColumnCount();
             
             //Asigna rotulos a la tabla
-            tablaModelo.addColumn("Id");
+            //tablaModelo.addColumn("Id");
             tablaModelo.addColumn("SPCode");
             tablaModelo.addColumn("Phone");
             tablaModelo.addColumn("Client name");
@@ -1074,7 +1076,7 @@ public class VtnVisClients extends javax.swing.JFrame {
             tablaModelo.addColumn("Class");
             
             //Pone ancho de las columnas
-            int [] anchoCols = {20, 20, 60, 150, 80, 100, 100, 80, 40};
+            int [] anchoCols = {20, 60, 150, 80, 100, 100, 80, 40};
             
             for ( int j = 0; j < cantCol; j++ )
             {
@@ -1154,7 +1156,7 @@ public class VtnVisClients extends javax.swing.JFrame {
         String sql = "";
         
         //Variables para adicionar en base de datos
-        String id = cmpId.getText();
+        //String id = cmpId.getText();
         String telefono = cmpTel.getText();
         String cliente = cmpCliente.getText();
         String direccion = cmpDir.getText();
@@ -1177,7 +1179,7 @@ public class VtnVisClients extends javax.swing.JFrame {
                     + "city = '"+ciudad+"', "
                     + "postalCode = '"+codigoPostal+"', "
                     + "class = '"+claseSeleccionada+"' "
-                    + "WHERE id = '"+id+"'";
+                    + "WHERE shippingPhone = '"+telefonoAntCli+"'";
             
             //System.out.println(sql);
             
@@ -1199,13 +1201,13 @@ public class VtnVisClients extends javax.swing.JFrame {
         String sql = "";
         
         //Variables para adicionar en base de datos
-        String id = cmpId.getText();
+        String telefono = cmpTel.getText();
         
         try {
             
             prepStat = (Statement) cnx.con.createStatement(); 
             
-            sql = "DELETE FROM clients WHERE id = '"+id+"'";
+            sql = "DELETE FROM clients WHERE shippingPhone = '"+telefonoAntCli+"'";
             
             //System.out.println(sql);
             
@@ -1233,15 +1235,15 @@ public class VtnVisClients extends javax.swing.JFrame {
             prepStat = (Statement) cnx.con.createStatement(); 
             
             int fila = tablaClientes.getSelectedRow();
-            String id = tablaClientes.getValueAt(fila, 0).toString();
+            String shippingPhone = tablaClientes.getValueAt(fila, 1).toString();
             
-            sql = "SELECT id, shopifyCode, shippingPhone, name, address, address2, city, postalCode, class "
-                    + "FROM clients WHERE id = '"+ id +"'";
+            sql = "SELECT shopifyCode, shippingPhone, name, address, address2, city, postalCode, class "
+                    + "FROM clients WHERE shippingPhone = '"+ shippingPhone +"'";
             resSet = prepStat.executeQuery(sql);
             
             while ( resSet.next() )
             {
-                cmpId.setText(resSet.getString("id"));
+                //cmpId.setText(resSet.getString("id"));
                 cmpTel.setText(resSet.getString("shippingPhone"));
                 cmpSPCode.setText(resSet.getString("shopifyCode"));
                 cmpCliente.setText(resSet.getString("name"));
@@ -1249,6 +1251,10 @@ public class VtnVisClients extends javax.swing.JFrame {
                 cmpDir2.setText(resSet.getString("address2"));
                 cmpCiudad.setText(resSet.getString("city"));
                 cmpCodPostal.setText(resSet.getString("postalCode"));
+                
+                //Guarda el telefono que tienen el cliente al momento de seleccionarlo para poder cambiarlo 
+                //en base de datos, debido a que es la llave primaria
+                telefonoAntCli = cmpTel.getText();
                 
                 if ( resSet.getString("class").equalsIgnoreCase("shopify subscriber") )
                     classIndex = 0;
@@ -1284,7 +1290,6 @@ public class VtnVisClients extends javax.swing.JFrame {
         
         //Limpia campos del area de registro
         int cero = 0;
-        cmpId.setText("");
         cmpTel.setText("");
         cmpCliente.setText("");
         cmpDir.setText("");
