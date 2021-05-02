@@ -59,7 +59,8 @@ public class Conexion {
         ArrayList<String> direcciones = new ArrayList<>();
         ArrayList<String[][]> datos = new ArrayList<>();
         ArrayList<Product> productos = new ArrayList<>();
-        datos = cargarArchivoClientes("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientes.csv");
+        cargarArchivo("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
+       // datos = cargarArchivoClientes("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientes.csv");
        // escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.csv");
        //cargarArchivoRutasOR("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routesOP.csv");
        // escribirArchivoProductos("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\products.csv");
@@ -836,16 +837,22 @@ public class Conexion {
         PreparedStatement PS;
         try {
             Conexion cn = new Conexion();
-            PS = cn.con.prepareStatement("INSERT INTO horders SELECT * FROM orders");
+            //PS = cn.con.prepareStatement("INSERT INTO horders SELECT * FROM orders");
+            PS = cn.con.prepareStatement("insert into horders ( codeSP, stop, shippingPhone, shippingName, address, address2, city, postalCode,"
+                    + " itemName, cant, value, total, payment, comments, date)"
+                    + "SELECT O.codeSP, O.stop, O.shippingPhone, O.shippingName, O.address, O.address2, O.city, O.postalCode, O.itemName, O.cant, O.value, O.total,"
+                    + "O.payment, O.comments, O.date FROM orders O");
+
             PS.execute(); 
             PS.close();            
             cn.con.close();
             
             return 1;
         } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Error trying to create history orders in database");
+             JOptionPane.showMessageDialog(null, "Error trying to create history orders in database"+e);
              return 0;
         }
+        
     }
       
       public static int escribirArchivoHOrdersXFecha(String fechaDesde, String fechaHasta, String ruta) {
