@@ -12,18 +12,15 @@ package Clases;
 public class Product {
     private String nombre;
     private int cantidad;
-    private double valor;
+    private double purchaseValue;
+    private double saleValue;
     
 
-    public Product(String nombre, int cantidad ) {
+    public Product(String nombre, int cantidad, double purchaseValue, double saleValue) {
         this.nombre = nombre;
         this.cantidad = cantidad;
-    }
-
-    public Product(String nombre, int cantidad, double valor) {
-        this.nombre = nombre;
-        this.cantidad = cantidad;
-        this.valor = valor;
+        this.purchaseValue = purchaseValue;
+        this.saleValue = saleValue;
     }
 
     public Product() {
@@ -58,16 +55,32 @@ public class Product {
     }
 
     /**
-     * @return the valor
+     * @return the purchaseValue
      */
-    public double getValor() {
-        return valor;
+    public double getPurchaseValue() {
+        return purchaseValue;
     }
 
     /**
-     * @param valor the valor to set
+     * @param purchaseValue the purchaseValue to set
      */
-    public void setValor(double valor) {
-        this.valor = valor;
+    public void setPurchaseValue(double purchaseValue) {
+        this.purchaseValue = purchaseValue;
     }
+
+    /**
+     * @return the saleValue
+     */
+    public double getSaleValue() {
+        return saleValue;
+    }
+
+    /**
+     * @param saleValue the saleValue to set
+     */
+    public void setSaleValue(double saleValue) {
+        this.saleValue = saleValue;
+    }
+
+    
 }

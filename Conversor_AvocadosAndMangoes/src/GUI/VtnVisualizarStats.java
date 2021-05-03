@@ -274,7 +274,8 @@ public class VtnVisualizarStats extends javax.swing.JFrame {
             //Asigna rotulos a la tabla
             tablaModelo.addColumn("Product");
             tablaModelo.addColumn("Quantity");
-            tablaModelo.addColumn("Total");
+            tablaModelo.addColumn("SaleValue");
+            tablaModelo.addColumn("PurchaseValue");
             
             Object O[]=null;
             int columnas = 0;
@@ -282,8 +283,9 @@ public class VtnVisualizarStats extends javax.swing.JFrame {
                 tablaModelo.addRow(O);
                 tablaModelo.setValueAt(producto.getNombre(), columnas, 0);
                 tablaModelo.setValueAt(producto.getCantidad(), columnas, 1);
-                tablaModelo.setValueAt(producto.getValor(), columnas, 2);
-                valorTotal = valorTotal + producto.getValor();
+                tablaModelo.setValueAt(producto.getPurchaseValue(), columnas, 2);
+                tablaModelo.setValueAt(producto.getSaleValue(), columnas, 3);
+                valorTotal = valorTotal + producto.getPurchaseValue();
                
                 columnas++;
             }

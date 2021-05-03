@@ -59,7 +59,8 @@ public class Conexion {
         ArrayList<String> direcciones = new ArrayList<>();
         ArrayList<String[][]> datos = new ArrayList<>();
         ArrayList<Product> productos = new ArrayList<>();
-        cargarArchivo("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
+        //cargarArchivo("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
+        cargarArchivoClientesManuales("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientes3.csv");
        // datos = cargarArchivoClientes("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientes.csv");
        // escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.csv");
        //cargarArchivoRutasOR("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routesOP.csv");
@@ -94,26 +95,55 @@ public class Conexion {
     }
 
     public static void insertarDatos(Object object, Conexion cn) {
+        Conexion cn1 = new Conexion();
         cn = new Conexion();
 
         if (object instanceof Client) {
+            
+            Statement st;
+            ResultSet rs;
+            boolean existe = false;
+            String phone = ((Client) object).getShippingPhone();
             try {
-                PreparedStatement PS = cn.con.prepareStatement("insert into clients (shippingPhone, shopifyCode, name, address, address2, city, postalCode, email, totalSpent, class) values (?,?,?,?,?,?,?,?,?,? )");
-                PS.setString(1, ((Client) object).getShippingPhone());
-                PS.setString(2, ((Client) object).getShopifyCode());
-                PS.setString(3, ((Client) object).getName());
-                PS.setString(4, ((Client) object).getAddress());
-                PS.setString(5, ((Client) object).getAddress2());
-                PS.setString(6, ((Client) object).getCity());
-                PS.setString(7, ((Client) object).getPostalCode());
-                PS.setString(8, ((Client) object).getEmail());
-                PS.setDouble(9, ((Client) object).getTotalSpent());
-                PS.setString(10, ((Client) object).getClasse());
-                PS.executeUpdate();
+                st = (Statement) cn1.con.createStatement();
+                 rs = st.executeQuery("select * from clients WHERE shippingPhone = '"+phone+"'");
+                 
+                while (rs.next()) {
+                    existe = true;
+                 }
+                cn1.con.close();
+                } catch (Exception e) {
+                    System.out.println("Error");
+            }
+            
+            if(!existe)
+            {
+                try {
+                    PreparedStatement PS = cn.con.prepareStatement("insert into clients (shippingPhone, shopifyCode, name, address, address2, city, postalCode, email, totalSpent, class) values (?,?,?,?,?,?,?,?,?,? )");
+                    PS.setString(1, ((Client) object).getShippingPhone());
+                    PS.setString(2, ((Client) object).getShopifyCode());
+                    PS.setString(3, ((Client) object).getName());
+                    PS.setString(4, ((Client) object).getAddress());
+                    PS.setString(5, ((Client) object).getAddress2());
+                    PS.setString(6, ((Client) object).getCity());
+                    PS.setString(7, ((Client) object).getPostalCode());
+                    PS.setString(8, ((Client) object).getEmail());
+                    PS.setDouble(9, ((Client) object).getTotalSpent());
+                    PS.setString(10, ((Client) object).getClasse());
+                    PS.executeUpdate();
 
-                cn.con.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+                    cn.con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else
+            {
+                try {
+                    cn.con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         } else if (object instanceof Order) {
             try {
@@ -133,6 +163,19 @@ public class Conexion {
                 PS.setString(13, ((Order) object).getPayment());
                 PS.setString(14, ((Order) object).getComments());
                 PS.setString(15, ((Order) object).getDate());
+                PS.executeUpdate();
+
+                cn.con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if ( object instanceof Product){
+            try {
+                PreparedStatement PS = cn.con.prepareStatement("insert into products ( id, name, purchaseValue, saleValue, quantity) values (null,?,?,?,? )");
+                PS.setString(1, ((Product) object).getNombre());
+                PS.setDouble(2, ((Product) object).getPurchaseValue());
+                PS.setDouble(3, ((Product) object).getSaleValue());
+                PS.setInt(4, ((Product) object).getCantidad());
                 PS.executeUpdate();
 
                 cn.con.close();
@@ -713,7 +756,7 @@ public class Conexion {
                     }
                     
                     if(primerDato){
-                        producto = new Product(nombre, cantidad);
+                        producto = new Product(nombre, cantidad, 0, 0);
                         listaProductos.add(producto);
                     }
  
@@ -1032,14 +1075,15 @@ public class Conexion {
                         if(listaProductos.get(i).getNombre().equalsIgnoreCase(nombre)){
                             cantidad = cantidad + listaProductos.get(i).getCantidad();
                             listaProductos.get(i).setCantidad(cantidad);
-                            valor = valor + listaProductos.get(i).getValor();
-                            listaProductos.get(i).setValor(valor);
+                            valor = valor + listaProductos.get(i).getSaleValue();
+                            listaProductos.get(i).setSaleValue(valor);
                             primerDato = false;
                         }
                     }
                     
                     if(primerDato){
-                        producto = new Product(nombre, cantidad, valor);
+                        producto = new Product(nombre, cantidad, valor, 0);
+                        insertarDatos(producto, cn);
                         listaProductos.add(producto);
                     }
  
@@ -1282,7 +1326,53 @@ public class Conexion {
     }
  }
       
-      
+   public static ArrayList<String[]> cargarArchivoClientesManuales(String ruta) {
+        Path filePath = Paths.get(ruta);
+        ArrayList<String[]> direcciones = new ArrayList<>();
+        Client client;
+        int lineas = 0;
+        Conexion cn = new Conexion();
+        try {
+            BufferedReader bf = Files.newBufferedReader(filePath);
+            String linea;
+            String[] encabezadosVector;
+            String[] datosLinea;
+            String nombre;
+            boolean primeraLinea = true;
+            int posicionAddress = 0;
+            int posicionStop = 0;
+
+            //Recorremos las lineas del archivo
+            while ((linea = bf.readLine()) != null) {
+                lineas++;
+                System.out.println(lineas);
+                if (primeraLinea) {
+                    encabezadosVector = linea.split(";");
+                    
+                    primeraLinea = false;
+                } else {
+                    client = new Client();
+                    nombre = "";
+                    datosLinea = linea.split(";");
+                    client.setShippingPhone(datosLinea[1]);
+                    nombre = datosLinea[3]+datosLinea[4];
+                    client.setName(nombre);
+                    client.setAddress(datosLinea[5]);
+                    client.setPostalCode(datosLinea[7]);
+                    client.setCity(datosLinea[8]);
+                    
+                    //System.out.println("Stop:"+datoGuardar[0]+"Addres:"+datoGuardar[1]);
+                    insertarDatos(client, cn);
+                }
+            }
+        } catch (IOException e) {
+             JOptionPane.showMessageDialog(null, "An error has occurred reading the clients file, please check the file path"+e);
+             return null;
+        }
+        
+        JOptionPane.showMessageDialog(null, "The clients file has been uploaded succesfully");
+        return null;
+    }     
       
       
       
