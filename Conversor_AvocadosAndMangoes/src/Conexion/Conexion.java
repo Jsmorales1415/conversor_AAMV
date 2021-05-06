@@ -60,7 +60,7 @@ public class Conexion {
         ArrayList<String[][]> datos = new ArrayList<>();
         ArrayList<Product> productos = new ArrayList<>();
         //cargarArchivo("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
-        cargarArchivoClientesManuales("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientes3.csv");
+        //cargarArchivoClientesManuales("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientes3.csv");
        // datos = cargarArchivoClientes("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientes.csv");
        // escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.csv");
        //cargarArchivoRutasOR("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\routesOP.csv");
@@ -69,7 +69,8 @@ public class Conexion {
          //insertarAHistorial();
         // escribirArchivoHOrdersXFecha("14/05/2021", "14/08/2021", "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\horders.csv");
        // escribirArchivoClientes("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\Clientes.csv");
-      /* productos = llenarTablaProductos();
+        escribirArchivoClientesCambio("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientesCambio.csv");
+       /* productos = llenarTablaProductos();
        
         for (Product producto : productos) {
             System.out.println(producto.getNombre()+";"+producto.getCantidad()+";"+producto.getValor());
@@ -1375,7 +1376,72 @@ public class Conexion {
     }     
       
       
-      
+      public static int escribirArchivoClientesCambio(String ruta) {
+
+        Conexion cn = new Conexion();
+        Conexion cn1 = new Conexion();
+        Statement st;
+        ResultSet rs;
+        Statement stCli;
+        ResultSet rsCli;
+        StringBuilder contenido = new StringBuilder();
+        ArrayList<String> listaPhones = new ArrayList<>();
+        String prevClass;
+        String lastClass;
+        String phone;
+        
+        try {
+            File file = new File(ruta);
+            // Si el archivo no existe es creado
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            try {
+                st = (Statement) cn.con.createStatement();
+                rs = st.executeQuery("select * from class");
+                while (rs.next()) {
+                   
+                
+                    prevClass = rs.getString("prevClass");
+                    lastClass = rs.getString("lastClass");
+                    phone = rs.getString("shippingPhone");
+                    if(!prevClass.equalsIgnoreCase(lastClass))
+                        listaPhones.add(phone);
+                }
+                
+               
+                    
+                for (int i = 0; i < listaPhones.size(); i++) {
+                    stCli = (Statement) cn1.con.createStatement();
+                        rsCli = st.executeQuery("select * from clients WHERE shippingPhone = '"+listaPhones.get(i)+"'");
+                        
+                        while (rsCli.next()) {
+                          
+                            bw.write(rsCli.getString("shippingPhone")+";"+rsCli.getString("shopifyCode")+";"+
+                                    rsCli.getString("name")+";"+rsCli.getString("address")+";"+
+                                    rsCli.getString("address2")+";"+rsCli.getString("city")+";"+
+                                    rsCli.getString("postalCode")+";"+rsCli.getString("email")+";"+
+                                    rsCli.getDouble("totalSpent")+";"+rsCli.getString("class")+"\n");
+                        }
+                     
+                }
+              
+            } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "Error conecting to the data base"+e);
+                 return 0;
+            }
+            
+            bw.close();
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error trying to write the products file, please check the path");
+             return 0;
+        }
+        
+        return 1;
+    }
       
       
       
