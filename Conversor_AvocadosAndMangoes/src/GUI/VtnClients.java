@@ -8,6 +8,9 @@ package GUI;
 import Clases.FieldConfigure;
 import Conexion.Conexion;
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -51,11 +54,14 @@ public class VtnClients extends javax.swing.JFrame {
         btnUploadClients = new javax.swing.JToggleButton();
         dirOrdenes = new javax.swing.JTextField();
         uploadClientsDB = new javax.swing.JToggleButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
         listClients = new javax.swing.JToggleButton();
         exportClients = new javax.swing.JToggleButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        classClients = new javax.swing.JToggleButton();
+        exportClientsClass = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -77,7 +83,7 @@ public class VtnClients extends javax.swing.JFrame {
 
         btnUploadClients.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
         btnUploadClients.setText("Upload Clients");
-        btnUploadClients.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        btnUploadClients.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnUploadClients.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUploadClientsActionPerformed(evt);
@@ -88,7 +94,7 @@ public class VtnClients extends javax.swing.JFrame {
 
         uploadClientsDB.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
         uploadClientsDB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/btnCargarBaseDatos.png"))); // NOI18N
-        uploadClientsDB.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        uploadClientsDB.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         uploadClientsDB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 uploadClientsDBActionPerformed(evt);
@@ -108,7 +114,8 @@ public class VtnClients extends javax.swing.JFrame {
                         .addComponent(btnUploadClients, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(uploadClientsDB, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 270, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -119,13 +126,18 @@ public class VtnClients extends javax.swing.JFrame {
                     .addComponent(dirOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUploadClients, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(uploadClientsDB, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(uploadClientsDB, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))))
         );
 
         listClients.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
         listClients.setText("List Clients");
-        listClients.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        listClients.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         listClients.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listClientsActionPerformed(evt);
@@ -134,7 +146,7 @@ public class VtnClients extends javax.swing.JFrame {
 
         exportClients.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
         exportClients.setText("Export Clients");
-        exportClients.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        exportClients.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         exportClients.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exportClientsActionPerformed(evt);
@@ -152,6 +164,24 @@ public class VtnClients extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/market_icon.png"))); // NOI18N
 
+        classClients.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
+        classClients.setText(" Classify Clients");
+        classClients.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        classClients.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                classClientsActionPerformed(evt);
+            }
+        });
+
+        exportClientsClass.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
+        exportClientsClass.setText("Export Clients Classifications");
+        exportClientsClass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        exportClientsClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportClientsClassActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -168,7 +198,9 @@ public class VtnClients extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(listClients, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(exportClients, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(exportClients, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(classClients, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(exportClientsClass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addComponent(jLabel3)
@@ -195,7 +227,7 @@ public class VtnClients extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 18, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lblAccion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(282, 282, 282))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -206,7 +238,11 @@ public class VtnClients extends javax.swing.JFrame {
                         .addComponent(listClients, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(exportClients, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(classClients, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(exportClientsClass, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(22, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -217,7 +253,9 @@ public class VtnClients extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -280,21 +318,189 @@ public class VtnClients extends javax.swing.JFrame {
         dirOrdenes.setText("");
     }//GEN-LAST:event_uploadClientsDBActionPerformed
 
+    private void classClientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classClientsActionPerformed
+        //Funcion para clasificar los clientes y registrar los resultados en la tabla de clasificacion
+        clasificarClientes();
+    }//GEN-LAST:event_classClientsActionPerformed
+
+    private void exportClientsClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportClientsClassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exportClientsClassActionPerformed
+
     public void irA(JFrame ventana){
         this.dispose();
         ventana.setVisible(true);
     }
 
+    public void clasificarClientes(){
+        Statement prepStat = null;
+        Statement prepStatHO = null;
+        ResultSet resSetHOrder = null;
+        ResultSet resSetClients = null;
+        ResultSetMetaData rsMd = null;
+        Conexion cnx = new Conexion();
+        String sql = "";
+        
+        //Variables para adicionar en base de datos
+        String   fechaEjecucion = "";
+        String   fechaHOrder = "";
+        String[] partesFecha;
+        String[] partesFechaHOrder;
+        String   sqlHOrder = "";
+        String   sqlClients = "";
+        String   shippingPhone = "";
+        int      mesEjec;
+        int      anio;
+        int      mesMinimo;
+        int      anioMinimo;
+        int      mesHOrder;
+        int      anioHOrder;
+        String   telefono = "";
+        String   SPcode = "";
+        String   cliente = "";
+        String   claseAnt = "";
+        String   claseNueva = "";
+        //Crea vectores con los meses de un año atras a partir del mes indicado en fechaEjecucion
+        int      vecMeses [] = new int[13];     //Pos 0 no se utiliza
+        int      cantRegs;
+        int      cantMesesMarcados;
+        
+        //Obtiene la fecha en formato dd/mm/aaaa
+        fechaEjecucion = JOptionPane.showInputDialog(this, "Fecha de partida (dd/mm/aaaa)");
+        
+        //Separa los componentes de la fecha (partesFecha[0]/partesFecha[1]/partesFecha[2])
+        partesFecha = fechaEjecucion.split("/");
+        mesEjec = Integer.parseInt(partesFecha[1]);
+        anio = Integer.parseInt(partesFecha[2]);
+        
+        anioMinimo = anio - 1; //El año anterior
+        mesMinimo = mesEjec + 1; //12 meses atras
+        
+        //Si la fecha de partida es diciembre, el mes minimo se inicia en enero del mismo año
+        if ( mesEjec == 12 )
+            mesMinimo = 1;
+        
+        //Ingresa los datos de la clasificacion del cliente en la tabla de clases
+        try {
+            
+            prepStat = (Statement) cnx.con.createStatement(); 
+            prepStatHO = (Statement) cnx.con.createStatement(); 
+            
+            sqlClients = "SELECT * FROM clients";
+            resSetClients = prepStat.executeQuery(sqlClients);
+            
+            //Recorre cada uno de los clientes registrado en la tabla 'clients'
+            while ( resSetClients.next() )
+            {
+                shippingPhone = (resSetClients.getString("shippingPhone"));
+                claseAnt = (resSetClients.getString("class"));
+                
+                System.out.println("shippingPhone "+shippingPhone);
+                
+                sqlHOrder = "SELECT * FROM horders WHERE shippingPhone = '"+ shippingPhone +"'";
+                resSetHOrder = prepStatHO.executeQuery(sqlHOrder);
+                while ( resSetHOrder.next() )
+                {
+                    fechaHOrder = (resSetHOrder.getString("date"));
+                    
+                     //Separa los componentes de la fecha historial (partesFecha[0]/partesFecha[1]/partesFecha[2])
+                    partesFechaHOrder = fechaEjecucion.split("/");
+                    mesHOrder = Integer.parseInt(partesFechaHOrder[1]);
+                    anioHOrder = Integer.parseInt(partesFechaHOrder[2]);
+                    
+                    System.out.println("fechaHOrder "+fechaHOrder);
+                    
+                    //Si el año de la orden es mayor o igual al minimo calculado
+                    if ( anioHOrder >= anioMinimo )
+                    {
+                        //Si se encuentra en el rango de meses calculado (1 año desde fecha ejec hacia atras)
+                        if ( mesHOrder >= mesMinimo && mesHOrder <= mesEjec  )
+                        {
+                            vecMeses[mesHOrder]= 1;
+                        }
+                    }
+                }  
+                
+                cantRegs = 1;
+                cantMesesMarcados = 0;
+                
+                //Analiza vector de meses para determinar su clase
+                for ( int i = mesEjec; i > 0; i-- )
+                {
+                    cantMesesMarcados += vecMeses[i];
+                        
+                    if ( (cantMesesMarcados == 3) && cantRegs == 3 )
+                    {
+                        claseNueva = "Frequent";
+                        break;
+                    }
+                    
+                    if ( (cantMesesMarcados >= 1) && cantRegs == 3 )
+                    {
+                        claseNueva = "Recurrent";
+                        break;
+                    }
+                    
+                    if ( (cantMesesMarcados >= 1) && cantRegs > 3 && cantRegs <= 6 )
+                    {
+                        claseNueva = "Occasional (Semester)";
+                        break;
+                    }
+                    
+                    if ( (cantMesesMarcados >= 1) && cantRegs > 6 )
+                    {
+                        claseNueva = "Occasional (Yearly)";
+                        break;
+                    }
+                    
+                    //Si llega al inicio de los meses, pasa al fin del año anterior
+                    if ( i == 1 )
+                        i = 12;
+                    
+                    if ( mesMinimo == i )
+                        break;
+                    
+                    cantRegs++;
+                }
+                
+                //Si no encontro ventas en el último año, es cliente inactivo
+                if ( cantMesesMarcados == 0 )
+                    claseNueva = "Inactive";
+                
+                sql = "INSERT INTO class (shippingPhone, shopifyCode, name, prevClass, lastClass)"
+                    + " VALUES ("
+                    + "'"+telefono+"',"
+                    + "'"+SPcode+"',"
+                    + "'"+cliente+"',"
+                    + "'"+claseAnt+"',"
+                    + "'"+claseNueva+"');";
+                
+                prepStat.executeUpdate(sql);
+            }
+            
+            //System.out.println(sql);
+            
+            JOptionPane.showMessageDialog(this, "The client classes has been updated in database", "Database", 1);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error trying to change the client classes: "+e, "Error", 0);
+            System.out.println(e.toString());
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnRegresar;
     private javax.swing.JToggleButton btnUploadClients;
+    private javax.swing.JToggleButton classClients;
     private javax.swing.JTextField dirOrdenes;
     private javax.swing.JToggleButton exportClients;
+    private javax.swing.JToggleButton exportClientsClass;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JLabel lblAccion;
