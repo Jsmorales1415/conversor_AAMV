@@ -71,6 +71,7 @@ public class Conexion {
        // escribirArchivoClientes("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\Clientes.csv");
         escribirArchivoClientesCambio("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientesCambio.csv");
        /* productos = llenarTablaProductos();
+        
        
         for (Product producto : productos) {
             System.out.println(producto.getNombre()+";"+producto.getCantidad()+";"+producto.getValor());
@@ -1386,8 +1387,8 @@ public class Conexion {
         ResultSet rsCli;
         StringBuilder contenido = new StringBuilder();
         ArrayList<String> listaPhones = new ArrayList<>();
-        String prevClass;
-        String lastClass;
+        String prevClass = "";
+        String lastClass = "";
         String phone;
         
         try {
@@ -1413,7 +1414,7 @@ public class Conexion {
                 }
                 
                
-                    
+                 bw.write("shippingPhone;shopifyCode;name;address;address2;city;postalCode;email;totalSpent;prevClass;lastClass\n");
                 for (int i = 0; i < listaPhones.size(); i++) {
                     stCli = (Statement) cn1.con.createStatement();
                         rsCli = st.executeQuery("select * from clients WHERE shippingPhone = '"+listaPhones.get(i)+"'");
@@ -1424,7 +1425,7 @@ public class Conexion {
                                     rsCli.getString("name")+";"+rsCli.getString("address")+";"+
                                     rsCli.getString("address2")+";"+rsCli.getString("city")+";"+
                                     rsCli.getString("postalCode")+";"+rsCli.getString("email")+";"+
-                                    rsCli.getDouble("totalSpent")+";"+rsCli.getString("class")+"\n");
+                                    rsCli.getDouble("totalSpent")+";"+prevClass+";"+lastClass+"\n");
                         }
                      
                 }
@@ -1436,7 +1437,7 @@ public class Conexion {
             
             bw.close();
         } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Error trying to write the products file, please check the path");
+             JOptionPane.showMessageDialog(null, "Error trying to write the clients file, please check the path");
              return 0;
         }
         
