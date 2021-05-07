@@ -8,9 +8,11 @@ package GUI;
 import Clases.FieldConfigure;
 import Conexion.Conexion;
 import java.io.File;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -300,7 +302,7 @@ public class VtnClients extends javax.swing.JFrame {
         
         rutaArchivo = JOptionPane.showInputDialog(this, "Export path: ");
         
-        rutaArchivo = rutaArchivo + "\\ordenesExp"+dia+mes+annio+".csv";
+        rutaArchivo = rutaArchivo + "\\clientsExp"+dia+mes+annio+".csv";
         
         if(Conexion.escribirArchivo(rutaArchivo) == 1)
             JOptionPane.showMessageDialog(this, "The file has been exported succesfully \n"+rutaArchivo, null, 1);
@@ -325,6 +327,23 @@ public class VtnClients extends javax.swing.JFrame {
 
     private void exportClientsClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportClientsClassActionPerformed
         // TODO add your handling code here:
+        String rutaArchivo = "";
+        String dia;
+        String mes;
+        String annio;
+        
+        Calendar c1 = Calendar.getInstance();
+        dia = Integer.toString(c1.get(Calendar.DATE));
+        mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
+        annio = Integer.toString(c1.get(Calendar.YEAR));
+        
+        rutaArchivo = JOptionPane.showInputDialog(this, "Export path: ");
+        
+        rutaArchivo = rutaArchivo + "\\classesExp"+dia+mes+annio+".csv";
+         
+        if(Conexion.escribirArchivoClientesCambio(rutaArchivo) == 1)
+            JOptionPane.showMessageDialog(this, "The file has been exported succesfully \n"+rutaArchivo, null, 1);
+       
     }//GEN-LAST:event_exportClientsClassActionPerformed
 
     public void irA(JFrame ventana){
@@ -333,10 +352,9 @@ public class VtnClients extends javax.swing.JFrame {
     }
 
     public void clasificarClientes(){
-        Statement prepStat = null;
+        
         Statement prepStatHO = null;
         ResultSet resSetHOrder = null;
-        ResultSet resSetClients = null;
         ResultSetMetaData rsMd = null;
         Conexion cnx = new Conexion();
         String sql = "";
@@ -347,7 +365,6 @@ public class VtnClients extends javax.swing.JFrame {
         String[] partesFecha;
         String[] partesFechaHOrder;
         String   sqlHOrder = "";
-        String   sqlClients = "";
         String   shippingPhone = "";
         int      mesEjec;
         int      anio;
@@ -360,6 +377,7 @@ public class VtnClients extends javax.swing.JFrame {
         String   cliente = "";
         String   claseAnt = "";
         String   claseNueva = "";
+        ArrayList<String[][]> vectorClientes;
         //Crea vectores con los meses de un año atras a partir del mes indicado en fechaEjecucion
         int      vecMeses [] = new int[13];     //Pos 0 no se utiliza
         int      cantRegs;
@@ -380,22 +398,22 @@ public class VtnClients extends javax.swing.JFrame {
         if ( mesEjec == 12 )
             mesMinimo = 1;
         
+        //Obtiene vector con los numeros de los clientes (PK)
+        vectorClientes = obtenerVectorClientes();
+        
+        //Limpia la tabla para cargar las nuevas clasificaciones de clientes
+        limpiarTablaClasesCliente();
+        
         //Ingresa los datos de la clasificacion del cliente en la tabla de clases
         try {
             
-            prepStat = (Statement) cnx.con.createStatement(); 
             prepStatHO = (Statement) cnx.con.createStatement(); 
             
-            sqlClients = "SELECT * FROM clients";
-            resSetClients = prepStat.executeQuery(sqlClients);
-            
-            //Recorre cada uno de los clientes registrado en la tabla 'clients'
-            while ( resSetClients.next() )
+            //Recorre vector de clientes
+            for ( int j = 0; j < vectorClientes.size(); j++ )
             {
-                shippingPhone = (resSetClients.getString("shippingPhone"));
-                claseAnt = (resSetClients.getString("class"));
                 
-                System.out.println("shippingPhone "+shippingPhone);
+                shippingPhone = vectorClientes.get(j)[0][0];
                 
                 sqlHOrder = "SELECT * FROM horders WHERE shippingPhone = '"+ shippingPhone +"'";
                 resSetHOrder = prepStatHO.executeQuery(sqlHOrder);
@@ -408,14 +426,20 @@ public class VtnClients extends javax.swing.JFrame {
                     mesHOrder = Integer.parseInt(partesFechaHOrder[1]);
                     anioHOrder = Integer.parseInt(partesFechaHOrder[2]);
                     
-                    System.out.println("fechaHOrder "+fechaHOrder);
-                    
-                    //Si el año de la orden es mayor o igual al minimo calculado
-                    if ( anioHOrder >= anioMinimo )
+                    //Si el año de la orden es igual al año de la ejecucion del proceso
+                    if ( anioHOrder == anio )
                     {
-                        //Si se encuentra en el rango de meses calculado (1 año desde fecha ejec hacia atras)
-                        if ( mesHOrder >= mesMinimo && mesHOrder <= mesEjec  )
+                        if ( mesHOrder <= mesEjec  )
                         {
+                            System.out.println("mesHOrde "+mesHOrder+" anioHOrder "+ anioHOrder);
+                            vecMeses[mesHOrder]= 1;
+                        }
+                    }
+                    else if ( anioHOrder == anioMinimo )
+                    {
+                        if ( mesHOrder >= mesEjec  )
+                        {
+                            System.out.println("mesHOrde "+mesHOrder+" anioHOrder "+ anioHOrder);
                             vecMeses[mesHOrder]= 1;
                         }
                     }
@@ -467,15 +491,22 @@ public class VtnClients extends javax.swing.JFrame {
                 if ( cantMesesMarcados == 0 )
                     claseNueva = "Inactive";
                 
+                claseAnt = vectorClientes.get(j)[0][1];
+                SPcode = vectorClientes.get(j)[0][2];
+                cliente = vectorClientes.get(j)[0][3];
+                
                 sql = "INSERT INTO class (shippingPhone, shopifyCode, name, prevClass, lastClass)"
                     + " VALUES ("
-                    + "'"+telefono+"',"
+                    + "'"+shippingPhone+"',"
                     + "'"+SPcode+"',"
                     + "'"+cliente+"',"
                     + "'"+claseAnt+"',"
                     + "'"+claseNueva+"');";
                 
-                prepStat.executeUpdate(sql);
+                prepStatHO.executeUpdate(sql);
+                
+                //Actualiza la clase del cliente 
+                actualizarClaseCliente(shippingPhone, claseNueva);
             }
             
             //System.out.println(sql);
@@ -484,6 +515,87 @@ public class VtnClients extends javax.swing.JFrame {
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error trying to change the client classes: "+e, "Error", 0);
+            System.out.println(e.toString());
+        }
+    }
+    
+    public ArrayList<String[][]> obtenerVectorClientes(){
+        
+        ArrayList<String[][]> vectorClientes = new ArrayList<>();
+        
+        Conexion cnx = new Conexion();
+        Statement prepStat = null;
+        ResultSet resSetClients = null;
+        
+        String   sqlClients = "";
+        String   mtClient[][];  
+        
+        try
+        {
+            prepStat = (Statement) cnx.con.createStatement();
+        
+            sqlClients = "SELECT * FROM clients";
+            resSetClients = prepStat.executeQuery(sqlClients);
+        
+            //Recorre cada uno de los clientes registrado en la tabla 'clients'
+            while ( resSetClients.next() )
+            {
+                mtClient = new String[1][4];
+                
+                mtClient[0][0] = (resSetClients.getString("shippingPhone"));
+                mtClient[0][1] = (resSetClients.getString("class"));
+                mtClient[0][2] = (resSetClients.getString("shopifyCode"));
+                mtClient[0][3] = (resSetClients.getString("name"));
+                
+                //Añade la matriz con telefono-clase al vector a retornar
+                vectorClientes.add(mtClient);
+            }
+            
+        }catch ( Exception e )
+        {
+            JOptionPane.showMessageDialog(this, "Error trying to change the client classes: "+e, "Error", 0);
+            System.out.println(e.toString());
+        }
+        
+        return vectorClientes;
+    }
+    
+    public static void limpiarTablaClasesCliente(){
+         Conexion cn = new Conexion();
+         Statement st;
+         ResultSet rs;
+         PreparedStatement PS;
+         try{
+            PS = cn.con.prepareStatement("TRUNCATE TABLE class ");  
+            PS.execute(); 
+            PS.close();
+            cn.con.close();
+         }catch (Exception e){
+              JOptionPane.showMessageDialog(null, "An error has occurred while the system was trying to clean the orders table");
+         }
+     }
+    
+    //Funcion para modificar en base de datos el registro seleccionado
+    public void actualizarClaseCliente(String shippingPhone, String clase){
+        
+        Statement prepStat = null;
+        Conexion cnx = new Conexion();
+        String sql = "";
+        
+        try {
+            
+            prepStat = (Statement) cnx.con.createStatement(); 
+            
+            sql = "UPDATE clients SET "
+                    + "class = '"+clase+"' "
+                    + "WHERE shippingPhone = '"+shippingPhone+"'";
+            
+            //System.out.println(sql);
+            
+            prepStat.executeUpdate(sql);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error trying to update the client to database: "+e, "Error", 0);
             System.out.println(e.toString());
         }
     }

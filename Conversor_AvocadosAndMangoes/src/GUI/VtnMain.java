@@ -5,6 +5,9 @@
  */
 package GUI;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
@@ -20,8 +23,9 @@ public class VtnMain extends javax.swing.JFrame {
         initComponents();
         this.setLocation(250, 80);
         this.setResizable(false);
-        //btnInventario.setEnabled(false);
- 
+        
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/Recursos/market_icon.png"));
+        this.setIconImage(retValue);
     }
 
     /**
