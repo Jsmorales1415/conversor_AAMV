@@ -405,7 +405,7 @@ public class VtnVisClients extends javax.swing.JFrame {
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("Id");
 
-        cmpClase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Shopify Subscriber", "Frecuent", "Recurrent", "Occasional (Semester)", "Occasional (Yearly)", "No Marketing", "Bad Experience", "No Coverage", "Inactive", "" }));
+        cmpClase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Shopify Subscriber", "Frequent", "Recurrent", "Occasional (Semester)", "Occasional (Yearly)", "No Marketing", "Bad Experience", "No Coverage", "Inactive", "" }));
 
         cmpCodPostal1.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         cmpCodPostal1.addActionListener(new java.awt.event.ActionListener() {
@@ -969,7 +969,7 @@ public class VtnVisClients extends javax.swing.JFrame {
             else
                 where += "OR";
                 
-            where += " class = 'Frecuent' ";
+            where += " class = 'Frequent' ";
             contClass++;
         }
         
@@ -1258,7 +1258,7 @@ public class VtnVisClients extends javax.swing.JFrame {
                 
                 if ( resSet.getString("class").equalsIgnoreCase("shopify subscriber") )
                     classIndex = 0;
-                else if ( resSet.getString("class").equalsIgnoreCase("Frecuent") )
+                else if ( resSet.getString("class").equalsIgnoreCase("Frequent") )
                     classIndex = 1;
                 else if ( resSet.getString("class").equalsIgnoreCase("Recurrent") )
                     classIndex = 2;

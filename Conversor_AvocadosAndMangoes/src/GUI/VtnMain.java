@@ -24,8 +24,6 @@ public class VtnMain extends javax.swing.JFrame {
         this.setLocation(250, 80);
         this.setResizable(false);
         
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/Recursos/market_icon.png"));
-        this.setIconImage(retValue);
     }
 
     /**

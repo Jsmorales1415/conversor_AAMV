@@ -711,7 +711,7 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="10">
                     <StringItem index="0" value="Shopify Subscriber"/>
-                    <StringItem index="1" value="Frecuent"/>
+                    <StringItem index="1" value="Frequent"/>
                     <StringItem index="2" value="Recurrent"/>
                     <StringItem index="3" value="Occasional (Semester)"/>
                     <StringItem index="4" value="Occasional (Yearly)"/>

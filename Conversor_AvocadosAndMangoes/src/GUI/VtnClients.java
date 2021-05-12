@@ -56,7 +56,6 @@ public class VtnClients extends javax.swing.JFrame {
         btnUploadClients = new javax.swing.JToggleButton();
         dirOrdenes = new javax.swing.JTextField();
         uploadClientsDB = new javax.swing.JToggleButton();
-        jProgressBar1 = new javax.swing.JProgressBar();
         listClients = new javax.swing.JToggleButton();
         exportClients = new javax.swing.JToggleButton();
         jLabel2 = new javax.swing.JLabel();
@@ -116,8 +115,7 @@ public class VtnClients extends javax.swing.JFrame {
                         .addComponent(btnUploadClients, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(uploadClientsDB, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -128,13 +126,8 @@ public class VtnClients extends javax.swing.JFrame {
                     .addComponent(dirOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUploadClients, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(uploadClientsDB, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21))))
+                .addComponent(uploadClientsDB, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         listClients.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
@@ -202,7 +195,7 @@ public class VtnClients extends javax.swing.JFrame {
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(exportClients, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(classClients, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(exportClientsClass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(exportClientsClass, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addComponent(jLabel3)
@@ -361,11 +354,8 @@ public class VtnClients extends javax.swing.JFrame {
         
         //Variables para adicionar en base de datos
         String   fechaEjecucion = "";
-        String   fechaHOrder = "";
         String[] partesFecha;
-        String[] partesFechaHOrder;
         String   sqlHOrder = "";
-        String   shippingPhone = "";
         int      mesEjec;
         int      anio;
         int      mesMinimo;
@@ -376,7 +366,6 @@ public class VtnClients extends javax.swing.JFrame {
         String   SPcode = "";
         String   cliente = "";
         String   claseAnt = "";
-        String   claseNueva = "";
         ArrayList<String[][]> vectorClientes;
         //Crea vectores con los meses de un año atras a partir del mes indicado en fechaEjecucion
         int      vecMeses [] = new int[13];     //Pos 0 no se utiliza
@@ -387,7 +376,7 @@ public class VtnClients extends javax.swing.JFrame {
         fechaEjecucion = JOptionPane.showInputDialog(this, "Fecha de partida (dd/mm/aaaa)");
         
         //Separa los componentes de la fecha (partesFecha[0]/partesFecha[1]/partesFecha[2])
-        partesFecha = fechaEjecucion.split("/");
+        partesFecha = fechaEjecucion.split("\\/");
         mesEjec = Integer.parseInt(partesFecha[1]);
         anio = Integer.parseInt(partesFecha[2]);
         
@@ -412,26 +401,31 @@ public class VtnClients extends javax.swing.JFrame {
             //Recorre vector de clientes
             for ( int j = 0; j < vectorClientes.size(); j++ )
             {
+                String   claseNueva = "";
+                String   shippingPhone = "";
                 
                 shippingPhone = vectorClientes.get(j)[0][0];
                 
                 sqlHOrder = "SELECT * FROM horders WHERE shippingPhone = '"+ shippingPhone +"'";
+                System.out.println("shippingPhone "+shippingPhone);
                 resSetHOrder = prepStatHO.executeQuery(sqlHOrder);
                 while ( resSetHOrder.next() )
                 {
+                    String[] partesFechaHOrder = new String[3];
+                    String   fechaHOrder = "";
+                    
                     fechaHOrder = (resSetHOrder.getString("date"));
                     
                      //Separa los componentes de la fecha historial (partesFecha[0]/partesFecha[1]/partesFecha[2])
-                    partesFechaHOrder = fechaEjecucion.split("/");
+                    partesFechaHOrder = fechaHOrder.split("\\/");
                     mesHOrder = Integer.parseInt(partesFechaHOrder[1]);
                     anioHOrder = Integer.parseInt(partesFechaHOrder[2]);
-                    
                     //Si el año de la orden es igual al año de la ejecucion del proceso
                     if ( anioHOrder == anio )
                     {
                         if ( mesHOrder <= mesEjec  )
                         {
-                            System.out.println("mesHOrde "+mesHOrder+" anioHOrder "+ anioHOrder);
+                            //System.out.println("mesHOrde "+mesHOrder+" anioHOrder "+ anioHOrder);
                             vecMeses[mesHOrder]= 1;
                         }
                     }
@@ -439,7 +433,7 @@ public class VtnClients extends javax.swing.JFrame {
                     {
                         if ( mesHOrder >= mesEjec  )
                         {
-                            System.out.println("mesHOrde "+mesHOrder+" anioHOrder "+ anioHOrder);
+                            //System.out.println("mesHOrde "+mesHOrder+" anioHOrder "+ anioHOrder);
                             vecMeses[mesHOrder]= 1;
                         }
                     }
@@ -447,6 +441,7 @@ public class VtnClients extends javax.swing.JFrame {
                 
                 cantRegs = 1;
                 cantMesesMarcados = 0;
+                claseNueva = "";
                 
                 //Analiza vector de meses para determinar su clase
                 for ( int i = mesEjec; i > 0; i-- )
@@ -455,12 +450,14 @@ public class VtnClients extends javax.swing.JFrame {
                         
                     if ( (cantMesesMarcados == 3) && cantRegs == 3 )
                     {
+                        System.out.println("Frequent");
                         claseNueva = "Frequent";
                         break;
                     }
                     
                     if ( (cantMesesMarcados >= 1) && cantRegs == 3 )
                     {
+                        System.out.println("Recurrente");
                         claseNueva = "Recurrent";
                         break;
                     }
@@ -612,7 +609,6 @@ public class VtnClients extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JLabel lblAccion;
