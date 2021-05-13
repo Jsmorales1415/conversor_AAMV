@@ -350,6 +350,7 @@ public class VtnClients extends javax.swing.JFrame {
         ResultSet resSetHOrder = null;
         ResultSetMetaData rsMd = null;
         Conexion cnx = new Conexion();
+        Conexion cnxClientes = new Conexion();
         String sql = "";
         
         //Variables para adicionar en base de datos
@@ -396,7 +397,7 @@ public class VtnClients extends javax.swing.JFrame {
         //Ingresa los datos de la clasificacion del cliente en la tabla de clases
         try {
             
-            prepStatHO = (Statement) cnx.con.createStatement(); 
+            prepStatHO = (Statement) cnxClientes.con.createStatement(); 
             
             //Recorre vector de clientes
             for ( int j = 0; j < vectorClientes.size(); j++ )
@@ -446,6 +447,14 @@ public class VtnClients extends javax.swing.JFrame {
                 //Analiza vector de meses para determinar su clase
                 for ( int i = mesEjec; i > 0; i-- )
                 {
+                    
+                    if(i == mesEjec)
+                    {
+                        cantRegs = 1;
+                        cantMesesMarcados = 0;
+                        claseNueva = "";
+                    }
+                    
                     cantMesesMarcados += vecMeses[i];
                         
                     if ( (cantMesesMarcados == 3) && cantRegs == 3 )
@@ -487,27 +496,39 @@ public class VtnClients extends javax.swing.JFrame {
                 //Si no encontro ventas en el último año, es cliente inactivo
                 if ( cantMesesMarcados == 0 )
                     claseNueva = "Inactive";
-                
-                claseAnt = vectorClientes.get(j)[0][1];
-                SPcode = vectorClientes.get(j)[0][2];
-                cliente = vectorClientes.get(j)[0][3];
-                
-                sql = "INSERT INTO class (shippingPhone, shopifyCode, name, prevClass, lastClass)"
-                    + " VALUES ("
-                    + "'"+shippingPhone+"',"
-                    + "'"+SPcode+"',"
-                    + "'"+cliente+"',"
-                    + "'"+claseAnt+"',"
-                    + "'"+claseNueva+"');";
-                
-                prepStatHO.executeUpdate(sql);
-                
-                //Actualiza la clase del cliente 
-                actualizarClaseCliente(shippingPhone, claseNueva);
+                try{
+                    
+                    Statement prepStatHOPut = null;
+                    ResultSet resSetHOrderPut = null;
+                    claseAnt = vectorClientes.get(j)[0][1];
+                    SPcode = vectorClientes.get(j)[0][2];
+                    cliente = vectorClientes.get(j)[0][3];
+                    
+                   prepStatHOPut = (Statement) cnx.con.createStatement(); 
+
+                    sql = "INSERT INTO class (shippingPhone, shopifyCode, name, prevClass, lastClass)"
+                        + " VALUES ("
+                        + "'"+shippingPhone+"',"
+                        + "'"+SPcode+"',"
+                        + "'"+cliente+"',"
+                        + "'"+claseAnt+"',"
+                        + "'"+claseNueva+"');";
+
+                    System.out.println(sql);
+                    
+                    prepStatHOPut.executeUpdate(sql);
+
+                    //Actualiza la clase del cliente 
+                    actualizarClaseCliente(shippingPhone, claseNueva);
+                    //cnx.con.close();
+                }catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Error trying to change the client classes: "+e, "Error", 0);
+                    System.out.println(e.toString());
+                }
+            
             }
-            
             //System.out.println(sql);
-            
+         
             JOptionPane.showMessageDialog(this, "The client classes has been updated in database", "Database", 1);
             
         } catch (Exception e) {
@@ -547,7 +568,7 @@ public class VtnClients extends javax.swing.JFrame {
                 //Añade la matriz con telefono-clase al vector a retornar
                 vectorClientes.add(mtClient);
             }
-            
+             cnx.con.close();
         }catch ( Exception e )
         {
             JOptionPane.showMessageDialog(this, "Error trying to change the client classes: "+e, "Error", 0);

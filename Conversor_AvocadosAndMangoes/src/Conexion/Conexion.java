@@ -59,7 +59,7 @@ public class Conexion {
         ArrayList<String> direcciones = new ArrayList<>();
         ArrayList<String[][]> datos = new ArrayList<>();
         ArrayList<Product> productos = new ArrayList<>();
-        //cargarArchivo("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
+        cargarArchivo("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
         //cargarArchivoClientesManuales("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientes3.csv");
        // datos = cargarArchivoClientes("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientes.csv");
        // escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.csv");
@@ -307,6 +307,9 @@ public class Conexion {
                         if(buscarEnFieldConfigure(encabezadosVector[campos[j]], cn, "order").equalsIgnoreCase("shippingPhone")){
                             vectorDatosTmp[0][contadorTmp] = formatearTelefono(vectorDatos[0][campos[j]]);
                         }
+                        else if(buscarEnFieldConfigure(encabezadosVector[campos[j]], cn, "order").equalsIgnoreCase("date")){
+                            vectorDatosTmp[0][contadorTmp] = formatearFecha(vectorDatos[0][campos[j]]);
+                        }
                         else
                         {
                              vectorDatosTmp[0][contadorTmp] = vectorDatos[0][campos[j]];
@@ -386,6 +389,7 @@ public class Conexion {
         String campoTabla = "";
         String cadDia = "";
         String cadMes = "";
+        /*
         Calendar fecha = Calendar.getInstance();
         Integer dia = fecha.get(Calendar.DATE);
         if(dia.toString().length() == 1)
@@ -401,9 +405,11 @@ public class Conexion {
             
         int annio = fecha.get(Calendar.YEAR);
         String date = cadDia+"/"+cadMes+"/"+annio;
+        */
         /* for (int i = 0; i < encabezados.length; i++) {
             System.out.print(encabezados[i]+" ");
         }
+        
         System.out.println("-------------------------");*/
 
         order = new Order();
@@ -443,6 +449,8 @@ public class Conexion {
                     order.setComments(datos[0][j]);
                 } else if (campoTabla.equalsIgnoreCase("codeSP")) {
                     order.setCodeSP(datos[0][j]);
+                }else if (campoTabla.equalsIgnoreCase("date")) {
+                    order.setDate(datos[0][j]);
                 }
             }
 
@@ -453,7 +461,7 @@ public class Conexion {
                 }
             }
 */
-           order.setDate(date);
+      //     order.setDate(date);
             insertarDatos(order, cn);
             actualizarClientes(order);
             // cn.con.close();
@@ -720,6 +728,22 @@ public class Conexion {
          return telefonoSB.toString();
      }
      
+     
+     
+     public static String formatearFecha(String fecha){
+         String[] fechaSplit;
+         String[] fechaSplitRever;
+         
+         fechaSplit = fecha.split(" ");
+         
+         fechaSplitRever = fechaSplit[0].split("-");
+         
+         String fechaValida = fechaSplitRever[2]+"/"+fechaSplitRever[1]+"/"+fechaSplitRever[0];
+         
+         
+         System.out.println("fechaValida"+fechaValida);
+         return fechaValida;
+     }
      
       public static int escribirArchivoProductos(String ruta) {
 
