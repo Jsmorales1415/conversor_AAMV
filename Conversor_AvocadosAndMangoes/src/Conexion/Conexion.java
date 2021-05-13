@@ -1029,7 +1029,7 @@ public class Conexion {
             }
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
-            String encabezado = "Phone;SPCode;Name;Address;Address2;City;Zip;Class;Subscribe;\n";
+            String encabezado = "Phone;SPCode;Name;Address;Address2;City;Zip;Class;\n";
             bw.write(encabezado);
 
             try {
@@ -1412,6 +1412,7 @@ public class Conexion {
         String prevClass = "";
         String lastClass = "";
         String phone;
+        String name;
         
         try {
             File file = new File(ruta);
@@ -1422,7 +1423,8 @@ public class Conexion {
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
 
-            try {
+                bw.write("shippingPhone;name;prevClass;lastClass\n");
+            
                 st = (Statement) cn.con.createStatement();
                 rs = st.executeQuery("select * from class");
                 while (rs.next()) {
@@ -1431,35 +1433,19 @@ public class Conexion {
                     prevClass = rs.getString("prevClass");
                     lastClass = rs.getString("lastClass");
                     phone = rs.getString("shippingPhone");
+                    name = rs.getString("name");
+                    
                     if(!prevClass.equalsIgnoreCase(lastClass))
-                        listaPhones.add(phone);
+                    {
+                           
+                     bw.write(phone+";"+name+";"+prevClass+";"+lastClass+"\n");
+                    }
                 }
                 
-               
-                 bw.write("shippingPhone;shopifyCode;name;address;address2;city;postalCode;email;totalSpent;prevClass;lastClass\n");
-                for (int i = 0; i < listaPhones.size(); i++) {
-                    stCli = (Statement) cn1.con.createStatement();
-                        rsCli = st.executeQuery("select * from clients WHERE shippingPhone = '"+listaPhones.get(i)+"'");
-                        
-                        while (rsCli.next()) {
-                          
-                            bw.write(rsCli.getString("shippingPhone")+";"+rsCli.getString("shopifyCode")+";"+
-                                    rsCli.getString("name")+";"+rsCli.getString("address")+";"+
-                                    rsCli.getString("address2")+";"+rsCli.getString("city")+";"+
-                                    rsCli.getString("postalCode")+";"+rsCli.getString("email")+";"+
-                                    rsCli.getDouble("totalSpent")+";"+prevClass+";"+lastClass+"\n");
-                        }
-                     
-                }
-              
-            } catch (Exception e) {
-                 JOptionPane.showMessageDialog(null, "Error conecting to the data base"+e);
-                 return 0;
-            }
             
             bw.close();
         } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Error trying to write the clients file, please check the path");
+             JOptionPane.showMessageDialog(null, "Error trying to write the clients file, please check the path"+e);
              return 0;
         }
         
