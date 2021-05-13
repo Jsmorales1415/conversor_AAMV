@@ -349,8 +349,6 @@ public class VtnClients extends javax.swing.JFrame {
         Statement prepStatHO = null;
         ResultSet resSetHOrder = null;
         ResultSetMetaData rsMd = null;
-        Conexion cnx = new Conexion();
-        Conexion cnxClientes = new Conexion();
         String sql = "";
         
         //Variables para adicionar en base de datos
@@ -369,7 +367,6 @@ public class VtnClients extends javax.swing.JFrame {
         String   claseAnt = "";
         ArrayList<String[][]> vectorClientes;
         //Crea vectores con los meses de un año atras a partir del mes indicado en fechaEjecucion
-        int      vecMeses [] = new int[13];     //Pos 0 no se utiliza
         int      cantRegs;
         int      cantMesesMarcados;
         
@@ -397,15 +394,18 @@ public class VtnClients extends javax.swing.JFrame {
         //Ingresa los datos de la clasificacion del cliente en la tabla de clases
         try {
             
-            prepStatHO = (Statement) cnxClientes.con.createStatement(); 
-            
             //Recorre vector de clientes
             for ( int j = 0; j < vectorClientes.size(); j++ )
             {
                 String   claseNueva = "";
                 String   shippingPhone = "";
-                
+                Conexion cnxClientes = new Conexion();
+                int      vecMeses [] = new int[13];     //Pos 0 no se utiliza
+
+                                    
                 shippingPhone = vectorClientes.get(j)[0][0];
+                
+                prepStatHO = (Statement) cnxClientes.con.createStatement(); 
                 
                 sqlHOrder = "SELECT * FROM horders WHERE shippingPhone = '"+ shippingPhone +"'";
                 System.out.println("shippingPhone "+shippingPhone);
@@ -447,13 +447,6 @@ public class VtnClients extends javax.swing.JFrame {
                 //Analiza vector de meses para determinar su clase
                 for ( int i = mesEjec; i > 0; i-- )
                 {
-                    
-                    if(i == mesEjec)
-                    {
-                        cantRegs = 1;
-                        cantMesesMarcados = 0;
-                        claseNueva = "";
-                    }
                     
                     cantMesesMarcados += vecMeses[i];
                         
@@ -504,7 +497,9 @@ public class VtnClients extends javax.swing.JFrame {
                     SPcode = vectorClientes.get(j)[0][2];
                     cliente = vectorClientes.get(j)[0][3];
                     
-                   prepStatHOPut = (Statement) cnx.con.createStatement(); 
+                    Conexion cnx = new Conexion();
+                    
+                    prepStatHOPut = (Statement) cnx.con.createStatement(); 
 
                     sql = "INSERT INTO class (shippingPhone, shopifyCode, name, prevClass, lastClass)"
                         + " VALUES ("
@@ -520,13 +515,15 @@ public class VtnClients extends javax.swing.JFrame {
 
                     //Actualiza la clase del cliente 
                     actualizarClaseCliente(shippingPhone, claseNueva);
-                    //cnx.con.close();
+                    cnx.con.close();
                 }catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Error trying to change the client classes: "+e, "Error", 0);
                     System.out.println(e.toString());
                 }
+                
+                cnxClientes.con.close();
+            }//For vector clientes
             
-            }
             //System.out.println(sql);
          
             JOptionPane.showMessageDialog(this, "The client classes has been updated in database", "Database", 1);
@@ -568,7 +565,9 @@ public class VtnClients extends javax.swing.JFrame {
                 //Añade la matriz con telefono-clase al vector a retornar
                 vectorClientes.add(mtClient);
             }
-             cnx.con.close();
+            
+            cnx.con.close();
+            
         }catch ( Exception e )
         {
             JOptionPane.showMessageDialog(this, "Error trying to change the client classes: "+e, "Error", 0);
