@@ -297,7 +297,7 @@ public class VtnClients extends javax.swing.JFrame {
         
         rutaArchivo = rutaArchivo + "\\clientsExp"+dia+mes+annio+".csv";
         
-        if(Conexion.escribirArchivo(rutaArchivo) == 1)
+        if(Conexion.escribirArchivoClientes(rutaArchivo) == 1)
             JOptionPane.showMessageDialog(this, "The file has been exported succesfully \n"+rutaArchivo, null, 1);
     }//GEN-LAST:event_exportClientsActionPerformed
 
