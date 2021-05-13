@@ -68,8 +68,8 @@ public class Conexion {
          //escribirArchivoRutas("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\rutas.csv");
          //insertarAHistorial();
         // escribirArchivoHOrdersXFecha("14/05/2021", "14/08/2021", "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\horders.csv");
-       // escribirArchivoClientes("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\Clientes.csv");
-        escribirArchivoClientesCambio("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientesCambio.csv");
+        escribirArchivoClientes("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\Clientes.csv");
+      //  escribirArchivoClientesCambio("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientesCambio.csv");
        /* productos = llenarTablaProductos();
         
        
@@ -1052,8 +1052,6 @@ public class Conexion {
                     contenido.append(";");
                     contenido.append(rs.getString("class"));
                     contenido.append(";");
-                    contenido.append(rs.getInt("subscribe"));
-                    contenido.append(";");
                     //contenido.append(rs.getString("payment"));
                     contenido.append("\n");
                     bw.write(contenido.toString());
@@ -1062,7 +1060,7 @@ public class Conexion {
                 }
                 cn.con.close();
             } catch (Exception e) {
-                 JOptionPane.showMessageDialog(null, "An error has occurred trying to connect to database");
+                 JOptionPane.showMessageDialog(null, "An error has occurred trying to connect to database"+e);
                  return 0;
             }
             
