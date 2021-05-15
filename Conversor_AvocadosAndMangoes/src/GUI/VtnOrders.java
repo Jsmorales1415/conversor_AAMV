@@ -403,11 +403,11 @@ public class VtnOrders extends javax.swing.JFrame {
         // TODO add your handling code here:
         if( Conexion.insertarAHistorial() == 0 )
         {
-            JOptionPane.showConfirmDialog(this, "Error uploading orders to historic");
+            JOptionPane.showMessageDialog(this, "Error uploading orders to historic");
         }
         else
         {
-            JOptionPane.showConfirmDialog(this, "The historic has been upload");
+            JOptionPane.showMessageDialog(this, "The historic has been upload");
         }
     }//GEN-LAST:event_cargarHistorialActionPerformed
 
