@@ -68,7 +68,7 @@ public class Conexion {
          //escribirArchivoRutas("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\rutas.csv");
          //insertarAHistorial();
         // escribirArchivoHOrdersXFecha("14/05/2021", "14/08/2021", "C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\horders.csv");
-        escribirArchivoClientes("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\Clientes.csv");
+       // escribirArchivoClientes("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\Clientes.csv");
       //  escribirArchivoClientesCambio("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientesCambio.csv");
        /* productos = llenarTablaProductos();
         
@@ -330,7 +330,7 @@ public class Conexion {
              return null;
         }
         JOptionPane.showMessageDialog(null, "The orders file has been uploaded succesfully");
-        insertarAHistorial();
+        //insertarAHistorial();
         return datos;
     }
 
@@ -715,7 +715,14 @@ public class Conexion {
      
      public static String formatearTelefono(String telefono){
          StringBuilder  telefonoSB = new StringBuilder();
+         System.out.println("Telefono: "+telefono);
+         
+         
          for (int i = 0; i < telefono.length(); i++) {
+             
+             if(telefono.charAt(i) == '+')
+                i = i+2;
+             
              if((telefono.charAt(i) == '0') || (telefono.charAt(i) == '1')
                      || (telefono.charAt(i) == '2') || (telefono.charAt(i) == '3')
                      || (telefono.charAt(i) == '4') || (telefono.charAt(i) == '5')
@@ -725,6 +732,7 @@ public class Conexion {
              }
          }
          
+         System.out.println("TelefoboSB :"+ telefonoSB.toString());
          return telefonoSB.toString();
      }
      
