@@ -59,7 +59,8 @@ public class Conexion {
         ArrayList<String> direcciones = new ArrayList<>();
         ArrayList<String[][]> datos = new ArrayList<>();
         ArrayList<Product> productos = new ArrayList<>();
-        cargarArchivo("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
+        //cargarArchivo("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\ordenes.csv");
+        //formatearTelefono("+1234567");
         //cargarArchivoClientesManuales("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientes3.csv");
        // datos = cargarArchivoClientes("C:\\Users\\diego\\Desktop\\Archivos varios\\datosAvocados\\clientes.csv");
        // escribirArchivo("c:\\Users\\diego\\Desktop\\ordenes.csv");
