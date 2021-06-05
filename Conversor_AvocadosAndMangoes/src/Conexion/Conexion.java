@@ -1101,26 +1101,37 @@ public class Conexion {
                     nombre = rs.getString("itemName");
                     cantidad = rs.getInt("cant");
                     valor = rs.getDouble("value");
-                    valor = valor * cantidad;
+                    //System.out.println("Value: "+valor);
+                    //valor = valor * cantidad;
                     boolean primerDato = true;
                     
                     for (int i = 0; i < listaProductos.size(); i++) {
+                        
                         if(listaProductos.get(i).getNombre().equalsIgnoreCase(nombre)){
+                            
                             cantidad = cantidad + listaProductos.get(i).getCantidad();
                             listaProductos.get(i).setCantidad(cantidad);
-                            valor = valor + listaProductos.get(i).getSaleValue();
-                            listaProductos.get(i).setSaleValue(valor);
+                            //valor = valor + listaProductos.get(i).getSaleValue();
+                            //listaProductos.get(i).setSaleValue(valor);
                             primerDato = false;
+                        
                         }
                     }
                     
                     if(primerDato){
-                        producto = new Product(nombre, cantidad, valor, 0);
-                        insertarDatos(producto, cn);
+                        producto = new Product(nombre, cantidad, 0, valor);
+                     //   insertarDatos(producto, cn);
                         listaProductos.add(producto);
                     }
  
                 }
+                
+                for (Product listaProducto : listaProductos) {
+                    //insertarDatos(listaProducto, cn);
+                    actualizarProductos(listaProducto);
+                    System.out.println(listaProducto.getCantidad());
+                }
+                
                 
                 cn.con.close();
             } catch (Exception e) {
@@ -1133,18 +1144,87 @@ public class Conexion {
         return listaProductos;
     }
       
+      public static ArrayList<Product> actualizarProductos(Product producto) {
+
+        Conexion cn = new Conexion();
+        Statement st;
+        ResultSet rs;
+        StringBuilder contenido = new StringBuilder();
+        ArrayList<Product> listaProductos = new ArrayList<>();
+        String nombre;
+        int    cantidad;
+        Double valor;
+        String sql;
+        
+        int    busqueda = buscarProducto(producto);
+        if( 0 == busqueda )
+        {
+            try {
+               
+                    PreparedStatement PS = cn.con.prepareStatement("insert into products ( id, name, saleValue, quantity) values (null,?,?,?,? )");
+                    PS.setString(1, producto.getNombre());
+                    PS.setDouble(2, producto.getSaleValue());
+                    PS.setInt(3, producto.getCantidad());
+                    PS.executeUpdate();
+                    //actualizarProductos(listaProductos);
+                cn.con.close();
+               
+            } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "Error conecting to the data base"+e);
+                 return null;
+            }
+        }
+        else
+        {
+            try {
+              Statement prepStat = (Statement) cn.con.createStatement(); 
+              
+              int   quantity = busqueda+producto.getCantidad();
+              
+                sql = "UPDATE products SET "
+                    + "name = '"+producto.getNombre()+"', "
+                    + "saleValue = '"+producto.getSaleValue()+"', "
+                    + "quantity = '"+quantity+"' "
+                    + "WHERE name = '"+producto.getNombre()+"'";
+            
+           // System.out.println(sql);
+            
+                prepStat.executeUpdate(sql);
+                cn.con.close();
+               
+            } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "Error conecting to the data base"+e);
+                 return null;
+            }
+        }
+        
+        
+        return listaProductos;
+    }
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+    public static int buscarProducto(Product producto) {
+
+        Conexion cn = new Conexion();
+        Statement st;
+        ResultSet rs;
+        int       retorno = 0;
+        
+            try {
+                st = (Statement) cn.con.createStatement();
+                rs = st.executeQuery("select * from products WHERE name = '"+producto.getNombre()+"'");
+                while (rs.next()) {
+                    retorno = rs.getInt("quantity");
+                    break;
+                }                
+                
+                cn.con.close();
+            } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "Error conecting to the data base");
+                 return 2;
+            }
+            
+        return retorno;
+    }
       
       public static ArrayList<String[][]> cargarArchivoClientes(String ruta) {
         
