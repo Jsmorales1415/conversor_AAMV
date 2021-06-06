@@ -1542,9 +1542,82 @@ public class Conexion {
     }
       
       
+        public static int validarClientes() {
+
+        Conexion cn = new Conexion();
+        Statement st;
+        ResultSet rs;
+        String    name;
+        String    address;
+        String    phone;
+        
+        
+        try {
+            st = (Statement) cn.con.createStatement();
+            rs = st.executeQuery("select * from clients");
+            while (rs.next()) {
+                
+                name = rs.getString("name");
+                address = rs.getString("address");
+                phone = rs.getString("shippingPhone");
+                
+                validarClientesRepetidos(name, address, phone);
+            }
+                
+            cn.con.close();
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error trying to read the clients table"+e);
+             return 0;
+        }
+        
+        return 1;
+    }
       
+      public static int validarClientesRepetidos(String name, String address, String phone) {
+
+        Conexion cn = new Conexion();
+        Statement st;
+        ResultSet rs;
+        String phoneRepet;
+
+        try {
+            st = (Statement) cn.con.createStatement();
+            rs = st.executeQuery("select * from clients where name = '"+name+"' and where address = '"+address+"'");
+            while (rs.next()) {
+                
+                phoneRepet = rs.getString("shippingPhone");
+                
+                actualizarOrdenes(phone, phoneRepet);
+            }
+                
+            cn.con.close();
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error trying to validate the clients table"+e);
+             return 0;
+        }
+        
+        return 1;
+    }
       
-      
+     
+    public static int actualizarOrdenes( String phoneIni, String phoneRepet) {
+        PreparedStatement PS;
+        Conexion cn = new Conexion();
+        try {
+           
+            PS = cn.con.prepareStatement("UPDATE horders SET shippingPhone = '"+phoneIni+"' WHERE shippingPhone ="+phoneRepet);
+            PS.execute(); 
+            PS.close();
+                
+            
+            cn.con.close();
+            
+            return 1;
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error trying to update the horders in database");
+             return 0;
+        }
+    }
       
       
 }

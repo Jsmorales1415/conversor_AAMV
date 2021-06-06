@@ -308,6 +308,8 @@ public class VtnOrders extends javax.swing.JFrame {
             //rutaOrdenes = dirOrdenes.getText();
             
         }
+        
+        Conexion.validarClientes();
     }//GEN-LAST:event_btnCargarOrdenesActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
