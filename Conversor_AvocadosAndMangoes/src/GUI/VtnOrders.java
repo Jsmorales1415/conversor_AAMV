@@ -309,7 +309,6 @@ public class VtnOrders extends javax.swing.JFrame {
             
         }
         
-        Conexion.validarClientes();
     }//GEN-LAST:event_btnCargarOrdenesActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -320,6 +319,7 @@ public class VtnOrders extends javax.swing.JFrame {
 
     private void visOrdenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visOrdenesActionPerformed
         // TODO add your handling code here:
+       // Conexion.validarClientes();
         visualizar = new VtnVisualizar();
         irA(visualizar);
     }//GEN-LAST:event_visOrdenesActionPerformed

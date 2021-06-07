@@ -1582,17 +1582,19 @@ public class Conexion {
 
         try {
             st = (Statement) cn.con.createStatement();
-            rs = st.executeQuery("select * from clients where name = '"+name+"' and where address = '"+address+"'");
+            rs = st.executeQuery("select * from clients where name = \""+name+"\" and address = \""+address+"\" and shippingPhone <> \""+phone+"\"");
             while (rs.next()) {
-                
+                System.out.println(name);
                 phoneRepet = rs.getString("shippingPhone");
                 
                 actualizarOrdenes(phone, phoneRepet);
+                //eliminarCliente(phoneRepet);
             }
                 
             cn.con.close();
         } catch (Exception e) {
              JOptionPane.showMessageDialog(null, "Error trying to validate the clients table"+e);
+             System.out.println(e);
              return 0;
         }
         
@@ -1605,7 +1607,7 @@ public class Conexion {
         Conexion cn = new Conexion();
         try {
            
-            PS = cn.con.prepareStatement("UPDATE horders SET shippingPhone = '"+phoneIni+"' WHERE shippingPhone ="+phoneRepet);
+            PS = cn.con.prepareStatement("UPDATE horders SET shippingPhone = '"+phoneIni+"' WHERE shippingPhone = '"+phoneRepet+"'");
             PS.execute(); 
             PS.close();
                 
@@ -1614,7 +1616,25 @@ public class Conexion {
             
             return 1;
         } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Error trying to update the horders in database");
+             JOptionPane.showMessageDialog(null, "Error trying to update the horders in database"+e);
+             return 0;
+        }
+    }
+    
+    public static int eliminarCliente( String phone) {
+        PreparedStatement PS;
+        Conexion cn = new Conexion();
+        try {
+           
+            PS = cn.con.prepareStatement("DELETE from clients WHERE shippingPhone = '"+phone+"'");
+            PS.execute(); 
+            PS.close();
+               
+            cn.con.close();
+            
+            return 1;
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error trying to delete the client in database"+e);
              return 0;
         }
     }
