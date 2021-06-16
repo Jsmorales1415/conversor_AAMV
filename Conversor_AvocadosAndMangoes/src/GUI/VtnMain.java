@@ -19,6 +19,8 @@ public class VtnMain extends javax.swing.JFrame {
     private VtnOrders orders;
     private VtnClients clients;
     private VtnVisualizarStats stats;
+    private VtnVisHistoric historics;
+    
     public VtnMain() {
         initComponents();
         this.setLocation(250, 80);
@@ -52,7 +54,6 @@ public class VtnMain extends javax.swing.JFrame {
 
         btnHistorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/hist_icon.png"))); // NOI18N
         btnHistorial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnHistorial.setEnabled(false);
         btnHistorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHistorialActionPerformed(evt);
@@ -144,7 +145,7 @@ public class VtnMain extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIngEgr, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -177,7 +178,8 @@ public class VtnMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
-        
+        historics = new VtnVisHistoric();
+        irA(historics);
     }//GEN-LAST:event_btnHistorialActionPerformed
 
     private void btnIngEgrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngEgrActionPerformed
